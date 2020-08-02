@@ -28,22 +28,22 @@ TextureImporter:
     second: herochar_spritesheet_7
   - first:
       213: 5643089287079014624
-    second: herochar_spritesheet_8
+    second: herochar_running_1
   - first:
       213: -8721724744625252972
-    second: herochar_spritesheet_9
+    second: herochar_running_2
   - first:
       213: 5091809166630877014
-    second: herochar_spritesheet_10
+    second: herochar_running_3
   - first:
       213: -8252516026604314719
-    second: herochar_spritesheet_11
+    second: herochar_running_4
   - first:
       213: 11597860310408163
-    second: herochar_spritesheet_12
+    second: herochar_running_5
   - first:
       213: 4835121624478285303
-    second: herochar_spritesheet_13
+    second: herochar_running_6
   - first:
       213: -1927148028412244115
     second: herochar_spritesheet_14
@@ -467,7 +467,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: herochar_spritesheet_8
+      name: herochar_running_1
       rect:
         serializedVersion: 2
         x: 0
@@ -488,7 +488,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: herochar_spritesheet_9
+      name: herochar_running_2
       rect:
         serializedVersion: 2
         x: 16
@@ -509,7 +509,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: herochar_spritesheet_10
+      name: herochar_running_3
       rect:
         serializedVersion: 2
         x: 32
@@ -530,7 +530,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: herochar_spritesheet_11
+      name: herochar_running_4
       rect:
         serializedVersion: 2
         x: 48
@@ -551,7 +551,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: herochar_spritesheet_12
+      name: herochar_running_5
       rect:
         serializedVersion: 2
         x: 64
@@ -572,7 +572,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: herochar_spritesheet_13
+      name: herochar_running_6
       rect:
         serializedVersion: 2
         x: 80
