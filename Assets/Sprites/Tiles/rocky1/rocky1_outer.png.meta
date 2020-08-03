@@ -29,6 +29,15 @@ TextureImporter:
   - first:
       213: -2146217963766008706
     second: rocky1_outer_8
+  - first:
+      213: -2467551047109441945
+    second: rocky1_outer_0
+  - first:
+      213: 6483614449024028397
+    second: rocky1_outer_1
+  - first:
+      213: 5961753718149799621
+    second: rocky1_outer_2
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -166,8 +175,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ce90807323153eda0800000000000000
-      internalID: -5916796209321211412
+      spriteID: 76606e3756f71cdd0800000000000000
+      internalID: -2467551047109441945
       vertices: []
       indices: 
       edges: []
@@ -187,8 +196,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bf9264bb49e6c3220800000000000000
-      internalID: 2466968280968342011
+      spriteID: deecaae5dfc6af950800000000000000
+      internalID: 6483614449024028397
       vertices: []
       indices: 
       edges: []
@@ -208,8 +217,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: afc9bd92e71ad72c0800000000000000
-      internalID: -4432208895022490374
+      spriteID: 5cedea08b676cb250800000000000000
+      internalID: 5961753718149799621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rocky1_outer_3
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef875bec5eb06ec50800000000000000
+      internalID: 6694050977776236798
       vertices: []
       indices: 
       edges: []
