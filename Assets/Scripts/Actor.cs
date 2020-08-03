@@ -1,10 +1,18 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Actor : MonoBehaviour
 {
     private const int MaxFallCheck = 50;
+
+    /// <summary>
+    /// Collection of actions to perform as a ghost
+    /// </summary>
+    public Queue<Action> actionQueue = new Queue<Action>();
+
+    protected Action turn;
 
     /// <summary>
     /// Returns Vector2 for new position if move succeeds. If move fails returns Vector2.zero.
@@ -58,6 +66,16 @@ public class Actor : MonoBehaviour
     protected void Move(Vector2 newPosition)
     {
         transform.position = new Vector3(newPosition.x, newPosition.y, 0);
+    }
+
+    /// <summary>
+    /// Resolves Actor's action
+    /// </summary>
+    public virtual void Resolve()
+    {
+        // Perform action and add to queue
+        turn = actionQueue.Dequeue();
+        turn();
     }
 
 }

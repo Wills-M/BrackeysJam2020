@@ -8,7 +8,7 @@ public class Player : Actor
     [HideInInspector]
     public bool waitingForInput = true;
 
-    private Action turn; //TODO: Wrap this in it's own class so we can store a list of them on the ghost later
+    //private Action turn; //TODO: Wrap this in it's own class so we can store a list of them on the ghost later
 
     private void Update()
     {
@@ -32,12 +32,28 @@ public class Player : Actor
                     waitingForInput = false;
                 }
             }
+            // End round when player presses space
+            if(Input.GetKeyDown(KeyCode.Space))
+            {
+                turn = null;
+                waitingForInput = false;
+            }
         }
     }
 
-    public void Resolve()
+    public override void Resolve()
     {
-        turn();
+        if(turn == null)
+        {
+            // TODO: End player round
+            Debug.Log("Player ended their round");
+        }
+        else
+        {
+            // Perform player action and add to queue
+            turn();
+            actionQueue.Enqueue(turn);
+            Debug.LogFormat("{0} actions in queue", actionQueue.Count);
+        }
     }
-
 }
