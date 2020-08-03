@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Actor : MonoBehaviour
 {
+    private const int MaxFallCheck = 50;
 
     protected void Move(Vector2 direction)
     {
@@ -16,14 +17,24 @@ public class Actor : MonoBehaviour
         {
             // As long as spot below current offset is empty move it down
             result = Physics2D.OverlapPoint(offsetPosition + Vector2.down);
-            while (!result)
+            int fallCheck = 0;
+            while (!result && fallCheck < MaxFallCheck)
             {
+                fallCheck++;
                 offsetPosition += Vector2.down;
                 result = Physics2D.OverlapPoint(offsetPosition + Vector2.down);
             }
 
-            // Move Actor
-            transform.position = new Vector3(offsetPosition.x, offsetPosition.y);
+            // If max fall check was reached then kill the actor
+            if (fallCheck == MaxFallCheck)
+            {
+                //TODO: Kill the actor
+            }
+            // Else move the actor
+            else
+            {
+                transform.position = new Vector3(offsetPosition.x, offsetPosition.y);
+            }
         }
         else
         {
