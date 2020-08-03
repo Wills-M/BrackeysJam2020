@@ -42,48 +42,30 @@ SpriteAtlas:
       enableTightPacking: 0
     variantMultiplier: 1
     packables:
-    - {fileID: 2800000, guid: a51c19b091ee3e84cb83f30d1271191e, type: 3}
-    - {fileID: 2800000, guid: 9e2a0fb0565d5b74e9431a433d9ae8c7, type: 3}
-    totalSpriteSurfaceArea: 4352
+    - {fileID: 2800000, guid: b044fd4bd340f2940aec9923e445e3b8, type: 3}
+    - {fileID: 2800000, guid: 9af01582004b336439a1644e9f8feb12, type: 3}
+    totalSpriteSurfaceArea: 2048
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
-  - {fileID: -326955509668393284, guid: a51c19b091ee3e84cb83f30d1271191e, type: 3}
-  - {fileID: 9137199268135752307, guid: a51c19b091ee3e84cb83f30d1271191e, type: 3}
-  - {fileID: 2003518178500736612, guid: a51c19b091ee3e84cb83f30d1271191e, type: 3}
-  - {fileID: 3488149135712577591, guid: a51c19b091ee3e84cb83f30d1271191e, type: 3}
-  - {fileID: 327889364461537806, guid: a51c19b091ee3e84cb83f30d1271191e, type: 3}
-  - {fileID: -2477207784050196917, guid: a51c19b091ee3e84cb83f30d1271191e, type: 3}
-  - {fileID: -3101098418803836723, guid: a51c19b091ee3e84cb83f30d1271191e, type: 3}
-  - {fileID: -7458774952746994538, guid: a51c19b091ee3e84cb83f30d1271191e, type: 3}
-  - {fileID: -4739945953763420577, guid: a51c19b091ee3e84cb83f30d1271191e, type: 3}
-  - {fileID: 1061847577007551546, guid: 9e2a0fb0565d5b74e9431a433d9ae8c7, type: 3}
-  - {fileID: 5970482236496195642, guid: 9e2a0fb0565d5b74e9431a433d9ae8c7, type: 3}
-  - {fileID: 840194787113485903, guid: 9e2a0fb0565d5b74e9431a433d9ae8c7, type: 3}
-  - {fileID: 1324613782421868525, guid: 9e2a0fb0565d5b74e9431a433d9ae8c7, type: 3}
-  - {fileID: 2230116787875365094, guid: 9e2a0fb0565d5b74e9431a433d9ae8c7, type: 3}
-  - {fileID: -7564327663359430923, guid: 9e2a0fb0565d5b74e9431a433d9ae8c7, type: 3}
-  - {fileID: 4838568427449798049, guid: 9e2a0fb0565d5b74e9431a433d9ae8c7, type: 3}
-  - {fileID: 9124484195660918419, guid: 9e2a0fb0565d5b74e9431a433d9ae8c7, type: 3}
+  - {fileID: 2230116787875365094, guid: 9af01582004b336439a1644e9f8feb12, type: 3}
+  - {fileID: -7564327663359430923, guid: 9af01582004b336439a1644e9f8feb12, type: 3}
+  - {fileID: -326955509668393284, guid: b044fd4bd340f2940aec9923e445e3b8, type: 3}
+  - {fileID: 9137199268135752307, guid: b044fd4bd340f2940aec9923e445e3b8, type: 3}
+  - {fileID: 327889364461537806, guid: b044fd4bd340f2940aec9923e445e3b8, type: 3}
+  - {fileID: -2477207784050196917, guid: b044fd4bd340f2940aec9923e445e3b8, type: 3}
+  - {fileID: -3101098418803836723, guid: b044fd4bd340f2940aec9923e445e3b8, type: 3}
+  - {fileID: -7458774952746994538, guid: b044fd4bd340f2940aec9923e445e3b8, type: 3}
   m_PackedSpriteNamesToIndex:
+  - rocky2_inner_1
+  - rocky2_inner_0
   - rocky2_outer_4
   - rocky2_outer_5
-  - rocky2_outer_6
-  - rocky2_outer_7
   - rocky2_outer_0
   - rocky2_outer_1
   - rocky2_outer_2
   - rocky2_outer_3
-  - rocky2_outer_8
-  - rocky2_inner_5
-  - rocky2_inner_4
-  - rocky2_inner_7
-  - rocky2_inner_6
-  - rocky2_inner_1
-  - rocky2_inner_0
-  - rocky2_inner_3
-  - rocky2_inner_2
   m_Tag: rocky2
   m_IsVariant: 0
