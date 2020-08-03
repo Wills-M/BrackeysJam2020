@@ -1,7 +1,10 @@
 fileFormatVersion: 2
 guid: f132ac000a83c784a969ba9cc3e10898
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -3041741299492784161
+    second: rocky1_outer2_0
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -123,11 +126,32 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: rocky1_outer2_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd7f819676099c5d0800000000000000
+      internalID: -3041741299492784161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 4970e0313ff16124c9515ba3e124e0eb
     internalID: 0
     vertices: []
     indices: 

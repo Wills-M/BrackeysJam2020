@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: rocky1
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 0
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 0
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 0
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: 43b6bdb333dfa68459ed9d645d5f75cb, type: 3}
+    - {fileID: 2800000, guid: b53c70cdf46031342aa43572fe5c7387, type: 3}
+    totalSpriteSurfaceArea: 1280
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 7258051729304391899, guid: 43b6bdb333dfa68459ed9d645d5f75cb, type: 3}
+  - {fileID: 4687737265913352001, guid: 43b6bdb333dfa68459ed9d645d5f75cb, type: 3}
+  - {fileID: -9104966831523745604, guid: b53c70cdf46031342aa43572fe5c7387, type: 3}
+  - {fileID: -8533888384826907738, guid: b53c70cdf46031342aa43572fe5c7387, type: 3}
+  - {fileID: -2146217963766008706, guid: b53c70cdf46031342aa43572fe5c7387, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - rocky1_inner_6
+  - rocky1_inner_5
+  - rocky1_outer_7
+  - rocky1_outer_6
+  - rocky1_outer_8
+  m_Tag: rocky1
+  m_IsVariant: 0
