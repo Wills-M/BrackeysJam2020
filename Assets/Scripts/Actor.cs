@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Actor : MonoBehaviour
+public abstract class Actor : MonoBehaviour
 {
     private const int MaxFallCheck = 50;
 
@@ -13,6 +13,32 @@ public class Actor : MonoBehaviour
     public Queue<Action> actionQueue = new Queue<Action>();
 
     protected Action turn;
+
+    /// <summary>
+    /// True until Actor finishes their round (i.e. dies, ends round)
+    /// </summary>
+    public bool canPerformAction { get; protected set; }
+    
+    void Start()
+    {
+        Reset();
+    }
+
+    /// <summary>
+    /// Initializes actor at beginning state of level
+    /// </summary>
+    public virtual void Reset()
+    {
+        canPerformAction = true;
+
+        // Move to starting position
+        transform.position = PhaseManager.start;
+    }
+
+    /// <summary>
+    /// Resolves Actor's action
+    /// </summary>
+    public abstract void Resolve();
 
     /// <summary>
     /// Returns Vector2 for new position if move succeeds. If move fails returns Vector2.zero.
@@ -66,16 +92,6 @@ public class Actor : MonoBehaviour
     protected void Move(Vector2 newPosition)
     {
         transform.position = new Vector3(newPosition.x, newPosition.y, 0);
-    }
-
-    /// <summary>
-    /// Resolves Actor's action
-    /// </summary>
-    public virtual void Resolve()
-    {
-        // Perform action and add to queue
-        turn = actionQueue.Dequeue();
-        turn();
     }
 
 }
