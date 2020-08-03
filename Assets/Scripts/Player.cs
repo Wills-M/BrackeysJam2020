@@ -35,20 +35,21 @@ public class Player : Actor
             // End round when player presses space
             if(Input.GetKeyDown(KeyCode.Space))
             {
-                turn = null;
+                canPerformAction = false;
                 waitingForInput = false;
             }
         }
     }
 
+    public override void Reset()
+    {
+        base.Reset();
+        actionQueue.Clear();
+    }
+
     public override void Resolve()
     {
-        if(turn == null)
-        {
-            // TODO: End player round
-            Debug.Log("Player ended their round");
-        }
-        else
+        if(canPerformAction)
         {
             // Perform player action and add to queue
             turn();

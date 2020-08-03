@@ -17,7 +17,7 @@ public abstract class Actor : MonoBehaviour
     /// <summary>
     /// True until Actor finishes their round (i.e. dies, ends round)
     /// </summary>
-    public bool canPerformAction { get; protected set; }
+    public bool canPerformAction;
     
     void Start()
     {
@@ -29,6 +29,8 @@ public abstract class Actor : MonoBehaviour
     /// </summary>
     public virtual void Reset()
     {
+        Debug.LogFormat("{0}.Reset() - moving actor to starting position, enabling actions", name);
+
         canPerformAction = true;
 
         // Move to starting position

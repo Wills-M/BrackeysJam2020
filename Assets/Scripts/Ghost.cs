@@ -13,21 +13,26 @@ class Ghost : Actor
     public override void Reset()
     {
         base.Reset();
-        currentActions = actionQueue;
+        currentActions = new Queue<Action>(actionQueue.ToArray());
     }
 
     public override void Resolve()
     {
-        // Perform action and add to queue
+        // Perform action and remove from queue
         turn = currentActions.Dequeue();
         turn();
+
+        // Set flag if no actions remaining
+        if (currentActions.Count == 0)
+            canPerformAction = false;
     }
 
     public void InitializeActions(Queue<Action> actionQueue)
     {
-        this.actionQueue = actionQueue;
+        Debug.LogFormat("{0} - initializing {1} actions in queue", name, actionQueue.Count);
 
-        // Fill currentActions
-        currentActions = actionQueue;
+        // Fill actionQueue
+        Action[] arr = actionQueue.ToArray();
+        this.actionQueue = new Queue<Action>(arr);
     }
 }

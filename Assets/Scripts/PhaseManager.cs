@@ -7,6 +7,9 @@ public class PhaseManager : MonoBehaviour
     [SerializeField]
     private Player player;
 
+    [SerializeField]
+    private Actor ghostPrefab;
+
     private List<Actor> actors;
 
     private IEnumerator turnCoroutine;
@@ -52,11 +55,37 @@ public class PhaseManager : MonoBehaviour
         // Resolve each actor's action
         foreach(Actor actor in actors)
         {
-            actor.Resolve();
+            if(actor.canPerformAction)
+            {
+                Debug.LogFormat("{0} performing action...", actor.name);
+                actor.Resolve();
+            }
+            else
+                Debug.LogFormat("{0} can't perform actions", actor.name);
         }
+
+        if(!player.canPerformAction)
+        {
+            ResetRound();
+        }
+
         player.waitingForInput = true;
 
         turnCoroutine = TurnPhase();
         StartCoroutine(turnCoroutine);
+    }
+
+    private void ResetRound()
+    {
+        // Instantiate ghost with player's action queue
+        Ghost ghost = Instantiate(ghostPrefab) as Ghost;
+        ghost.InitializeActions(player.actionQueue);
+
+        // Initialize all actors
+        actors.Add(ghost);
+        foreach(Actor actor in actors)
+        {
+            actor.Reset();
+        }
     }
 }
