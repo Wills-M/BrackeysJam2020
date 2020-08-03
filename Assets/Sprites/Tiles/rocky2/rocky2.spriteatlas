@@ -1,0 +1,89 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: rocky2
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 0
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 0
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 0
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: a51c19b091ee3e84cb83f30d1271191e, type: 3}
+    - {fileID: 2800000, guid: 9e2a0fb0565d5b74e9431a433d9ae8c7, type: 3}
+    totalSpriteSurfaceArea: 4352
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: -326955509668393284, guid: a51c19b091ee3e84cb83f30d1271191e, type: 3}
+  - {fileID: 9137199268135752307, guid: a51c19b091ee3e84cb83f30d1271191e, type: 3}
+  - {fileID: 2003518178500736612, guid: a51c19b091ee3e84cb83f30d1271191e, type: 3}
+  - {fileID: 3488149135712577591, guid: a51c19b091ee3e84cb83f30d1271191e, type: 3}
+  - {fileID: 327889364461537806, guid: a51c19b091ee3e84cb83f30d1271191e, type: 3}
+  - {fileID: -2477207784050196917, guid: a51c19b091ee3e84cb83f30d1271191e, type: 3}
+  - {fileID: -3101098418803836723, guid: a51c19b091ee3e84cb83f30d1271191e, type: 3}
+  - {fileID: -7458774952746994538, guid: a51c19b091ee3e84cb83f30d1271191e, type: 3}
+  - {fileID: -4739945953763420577, guid: a51c19b091ee3e84cb83f30d1271191e, type: 3}
+  - {fileID: 1061847577007551546, guid: 9e2a0fb0565d5b74e9431a433d9ae8c7, type: 3}
+  - {fileID: 5970482236496195642, guid: 9e2a0fb0565d5b74e9431a433d9ae8c7, type: 3}
+  - {fileID: 840194787113485903, guid: 9e2a0fb0565d5b74e9431a433d9ae8c7, type: 3}
+  - {fileID: 1324613782421868525, guid: 9e2a0fb0565d5b74e9431a433d9ae8c7, type: 3}
+  - {fileID: 2230116787875365094, guid: 9e2a0fb0565d5b74e9431a433d9ae8c7, type: 3}
+  - {fileID: -7564327663359430923, guid: 9e2a0fb0565d5b74e9431a433d9ae8c7, type: 3}
+  - {fileID: 4838568427449798049, guid: 9e2a0fb0565d5b74e9431a433d9ae8c7, type: 3}
+  - {fileID: 9124484195660918419, guid: 9e2a0fb0565d5b74e9431a433d9ae8c7, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - rocky2_outer_4
+  - rocky2_outer_5
+  - rocky2_outer_6
+  - rocky2_outer_7
+  - rocky2_outer_0
+  - rocky2_outer_1
+  - rocky2_outer_2
+  - rocky2_outer_3
+  - rocky2_outer_8
+  - rocky2_inner_5
+  - rocky2_inner_4
+  - rocky2_inner_7
+  - rocky2_inner_6
+  - rocky2_inner_1
+  - rocky2_inner_0
+  - rocky2_inner_3
+  - rocky2_inner_2
+  m_Tag: rocky2
+  m_IsVariant: 0

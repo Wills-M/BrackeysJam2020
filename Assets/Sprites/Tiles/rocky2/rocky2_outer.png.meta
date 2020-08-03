@@ -1,9 +1,42 @@
 fileFormatVersion: 2
-guid: a51c19b091ee3e84cb83f30d1271191e
+guid: b044fd4bd340f2940aec9923e445e3b8
 TextureImporter:
   internalIDToNameTable:
   - first:
+      213: 6360352519695299259
+    second: rocky2_v2_outer_0
+  - first:
+      213: -2795836963966114350
+    second: rocky2_v2_outer_1
+  - first:
+      213: -1915401740016034672
+    second: rocky2_v2_outer_2
+  - first:
+      213: 336101670203726465
+    second: rocky2_v2_outer_3
+  - first:
+      213: -3483247222334682273
+    second: rocky2_v2_outer_0
+  - first:
+      213: 4648938841673769929
+    second: rocky2_v2_outer_1
+  - first:
+      213: 3059157308701732978
+    second: rocky2_v2_outer_2
+  - first:
+      213: -4903574297861636014
+    second: rocky2_v2_outer_3
+  - first:
+      213: 2538071282307262313
+    second: rocky2_v2_outer_4
+  - first:
+      213: -570105669352951882
+    second: rocky2_v2_outer_5
+  - first:
       213: 327889364461537806
+    second: rocky2_outer_0
+  - first:
+      213: -3886352879008469855
     second: rocky2_outer_0
   - first:
       213: -2477207784050196917
@@ -20,15 +53,6 @@ TextureImporter:
   - first:
       213: 9137199268135752307
     second: rocky2_outer_5
-  - first:
-      213: 2003518178500736612
-    second: rocky2_outer_6
-  - first:
-      213: 3488149135712577591
-    second: rocky2_outer_7
-  - first:
-      213: -4739945953763420577
-    second: rocky2_outer_8
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -93,7 +117,7 @@ TextureImporter:
     maxTextureSize: 8192
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -105,7 +129,7 @@ TextureImporter:
     maxTextureSize: 8192
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -166,8 +190,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e0acb56c3a5ec8400800000000000000
-      internalID: 327889364461537806
+      spriteID: 1ac22e6b5a6e01ac0800000000000000
+      internalID: -3886352879008469855
       vertices: []
       indices: 
       edges: []
@@ -197,8 +221,8 @@ TextureImporter:
       name: rocky2_outer_2
       rect:
         serializedVersion: 2
-        x: 32
-        y: 32
+        x: 0
+        y: 16
         width: 16
         height: 16
       alignment: 0
@@ -218,7 +242,7 @@ TextureImporter:
       name: rocky2_outer_3
       rect:
         serializedVersion: 2
-        x: 0
+        x: 16
         y: 16
         width: 16
         height: 16
@@ -239,8 +263,8 @@ TextureImporter:
       name: rocky2_outer_4
       rect:
         serializedVersion: 2
-        x: 16
-        y: 16
+        x: 0
+        y: 0
         width: 16
         height: 16
       alignment: 0
@@ -260,8 +284,8 @@ TextureImporter:
       name: rocky2_outer_5
       rect:
         serializedVersion: 2
-        x: 32
-        y: 16
+        x: 16
+        y: 0
         width: 16
         height: 16
       alignment: 0
@@ -277,73 +301,10 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: rocky2_outer_6
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 466f2921b2dedcb10800000000000000
-      internalID: 2003518178500736612
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: rocky2_outer_7
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 738ebbd6825686030800000000000000
-      internalID: 3488149135712577591
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: rocky2_outer_8
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f569163b444583eb0800000000000000
-      internalID: -4739945953763420577
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 3e687ec7b847a0645831bf90522f2bc6
+    spriteID: 1bf7c4e3f8d0e074198eb8b5c7ba4d50
     internalID: 0
     vertices: []
     indices: 
