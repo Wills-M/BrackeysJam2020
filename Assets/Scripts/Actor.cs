@@ -25,6 +25,16 @@ public class Actor : MonoBehaviour
             // Move Actor
             transform.position = new Vector3(offsetPosition.x, offsetPosition.y);
         }
+        else
+        {
+            // Check if spot above is empty and move it there if it is
+            result = Physics2D.OverlapPoint(offsetPosition + Vector2.up);
+            if (!result)
+            {
+                offsetPosition += Vector2.up;
+                transform.position = new Vector3(offsetPosition.x, offsetPosition.y);
+            }
+        }
     }
 
 }
