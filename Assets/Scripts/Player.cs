@@ -16,13 +16,21 @@ public class Player : Actor
         {
             if (Input.GetKeyDown(KeyCode.A))
             {
-                turn = delegate { Move(new Vector2(-1, 0)); };
-                waitingForInput = false;
+                Vector2 newPosition = TryMove(new Vector2(-1, 0));
+                if (newPosition != Vector2.zero)
+                {
+                    turn = delegate { Move(newPosition); };
+                    waitingForInput = false;
+                }
             }
             if (Input.GetKeyDown(KeyCode.D))
             {
-                turn = delegate { Move(new Vector2(1, 0)); };
-                waitingForInput = false;
+                Vector2 newPosition = TryMove(new Vector2(1, 0));
+                if (newPosition != Vector2.zero)
+                {
+                    turn = delegate { Move(newPosition); };
+                    waitingForInput = false;
+                }
             }
         }
     }

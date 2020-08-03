@@ -6,7 +6,10 @@ public class Actor : MonoBehaviour
 {
     private const int MaxFallCheck = 50;
 
-    protected void Move(Vector2 direction)
+    /// <summary>
+    /// Returns Vector2 for new position if move succeeds. If move fails returns Vector2.zero.
+    /// </summary>
+    protected Vector2 TryMove(Vector2 direction)
     {
         // Check for block in offset position
         Vector2 offsetPosition = new Vector2(transform.position.x, transform.position.y) + direction;
@@ -25,15 +28,16 @@ public class Actor : MonoBehaviour
                 result = Physics2D.OverlapPoint(offsetPosition + Vector2.down);
             }
 
-            // If max fall check was reached then kill the actor
+            // If max fall check was reached then kill the actor and return empty vector3
             if (fallCheck == MaxFallCheck)
             {
                 //TODO: Kill the actor
+                return Vector2.zero;
             }
-            // Else move the actor
+            // Else return the offset
             else
             {
-                transform.position = new Vector3(offsetPosition.x, offsetPosition.y);
+                return offsetPosition;
             }
         }
         else
@@ -43,9 +47,17 @@ public class Actor : MonoBehaviour
             if (!result)
             {
                 offsetPosition += Vector2.up;
-                transform.position = new Vector3(offsetPosition.x, offsetPosition.y);
+                return offsetPosition;
             }
         }
+
+        // If there was something blocking the player then return empty vector3
+        return Vector2.zero;
+    }
+
+    protected void Move(Vector2 newPosition)
+    {
+        transform.position = new Vector3(newPosition.x, newPosition.y, 0);
     }
 
 }
