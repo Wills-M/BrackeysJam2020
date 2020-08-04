@@ -20,8 +20,25 @@ public class MainMenu : MonoBehaviour
         SelectOption(0);
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            // Subtraction that loops around to options.count - 1 if it goes below 0
+            int newOption = (options.Count + selectedOption - 1) % options.Count ;
+            SelectOption(newOption);
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            // Addition that loops around to 0 if it goes above options.count - 1
+            int newOption = (selectedOption + 1) % options.Count;
+            SelectOption(newOption);
+        }
+    }
+
     private void SelectOption(int optionNumber)
     {
+        selectedOption = optionNumber;
         foreach(Text text in options)
         {
             text.color = deselectedColor;
