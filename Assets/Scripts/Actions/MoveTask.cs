@@ -5,6 +5,9 @@ using UnityEngine;
 class MoveTask : Task
 {
     private Vector2 direction;
+    private Vector2 lastCalculatedPosition;
+
+    private LayerMask terrainMask = LayerMask.GetMask("Terrain");
 
     public MoveTask(Actor actor, Vector2 direction)
     {
@@ -14,16 +17,18 @@ class MoveTask : Task
 
     public override void Execute()
     {
-        Move(actor, TryMove(actor, direction));
+        Move(actor, lastCalculatedPosition);
     }
 
     public override bool CanPerform()
     {
-        return TryMove(actor, direction) != Vector2.zero;
+        lastCalculatedPosition = TryMove(actor, direction);
+        return lastCalculatedPosition != Vector2.zero;
     }
 
     /// <summary>
     /// Returns Vector2 for new position if move succeeds. If move fails returns Vector2.zero.
+    /// Has the side effect of assigning rock turns so must be called before actually moving
     /// </summary>
     protected Vector2 TryMove(Actor actor, Vector2 direction)
     {
@@ -35,35 +40,52 @@ class MoveTask : Task
         if (!result)
         {
             // As long as spot below current offset is empty move it down
-            result = Physics2D.OverlapPoint(offsetPosition + Vector2.down);
+            result = Physics2D.OverlapPoint(offsetPosition + Vector2.down, terrainMask);
             int fallCheck = 0;
             while (!result && fallCheck < Actor.MaxFallCheck)
             {
                 fallCheck++;
                 offsetPosition += Vector2.down;
-                result = Physics2D.OverlapPoint(offsetPosition + Vector2.down);
+                result = Physics2D.OverlapPoint(offsetPosition + Vector2.down, terrainMask);
             }
 
-            // If max fall check was reached then kill the actor and return empty vector3
+            // If max fall check was reached then kill the actor and return zero vector
             if (fallCheck == Actor.MaxFallCheck)
             {
                 //TODO: Kill the actor
-                return Vector2.zero;
+                offsetPosition = Vector2.zero;
             }
-            // Else return the offset
-            else
-            {
-                return offsetPosition;
-            }
+            return offsetPosition;
         }
         else
         {
-            // Check if spot above is empty and move it there if it is
-            result = Physics2D.OverlapPoint(offsetPosition + Vector2.up);
-            if (!result)
+            // Check if collision is with a stone and try to move that stone
+            Stone stone = null;
+            if (result.gameObject.TryGetComponent<Stone>(out stone))
             {
-                offsetPosition += Vector2.up;
-                return offsetPosition;
+                if (stone.TryPush(direction))
+                    return offsetPosition;
+            }
+
+            // Check if actor currently running this task is itself a stone
+            // If it isn't than try to move
+            var type = actor as Stone;
+            if (type == null)
+            {
+                // If collision is with a player or ghost than movement succeeds
+                Player player = null;
+                Ghost ghost = null;
+                if (result.gameObject.TryGetComponent<Player>(out player) || result.gameObject.TryGetComponent<Ghost>(out ghost))
+                {
+                    return offsetPosition;
+                }
+                // Check if spot above is empty and move it there if it is
+                result = Physics2D.OverlapPoint(offsetPosition + Vector2.up, terrainMask);
+                if (!result)
+                {
+                    offsetPosition += Vector2.up;
+                    return offsetPosition;
+                }
             }
         }
 

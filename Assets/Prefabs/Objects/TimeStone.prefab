@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2460617923839410609}
   - component: {fileID: -7119489683607776538}
   m_Layer: 8
-  m_Name: Stone
+  m_Name: TimeStone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: ea906a6e159ced341ad71b807701b6e9, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.35686275, g: 0.5555236, b: 0.58431375, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -123,4 +123,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canPerformAction: 0
-  resetPosition: 1
+  resetPosition: 0

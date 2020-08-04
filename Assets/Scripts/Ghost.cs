@@ -13,13 +13,17 @@ class Ghost : Actor
     {
         base.Reset();
         currentActions = new Queue<Task>(actionQueue.ToArray());
+
+        // Move to starting position
+        transform.position = PhaseManager.start;
     }
 
     public override void Resolve()
     {
         // Perform action and remove from queue
         turn = currentActions.Dequeue();
-        turn.Execute();
+        if (turn.CanPerform())
+            turn.Execute();
 
         // Set flag if no actions remaining
         if (currentActions.Count == 0)

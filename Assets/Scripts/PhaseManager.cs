@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PhaseManager : MonoBehaviour
@@ -11,6 +12,7 @@ public class PhaseManager : MonoBehaviour
     private Actor ghostPrefab;
 
     private List<Actor> actors;
+    private List<Stone> stones;
 
     private IEnumerator turnCoroutine;
 
@@ -26,6 +28,7 @@ public class PhaseManager : MonoBehaviour
 
         // Initialize actors list with player
         actors = new List<Actor>() { player };
+        stones = FindObjectsOfType<Stone>().ToList();
     }
 
     private void Start()
@@ -63,6 +66,10 @@ public class PhaseManager : MonoBehaviour
             else
                 Debug.LogFormat("{0} can't perform actions", actor.name);
         }
+        foreach(Stone stone in stones)
+        {
+            stone.Resolve();
+        }
 
         if(!player.canPerformAction)
         {
@@ -90,6 +97,10 @@ public class PhaseManager : MonoBehaviour
         foreach(Actor actor in actors)
         {
             actor.Reset();
+        }
+        foreach(Stone stone in stones)
+        {
+            stone.Reset();
         }
     }
 }
