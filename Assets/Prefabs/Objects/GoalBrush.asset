@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d5751a2c961df945a34295ccf5e576d, type: 3}
-  m_Name: SlimeBrush
+  m_Name: GoalBrush
   m_EditorClassIdentifier: 
   m_Cells:
   - m_Tile: {fileID: 0}
@@ -35,5 +35,5 @@ MonoBehaviour:
   m_Size: {x: 1, y: 1, z: 1}
   m_Pivot: {x: 0, y: 0, z: 0}
   m_CanChangeZPosition: 0
-  m_Anchor: {x: 0.5, y: 0.5, z: 0.5}
-  m_Prefab: {fileID: 7532710596848929643, guid: 1b19b172f9884ba40ac746931448382d, type: 3}
+  m_Anchor: {x: 0.5, y: 0.625, z: 0.5}
+  m_Prefab: {fileID: 722260373616712302, guid: 865c2d8f7a0cd004c82b999857dd3b11, type: 3}
