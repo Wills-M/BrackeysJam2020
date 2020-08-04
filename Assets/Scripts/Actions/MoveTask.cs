@@ -5,6 +5,7 @@ using UnityEngine;
 class MoveTask : Task
 {
     private Vector2 direction;
+    private Vector2 lastCalculatedPosition;
 
     public MoveTask(Actor actor, Vector2 direction)
     {
@@ -14,16 +15,18 @@ class MoveTask : Task
 
     public override void Execute()
     {
-        Move(actor, TryMove(actor, direction));
+        Move(actor, lastCalculatedPosition);
     }
 
     public override bool CanPerform()
     {
-        return TryMove(actor, direction) != Vector2.zero;
+        lastCalculatedPosition = TryMove(actor, direction);
+        return lastCalculatedPosition != Vector2.zero;
     }
 
     /// <summary>
     /// Returns Vector2 for new position if move succeeds. If move fails returns Vector2.zero.
+    /// Has the side effect of assigning rock turns so must be called before actually moving
     /// </summary>
     protected Vector2 TryMove(Actor actor, Vector2 direction)
     {
@@ -58,12 +61,28 @@ class MoveTask : Task
         }
         else
         {
-            // Check if spot above is empty and move it there if it is
-            result = Physics2D.OverlapPoint(offsetPosition + Vector2.up);
-            if (!result)
+            // Check if collision is with a stone and try to move that stone
+            Stone stone = null;
+            if (result.gameObject.TryGetComponent<Stone>(out stone))
             {
-                offsetPosition += Vector2.up;
-                return offsetPosition;
+                if (stone.TryPush(direction))
+                {
+                    return offsetPosition;
+                }
+            }
+
+            // Check if actor currently running this task is itself a stone
+            // If it isn't than try to go up a block
+            var type = actor as Stone;
+            if (type == null)
+            {
+                // Check if spot above is empty and move it there if it is
+                result = Physics2D.OverlapPoint(offsetPosition + Vector2.up);
+                if (!result)
+                {
+                    offsetPosition += Vector2.up;
+                    return offsetPosition;
+                }
             }
         }
 

@@ -48,6 +48,9 @@ public class Player : Actor
     {
         base.Reset();
         actionQueue.Clear();
+
+        // Move to starting position
+        transform.position = PhaseManager.start;
     }
 
     public override void Resolve()
