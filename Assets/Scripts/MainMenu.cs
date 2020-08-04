@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
@@ -28,7 +29,7 @@ public class MainMenu : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.W))
         {
             // Subtraction that loops around to options.count - 1 if it goes below 0
-            int newOption = (options.Count + selectedOption - 1) % options.Count ;
+            int newOption = (options.Count + selectedOption - 1) % options.Count;
             SelectOption(newOption);
         }
         if (Input.GetKeyDown(KeyCode.S))
@@ -37,13 +38,17 @@ public class MainMenu : MonoBehaviour
             int newOption = (selectedOption + 1) % options.Count;
             SelectOption(newOption);
         }
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            options[selectedOption].GetComponent<Button>().onClick.Invoke();
+        }
     }
 
     private void SelectOption(int optionNumber)
     {
         // Set selected colors
         selectedOption = optionNumber;
-        foreach(Text text in options)
+        foreach (Text text in options)
         {
             text.color = deselectedColor;
         }
@@ -51,6 +56,17 @@ public class MainMenu : MonoBehaviour
 
         // Move player menu
         playerMenu.transform.SetParent(options[optionNumber].transform, false);
+    }
+
+    public void StartButton()
+    {
+        // TODO: Load a real scene
+        SceneManager.LoadScene("MainScene");
+    }
+
+    public void ExitButton()
+    {
+        Application.Quit();
     }
 
 }
