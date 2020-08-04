@@ -36,10 +36,10 @@ class MoveTask : Task
         Vector2 offsetPosition = new Vector2(actor.transform.position.x, actor.transform.position.y) + direction;
         Collider2D result = Physics2D.OverlapPoint(offsetPosition);
 
-        // If there was no collider check for block to hold actor up
+        // If not walking into a wall/block
         if (!result)
         {
-            // As long as spot below current offset is empty move it down
+            // Check for ground tile in case actor is moving over edge
             result = Physics2D.OverlapPoint(offsetPosition + Vector2.down, terrainMask);
             int fallCheck = 0;
             while (!result && fallCheck < Actor.MaxFallCheck)
@@ -55,7 +55,6 @@ class MoveTask : Task
                 //TODO: Kill the actor
                 offsetPosition = Vector2.zero;
             }
-            return offsetPosition;
         }
         else
         {
@@ -77,12 +76,10 @@ class MoveTask : Task
                     if (Physics2D.OverlapPoint(offsetPosition + Vector2.up, terrainMask) == null)
                         offsetPosition += Vector2.up;
                 }
-                return offsetPosition;
             }
+            else offsetPosition = Vector2.zero;
         }
-
-        // If there was something blocking the player, return zero vector
-        return Vector2.zero;
+        return offsetPosition;
     }
 
     protected void Move(Actor actor, Vector2 newPosition)
