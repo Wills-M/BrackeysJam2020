@@ -61,7 +61,7 @@ public class MainMenu : MonoBehaviour
     public void StartButton()
     {
         // TODO: Load a real scene
-        SceneManager.LoadScene("MainScene");
+        LevelManager.Instance.NextLevel();
     }
 
     public void ExitButton()
