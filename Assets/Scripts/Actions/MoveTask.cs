@@ -49,17 +49,13 @@ class MoveTask : Task
                 result = Physics2D.OverlapPoint(offsetPosition + Vector2.down, terrainMask);
             }
 
-            // If max fall check was reached then kill the actor and return empty vector3
+            // If max fall check was reached then kill the actor and return zero vector
             if (fallCheck == Actor.MaxFallCheck)
             {
                 //TODO: Kill the actor
-                return Vector2.zero;
+                offsetPosition = Vector2.zero;
             }
-            // Else return the offset
-            else
-            {
-                return offsetPosition;
-            }
+            return offsetPosition;
         }
         else
         {
@@ -68,9 +64,7 @@ class MoveTask : Task
             if (result.gameObject.TryGetComponent<Stone>(out stone))
             {
                 if (stone.TryPush(direction))
-                {
                     return offsetPosition;
-                }
             }
 
             // Check if actor currently running this task is itself a stone
@@ -91,16 +85,6 @@ class MoveTask : Task
                 {
                     offsetPosition += Vector2.up;
                     return offsetPosition;
-                }
-            }
-            else
-            {
-                // If collision is with a player or ghost than movement fails
-                Player player = null;
-                Ghost ghost = null;
-                if (result.gameObject.TryGetComponent<Player>(out player) || result.gameObject.TryGetComponent<Ghost>(out ghost))
-                {
-                    return Vector2.zero;
                 }
             }
         }
