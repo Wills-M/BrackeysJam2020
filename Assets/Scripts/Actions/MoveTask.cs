@@ -7,6 +7,8 @@ class MoveTask : Task
     private Vector2 direction;
     private Vector2 lastCalculatedPosition;
 
+    private LayerMask terrainMask = LayerMask.GetMask("Terrain");
+
     public MoveTask(Actor actor, Vector2 direction)
     {
         this.actor = actor;
@@ -38,13 +40,13 @@ class MoveTask : Task
         if (!result)
         {
             // As long as spot below current offset is empty move it down
-            result = Physics2D.OverlapPoint(offsetPosition + Vector2.down);
+            result = Physics2D.OverlapPoint(offsetPosition + Vector2.down, terrainMask);
             int fallCheck = 0;
             while (!result && fallCheck < Actor.MaxFallCheck)
             {
                 fallCheck++;
                 offsetPosition += Vector2.down;
-                result = Physics2D.OverlapPoint(offsetPosition + Vector2.down);
+                result = Physics2D.OverlapPoint(offsetPosition + Vector2.down, terrainMask);
             }
 
             // If max fall check was reached then kill the actor and return empty vector3
@@ -72,16 +74,33 @@ class MoveTask : Task
             }
 
             // Check if actor currently running this task is itself a stone
-            // If it isn't than try to go up a block
+            // If it isn't than try to move
             var type = actor as Stone;
             if (type == null)
             {
+                // If collision is with a player or ghost than movement succeeds
+                Player player = null;
+                Ghost ghost = null;
+                if (result.gameObject.TryGetComponent<Player>(out player) || result.gameObject.TryGetComponent<Ghost>(out ghost))
+                {
+                    return offsetPosition;
+                }
                 // Check if spot above is empty and move it there if it is
-                result = Physics2D.OverlapPoint(offsetPosition + Vector2.up);
+                result = Physics2D.OverlapPoint(offsetPosition + Vector2.up, terrainMask);
                 if (!result)
                 {
                     offsetPosition += Vector2.up;
                     return offsetPosition;
+                }
+            }
+            else
+            {
+                // If collision is with a player or ghost than movement fails
+                Player player = null;
+                Ghost ghost = null;
+                if (result.gameObject.TryGetComponent<Player>(out player) || result.gameObject.TryGetComponent<Ghost>(out ghost))
+                {
+                    return Vector2.zero;
                 }
             }
         }
