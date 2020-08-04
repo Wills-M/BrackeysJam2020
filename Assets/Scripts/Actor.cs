@@ -31,9 +31,6 @@ public abstract class Actor : MonoBehaviour
         Debug.LogFormat("{0}.Reset() - moving actor to starting position, enabling actions", name);
 
         canPerformAction = true;
-
-        // Move to starting position
-        transform.position = PhaseManager.start;
     }
 
     /// <summary>
