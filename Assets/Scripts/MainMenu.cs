@@ -15,6 +15,9 @@ public class MainMenu : MonoBehaviour
 
     private int selectedOption;
 
+    [SerializeField]
+    private GameObject playerMenu;
+
     private void Start()
     {
         SelectOption(0);
@@ -38,12 +41,16 @@ public class MainMenu : MonoBehaviour
 
     private void SelectOption(int optionNumber)
     {
+        // Set selected colors
         selectedOption = optionNumber;
         foreach(Text text in options)
         {
             text.color = deselectedColor;
         }
         options[optionNumber].color = selectedColor;
+
+        // Move player menu
+        playerMenu.transform.SetParent(options[optionNumber].transform, false);
     }
 
 }
