@@ -60,6 +60,15 @@ public class Player : Actor
             // Perform player action and add to queue
             turn.Execute();
             actionQueue.Enqueue(turn);
+
+            // TODO: Should be checking for current position instead of below but move currently goes on top of the goal
+            Vector2 pos = new Vector2(transform.position.x, transform.position.y) + Vector2.down;
+            Collider2D result = Physics2D.OverlapPoint(pos);
+            if (result.tag == "Finish")
+            {
+                LevelManager.Instance.NextLevel();
+            }
+
             Debug.LogFormat("{0} actions in queue", actionQueue.Count);
         }
     }
