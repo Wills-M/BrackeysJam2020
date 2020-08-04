@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Stone : Actor
 {
+    [SerializeField]
+    private bool resetPosition;
+
     private MoveTask moveTask;
     private Vector3 initialPosition;
 
@@ -24,7 +27,8 @@ public class Stone : Actor
     public override void Reset()
     {
         base.Reset();
-        transform.position = initialPosition;
+        if (resetPosition)
+            transform.position = initialPosition;
     }
 
     public override void Resolve()
