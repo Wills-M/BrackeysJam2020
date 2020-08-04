@@ -80,6 +80,10 @@ public class PhaseManager : MonoBehaviour
         // Instantiate ghost with player's action queue
         Ghost ghost = Instantiate(ghostPrefab) as Ghost;
         ghost.InitializeActions(player.actionQueue);
+        foreach(Task task in ghost.actionQueue)
+        {
+            task.actor = ghost;
+        }
 
         // Initialize all actors
         actors.Add(ghost);
