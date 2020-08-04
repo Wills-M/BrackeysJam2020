@@ -59,42 +59,39 @@ class MoveTask : Task
         }
         else
         {
-            // Check if collision is with a stone and try to move that stone
-            Stone stone = null;
-            if (result.gameObject.TryGetComponent<Stone>(out stone))
+            // If moving against a stone, try to push it
+            if (result.gameObject.TryGetComponent(out Stone stone))
             {
                 if (stone.TryPush(direction))
                     return offsetPosition;
             }
 
-            // Check if actor currently running this task is itself a stone
-            // If it isn't than try to move
+            // If Actor perfomring task isn't a Stone, try to move
             var type = actor as Stone;
             if (type == null)
             {
-                // If collision is with a player or ghost than movement succeeds
-                Player player = null;
-                Ghost ghost = null;
-                if (result.gameObject.TryGetComponent<Player>(out player) || result.gameObject.TryGetComponent<Ghost>(out ghost))
+                // If actor is walking into a terrain element (stone or level tile)
+                if (!IsPlayerOrGhost(result.gameObject))
                 {
-                    return offsetPosition;
+                    // Check if spot above is empty and move it there if it is
+                    if (Physics2D.OverlapPoint(offsetPosition + Vector2.up, terrainMask) == null)
+                        offsetPosition += Vector2.up;
                 }
-                // Check if spot above is empty and move it there if it is
-                result = Physics2D.OverlapPoint(offsetPosition + Vector2.up, terrainMask);
-                if (!result)
-                {
-                    offsetPosition += Vector2.up;
-                    return offsetPosition;
-                }
+                return offsetPosition;
             }
         }
 
-        // If there was something blocking the player then return empty vector3
+        // If there was something blocking the player, return zero vector
         return Vector2.zero;
     }
 
     protected void Move(Actor actor, Vector2 newPosition)
     {
         actor.transform.position = new Vector3(newPosition.x, newPosition.y, 0);
+    }
+
+    private bool IsPlayerOrGhost(GameObject obj)
+    {
+        return obj.TryGetComponent(out Player player) || obj.TryGetComponent(out Ghost ghost);
     }
 }
