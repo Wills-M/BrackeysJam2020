@@ -17,7 +17,7 @@ class MoveTask : Task
 
     public override void Execute()
     {
-        Move(actor, lastCalculatedPosition);
+        actor.transform.position = lastCalculatedPosition;
     }
 
     public override bool CanPerform()
@@ -33,28 +33,15 @@ class MoveTask : Task
     protected Vector2 TryMove(Actor actor, Vector2 direction)
     {
         // Check for block in offset position
-        Vector2 offsetPosition = new Vector2(actor.transform.position.x, actor.transform.position.y) + direction;
+        Vector2 offsetPosition = (Vector2)actor.transform.position + direction;
         Collider2D result = Physics2D.OverlapPoint(offsetPosition);
 
         // If not walking into a wall/block
         if (!result)
         {
-            // Check for ground tile in case actor is moving over edge
-            result = Physics2D.OverlapPoint(offsetPosition + Vector2.down, terrainMask);
-            int fallCheck = 0;
-            while (!result && fallCheck < Actor.MaxFallCheck)
-            {
-                fallCheck++;
-                offsetPosition += Vector2.down;
-                result = Physics2D.OverlapPoint(offsetPosition + Vector2.down, terrainMask);
-            }
-
-            // If max fall check was reached then kill the actor and return zero vector
-            if (fallCheck == Actor.MaxFallCheck)
-            {
-                //TODO: Kill the actor
-                offsetPosition = Vector2.zero;
-            }
+            // If actor walking over a ledge, calculate where they will land
+            if(IsAboveGround(result, offsetPosition))
+                return TryFallDownGap(result, offsetPosition);
         }
         else
         {
@@ -75,6 +62,7 @@ class MoveTask : Task
                     // Check if spot above is empty and move it there if it is
                     if (Physics2D.OverlapPoint(offsetPosition + Vector2.up, terrainMask) == null)
                         offsetPosition += Vector2.up;
+                    else offsetPosition = Vector2.zero;
                 }
             }
             else offsetPosition = Vector2.zero;
@@ -82,9 +70,39 @@ class MoveTask : Task
         return offsetPosition;
     }
 
-    protected void Move(Actor actor, Vector2 newPosition)
+    /// <summary>
+    /// Returns true if position is > 1 tile above terrain
+    /// </summary>
+    private bool IsAboveGround(Collider2D result, Vector2 position)
     {
-        actor.transform.position = new Vector3(newPosition.x, newPosition.y, 0);
+        // Check for ground tile in case actor is moving over edge
+        result = Physics2D.OverlapPoint(position + Vector2.down, terrainMask);
+        return !result;
+    }
+
+    /// <summary>
+    /// Returns landing position from falling down gap, or zero vector if gap is too high
+    /// </summary>
+    private Vector2 TryFallDownGap(Collider2D result, Vector2 offsetPosition)
+    {
+        // Check for ground tile in case actor is moving over edge
+        result = Physics2D.OverlapPoint(offsetPosition + Vector2.down, terrainMask);
+        int fallCheck = 0;
+        while (!result && fallCheck < Actor.MaxFallCheck)
+        {
+            fallCheck++;
+            offsetPosition += Vector2.down;
+            result = Physics2D.OverlapPoint(offsetPosition + Vector2.down, terrainMask);
+        }
+
+        // If max fall check was reached then kill the actor and return zero vector
+        if (fallCheck == Actor.MaxFallCheck)
+        {
+            //TODO: Kill the actor
+            offsetPosition = Vector2.zero;
+        }
+
+        return offsetPosition;
     }
 
     private bool IsPlayerOrGhost(GameObject obj)
