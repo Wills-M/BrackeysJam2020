@@ -18,16 +18,21 @@ class Ghost : Actor
         transform.position = PhaseManager.start;
     }
 
-    public override void Resolve()
+    public override IEnumerator Resolve()
     {
-        // Perform action and remove from queue
-        turn = currentActions.Dequeue();
-        if (turn.CanPerform())
-            StartCoroutine(turn.Execute());
+        if(!IsPerformingTask && canPerformAction)
+        {
+            // Perform action and remove from queue
+            task = currentActions.Dequeue();
+            StartCoroutine(base.Resolve());
 
-        // Set flag if no actions remaining
-        if (currentActions.Count == 0)
-            canPerformAction = false;
+            while(task.IsExecuting)
+                yield return null;
+
+            // Set flag if no actions remaining
+            if (currentActions.Count == 0)
+                canPerformAction = false;
+        }
     }
 
     public void InitializeActions(Queue<Task> actionQueue)

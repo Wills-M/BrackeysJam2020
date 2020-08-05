@@ -18,7 +18,7 @@ public class Player : Actor
 
     private void Update()
     {
-        if (waitingForInput)
+        if (waitingForInput && !IsPerformingTask)
         {
             // End round when player presses space
             if (Input.GetKeyDown(KeyCode.Space))
@@ -35,7 +35,7 @@ public class Player : Actor
                 Task moveTask = new MoveTask(this, Vector2.up);
                 if (moveTask.CanPerform())
                 {
-                    turn = moveTask;
+                    task = moveTask;
                     waitingForInput = false;
                 }
             }
@@ -43,7 +43,7 @@ public class Player : Actor
             {
                 Task moveTask = new MoveTask(this, Vector2.left);
                 if (moveTask.CanPerform()) {
-                    turn = moveTask;
+                    task = moveTask;
                     waitingForInput = false;
                 }
             }
@@ -52,7 +52,7 @@ public class Player : Actor
                 Task moveTask = new MoveTask(this, Vector2.down);
                 if (moveTask.CanPerform())
                 {
-                    turn = moveTask;
+                    task = moveTask;
                     waitingForInput = false;
                 }
             }
@@ -61,7 +61,7 @@ public class Player : Actor
                 Task moveTask = new MoveTask(this, Vector2.right);
 
                 if (moveTask.CanPerform()) {
-                    turn = moveTask;
+                    task = moveTask;
                     waitingForInput = false;
                 }
             }
@@ -75,7 +75,7 @@ public class Player : Actor
                     Task leverTask = new FlipLeverTask(this, lever);
                     if (leverTask.CanPerform())
                     {
-                        turn = leverTask;
+                        task = leverTask;
                         waitingForInput = false;
                     }
                 }
@@ -93,23 +93,25 @@ public class Player : Actor
         transform.position = PhaseManager.start;
     }
 
-    public override void Resolve()
+    public override IEnumerator Resolve()
     {
-        if(canPerformAction)
+        if(canPerformAction) 
         {
-            // Perform player action and add to queue
-            StartCoroutine(turn.Execute());
-            actionQueue.Enqueue(turn);
+            // Perform task and wait until finished executing
+            StartCoroutine(base.Resolve());
+            
+            while(task.IsExecuting)
+                yield return null;
 
-            // Check if player has reached the goal
-            Vector2 pos = new Vector2(transform.position.x, transform.position.y);
-            Collider2D result = Physics2D.OverlapPoint(pos);
+            // Add task to queue
+            actionQueue.Enqueue(task);
+
+            // Load next level if player reached the goal
+            Collider2D result = Physics2D.OverlapPoint(transform.position);
             if (result?.tag == "Finish")
-            {
                 LevelManager.Instance.NextLevel();
-            }
-
-            Debug.LogFormat("{0} actions in queue", actionQueue.Count);
+            else
+                waitingForInput = true;
         }
     }
 }

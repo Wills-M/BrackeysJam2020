@@ -47,24 +47,33 @@ public class PhaseManager : MonoBehaviour
         {
             yield return null;
         }
-        ResolvePhase();
+        StartCoroutine(ResolvePhase());
     }
 
     /// <summary>
     /// Resolves each actor's actions before looping back to TurnPhase()
     /// </summary>
-    private void ResolvePhase()
+    private IEnumerator ResolvePhase()
     {
         // Resolve each actor's action
         foreach(Actor actor in actors)
         {
-            ResolveActor(actor);
+            Debug.LogFormat("ResolvePhase() | resolving actor {0}", actor.name);
+            StartCoroutine(actor.Resolve());
+            
+            // Wait for each actor to finish their task before playing the next one
+            while (actor.IsPerformingTask)
+                yield return null;
         }
 
         // Resolve stones as well (no canPerformAction check needed here)
         foreach(Stone stone in stones)
         {
-            stone.Resolve();
+            StartCoroutine(stone.Resolve());
+
+            // Wait for each to finish their task before playing the next one
+            while (stone.IsPerformingTask)
+                yield return null;
         }
 
         // Start a new round when player can't perform actions anymore
@@ -74,21 +83,11 @@ public class PhaseManager : MonoBehaviour
             ResetRound();
         }
 
+        Debug.LogFormat("ResolvePhase() | finished resolving, restoring player input");
         player.waitingForInput = true;
 
         turnCoroutine = TurnPhase();
         StartCoroutine(turnCoroutine);
-    }
-
-    private void ResolveActor(Actor actor)
-    {
-        if (actor.canPerformAction)
-        {
-            Debug.LogFormat("{0} performing action...", actor.name);
-            actor.Resolve();
-        }
-        else
-            Debug.LogFormat("{0} can't perform actions", actor.name);
     }
 
     private void ResetRound()

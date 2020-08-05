@@ -19,6 +19,9 @@ class MoveTask : Task
 
     public override IEnumerator Execute()
     {
+        IsExecuting = true;
+
+        // Lerp actor to new position
         Vector2 startPos = actor.transform.position;
         for(float t = 0; t < 1; t+= Time.deltaTime * actor.taskSpeed)
         {
@@ -26,6 +29,8 @@ class MoveTask : Task
             yield return null;
         }
         actor.transform.position = lastCalculatedPosition;
+
+        IsExecuting = false;
     }
 
     public override bool CanPerform()

@@ -16,10 +16,10 @@ public class Stone : Actor
 
     public bool TryPush(Vector2 direction)
     {
-        turn = new MoveTask(this, direction);
-        bool canPerform = turn.CanPerform();
+        task = new MoveTask(this, direction);
+        bool canPerform = task.CanPerform();
         if (!canPerform)
-            turn = null;
+            task = null;
         return canPerform;
     }
 
@@ -30,12 +30,16 @@ public class Stone : Actor
             transform.position = initialPosition;
     }
 
-    public override void Resolve()
+    public override IEnumerator Resolve()
     {
-        if (turn != null)
+        if (task != null && !IsPerformingTask)
         {
-            StartCoroutine(turn.Execute());
-            turn = null;
+            // Perform task and wait until finished
+            StartCoroutine(task.Execute());
+            while(task.IsExecuting)
+                yield return null;
+
+            task = null;
         }
     }
 }
