@@ -107,8 +107,8 @@ public class Player : Actor
             actionQueue.Enqueue(task);
 
             // Load next level if player reached the goal
-            Collider2D result = Physics2D.OverlapPoint(transform.position);
-            if (result?.tag == "Finish")
+            Collider2D result = Physics2D.OverlapPoint(transform.position, LayerMask.GetMask("Goal"));
+            if (result)
                 LevelManager.Instance.NextLevel();
             else
                 waitingForInput = true;
