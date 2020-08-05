@@ -7,6 +7,11 @@ public abstract class Actor : MonoBehaviour
     public static readonly int MaxFallCheck = 50;
 
     /// <summary>
+    /// True if Actor is a Player or Ghost, false otherwise (ex. Stone)
+    /// </summary>
+    public bool IsCharacter;
+
+    /// <summary>
     /// Collection of actions to perform as a ghost
     /// </summary>
     public Queue<Task> actionQueue = new Queue<Task>();
@@ -17,7 +22,7 @@ public abstract class Actor : MonoBehaviour
     /// True until Actor finishes their round (i.e. dies, ends round)
     /// </summary>
     public bool canPerformAction;
-    
+
     void Start()
     {
         Reset();

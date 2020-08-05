@@ -7,7 +7,6 @@ public class Stone : Actor
     [SerializeField]
     private bool resetPosition;
 
-    private MoveTask moveTask;
     private Vector3 initialPosition;
 
     private void Awake()

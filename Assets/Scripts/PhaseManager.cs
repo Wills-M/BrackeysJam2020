@@ -26,7 +26,7 @@ public class PhaseManager : MonoBehaviour
         // Store player starting position
         start = player.transform.position;
 
-        // Initialize actors list with player
+        // Initialize empty actors list
         actors = new List<Actor>() { player };
         stones = FindObjectsOfType<Stone>().ToList();
     }
@@ -58,19 +58,17 @@ public class PhaseManager : MonoBehaviour
         // Resolve each actor's action
         foreach(Actor actor in actors)
         {
-            if(actor.canPerformAction)
-            {
-                Debug.LogFormat("{0} performing action...", actor.name);
-                actor.Resolve();
-            }
-            else
-                Debug.LogFormat("{0} can't perform actions", actor.name);
+            ResolveActor(actor);
         }
+
+        // Resolve stones as well (no canPerformAction check needed here)
         foreach(Stone stone in stones)
         {
             stone.Resolve();
         }
 
+        // Start a new round when player can't perform actions anymore
+        // TODO: continue to let ghosts perform remaining actions?
         if(!player.canPerformAction)
         {
             ResetRound();
@@ -80,6 +78,17 @@ public class PhaseManager : MonoBehaviour
 
         turnCoroutine = TurnPhase();
         StartCoroutine(turnCoroutine);
+    }
+
+    private void ResolveActor(Actor actor)
+    {
+        if (actor.canPerformAction)
+        {
+            Debug.LogFormat("{0} performing action...", actor.name);
+            actor.Resolve();
+        }
+        else
+            Debug.LogFormat("{0} can't perform actions", actor.name);
     }
 
     private void ResetRound()

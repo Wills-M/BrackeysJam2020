@@ -116,6 +116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62a9ab3cd30d35646a3de39bf895b463, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCharacter: 1
   canPerformAction: 0
   waitingForInput: 1
 --- !u!61 &2979241404129080738
