@@ -9,8 +9,7 @@ public abstract class Task
     /// </summary>
     public Actor actor;
 
-
-    public abstract void Execute();
+    public abstract IEnumerator Execute();
 
     public abstract bool CanPerform();
     

@@ -98,7 +98,7 @@ public class Player : Actor
         if(canPerformAction)
         {
             // Perform player action and add to queue
-            turn.Execute();
+            StartCoroutine(turn.Execute());
             actionQueue.Enqueue(turn);
 
             // Check if player has reached the goal

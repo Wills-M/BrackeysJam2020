@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsCharacter: 1
+  taskSpeed: 6
   canPerformAction: 0
 --- !u!1001 &8705571998153208574
 PrefabInstance:

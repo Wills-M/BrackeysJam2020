@@ -18,6 +18,9 @@ public abstract class Actor : MonoBehaviour
 
     protected Task turn;
 
+    [Range(1, 10)]
+    public float taskSpeed;
+
     /// <summary>
     /// True until Actor finishes their round (i.e. dies, ends round)
     /// </summary>

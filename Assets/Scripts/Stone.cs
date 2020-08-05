@@ -34,7 +34,7 @@ public class Stone : Actor
     {
         if (turn != null)
         {
-            turn.Execute();
+            StartCoroutine(turn.Execute());
             turn = null;
         }
     }

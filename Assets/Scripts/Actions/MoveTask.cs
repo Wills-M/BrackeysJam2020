@@ -17,8 +17,14 @@ class MoveTask : Task
         this.direction = direction;
     }
 
-    public override void Execute()
+    public override IEnumerator Execute()
     {
+        Vector2 startPos = actor.transform.position;
+        for(float t = 0; t < 1; t+= Time.deltaTime * actor.taskSpeed)
+        {
+            actor.transform.position = Vector2.Lerp(startPos, lastCalculatedPosition, t);
+            yield return null;
+        }
         actor.transform.position = lastCalculatedPosition;
     }
 

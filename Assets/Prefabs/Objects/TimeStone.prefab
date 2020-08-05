@@ -122,5 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b005bf331be7c8945bd66448fd122a9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCharacter: 0
+  taskSpeed: 6
   canPerformAction: 0
   resetPosition: 0

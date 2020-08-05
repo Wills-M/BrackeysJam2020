@@ -23,7 +23,7 @@ class Ghost : Actor
         // Perform action and remove from queue
         turn = currentActions.Dequeue();
         if (turn.CanPerform())
-            turn.Execute();
+            StartCoroutine(turn.Execute());
 
         // Set flag if no actions remaining
         if (currentActions.Count == 0)
