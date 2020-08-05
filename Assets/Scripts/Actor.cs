@@ -14,7 +14,14 @@ public abstract class Actor : MonoBehaviour
     /// <summary>
     /// Returns true when actor is in the middle of executing a task, false otherwise
     /// </summary>
-    public bool IsPerformingTask { get; protected set; }
+    public bool IsPerformingTask { 
+        get {
+            if (task != null)
+                return task.IsExecuting;
+            else 
+                return false;
+        } 
+    }
 
     /// <summary>
     /// Collection of actions to perform as a ghost
@@ -24,7 +31,7 @@ public abstract class Actor : MonoBehaviour
     /// <summary>
     /// Task to be executed in Resolve()
     /// </summary>
-    protected Task task;
+    public Task task;
 
     [Range(1, 10)]
     public float taskSpeed;
@@ -58,13 +65,10 @@ public abstract class Actor : MonoBehaviour
         if(canPerformAction && !IsPerformingTask)
         {
             StartCoroutine(task.Execute());
-            IsPerformingTask = true;
 
             // Wait until task is completed
             while (task.IsExecuting)
                 yield return null;
-
-            IsPerformingTask = false;
         }
     }
 

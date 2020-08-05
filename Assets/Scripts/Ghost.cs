@@ -24,7 +24,8 @@ class Ghost : Actor
         {
             // Perform action and remove from queue
             task = currentActions.Dequeue();
-            StartCoroutine(base.Resolve());
+            if (task.CanPerform()) 
+                StartCoroutine(base.Resolve());
 
             while(task.IsExecuting)
                 yield return null;
