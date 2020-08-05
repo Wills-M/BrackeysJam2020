@@ -61,10 +61,10 @@ public class Player : Actor
             turn.Execute();
             actionQueue.Enqueue(turn);
 
-            // TODO: Should be checking for current position instead of below but move currently goes on top of the goal
-            Vector2 pos = new Vector2(transform.position.x, transform.position.y) + Vector2.down;
+            // Check if player has reached the goal
+            Vector2 pos = new Vector2(transform.position.x, transform.position.y);
             Collider2D result = Physics2D.OverlapPoint(pos);
-            if (result.tag == "Finish")
+            if (result?.tag == "Finish")
             {
                 LevelManager.Instance.NextLevel();
             }
