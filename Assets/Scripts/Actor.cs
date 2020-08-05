@@ -22,6 +22,7 @@ public abstract class Actor : MonoBehaviour
                 return false;
         } 
     }
+    public bool IsResetting { get => resetCoroutine != null; }
 
     /// <summary>
     /// Collection of actions to perform as a ghost
@@ -41,19 +42,36 @@ public abstract class Actor : MonoBehaviour
     /// </summary>
     public bool canPerformAction;
 
+    protected Coroutine resetCoroutine;
+
+    public Vector3 initialPosition;
+
     void Start()
     {
-        Reset();
+        canPerformAction = true;
+
+        // Don't set ghost's initial position on spawn (set via PhaseManager.ResetRound() instead)
+        if(this as Ghost == null)
+            initialPosition = transform.position;
     }
 
     /// <summary>
     /// Initializes actor at beginning state of level
     /// </summary>
-    public virtual void Reset()
+    public virtual IEnumerator Reset()
     {
         Debug.LogFormat("{0}.Reset() - moving actor to starting position, enabling actions", name);
-
         canPerformAction = true;
+
+        // Move to starting position
+        Vector2 startPos = transform.position;
+        for (float t = 0; t < 1; t += Time.deltaTime * taskSpeed) {
+            transform.position = Vector2.Lerp(startPos, initialPosition, t);
+            yield return null;
+        }
+        transform.position = initialPosition;
+
+        resetCoroutine = null;
     }
 
     /// <summary>
