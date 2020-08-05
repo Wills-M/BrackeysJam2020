@@ -30,10 +30,28 @@ public class Player : Actor
             }
 
             // Otherwise check for player input and attempt corresponding tasks
-            if (Input.GetKeyDown(KeyCode.A))
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                Task moveTask = new MoveTask(this, Vector2.up);
+                if (moveTask.CanPerform())
+                {
+                    turn = moveTask;
+                    waitingForInput = false;
+                }
+            }
+            else if (Input.GetKeyDown(KeyCode.A))
             {
                 Task moveTask = new MoveTask(this, Vector2.left);
                 if (moveTask.CanPerform()) {
+                    turn = moveTask;
+                    waitingForInput = false;
+                }
+            }
+            else if (Input.GetKeyDown(KeyCode.S))
+            {
+                Task moveTask = new MoveTask(this, Vector2.down);
+                if (moveTask.CanPerform())
+                {
                     turn = moveTask;
                     waitingForInput = false;
                 }
