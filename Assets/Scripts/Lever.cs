@@ -13,7 +13,7 @@ public class Lever : MonoBehaviour
     private Sprite onSprite;
 
     [SerializeField]
-    private GameObject door;
+    private List<GameObject> objects;
 
     private SpriteRenderer spriteRenderer;
 
@@ -39,7 +39,10 @@ public class Lever : MonoBehaviour
     {
         on = !on;
         UpdateSprite();
-        door.SetActive(!door.activeSelf);
+        foreach (GameObject obj in objects)
+        {
+            obj.SetActive(!obj.activeSelf);
+        }
     }
 
 }

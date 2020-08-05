@@ -3611,7 +3611,15 @@ PrefabInstance:
     m_TransformParent: {fileID: 1674717029}
     m_Modifications:
     - target: {fileID: 4493156670962418053, guid: 163ad498faf56584ebf779413fc5e11d, type: 3}
+      propertyPath: objects.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4493156670962418053, guid: 163ad498faf56584ebf779413fc5e11d, type: 3}
       propertyPath: door
+      value: 
+      objectReference: {fileID: 1783651594}
+    - target: {fileID: 4493156670962418053, guid: 163ad498faf56584ebf779413fc5e11d, type: 3}
+      propertyPath: objects.Array.data[0]
       value: 
       objectReference: {fileID: 1783651594}
     - target: {fileID: 7063660330732842220, guid: 163ad498faf56584ebf779413fc5e11d, type: 3}
