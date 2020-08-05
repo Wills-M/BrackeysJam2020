@@ -44,9 +44,15 @@ public abstract class Actor : MonoBehaviour
 
     protected Coroutine resetCoroutine;
 
+    public Vector3 initialPosition;
+
     void Start()
     {
         canPerformAction = true;
+
+        // Don't set ghost's initial position on spawn (set via PhaseManager.ResetRound() instead)
+        if(this as Ghost == null)
+            initialPosition = transform.position;
     }
 
     /// <summary>
@@ -60,10 +66,10 @@ public abstract class Actor : MonoBehaviour
         // Move to starting position
         Vector2 startPos = transform.position;
         for (float t = 0; t < 1; t += Time.deltaTime * taskSpeed) {
-            transform.position = Vector2.Lerp(startPos, PhaseManager.start, t);
+            transform.position = Vector2.Lerp(startPos, initialPosition, t);
             yield return null;
         }
-        transform.position = PhaseManager.start;
+        transform.position = initialPosition;
 
         resetCoroutine = null;
     }

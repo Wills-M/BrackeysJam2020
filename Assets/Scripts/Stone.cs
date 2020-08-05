@@ -7,13 +7,6 @@ public class Stone : Actor
     [SerializeField]
     private bool resetPosition;
 
-    private Vector3 initialPosition;
-
-    private void Awake()
-    {
-        initialPosition = transform.position;
-    }
-
     public bool TryPush(Vector2 direction)
     {
         task = new MoveTask(this, direction);

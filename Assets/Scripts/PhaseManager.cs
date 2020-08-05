@@ -16,16 +16,8 @@ public class PhaseManager : MonoBehaviour
 
     private IEnumerator turnCoroutine;
 
-    /// <summary>
-    /// Starting position for actors
-    /// </summary>
-    public static Vector2 start;
-
     private void Awake()
     {
-        // Store player starting position
-        start = player.transform.position;
-
         // Initialize empty actors list
         actors = new List<Actor>() { player };
         stones = FindObjectsOfType<Stone>().ToList();
@@ -93,8 +85,13 @@ public class PhaseManager : MonoBehaviour
         // Instantiate ghost with player's action queue
         Ghost ghost = Instantiate(ghostPrefab) as Ghost;
         ghost.InitializeActions(player.actionQueue);
+
+        // Ghost floats from player's last position to starting position
         ghost.transform.position = player.transform.position;
-        foreach(Task task in ghost.actionQueue)
+        ghost.initialPosition = player.initialPosition;
+
+        // Make each task point to the ghost actor instead of player
+        foreach (Task task in ghost.actionQueue)
         {
             task.actor = ghost;
         }
