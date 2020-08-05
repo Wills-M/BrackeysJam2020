@@ -7,6 +7,13 @@ public class Player : Actor
     [HideInInspector]
     public bool waitingForInput = true;
 
+    private LayerMask interactableMask;
+
+    private void Awake()
+    {
+        interactableMask = LayerMask.GetMask("Interactable");
+    }
+
     //private Action turn; //TODO: Wrap this in it's own class so we can store a list of them on the ghost later
 
     private void Update()
@@ -38,6 +45,21 @@ public class Player : Actor
                 if (moveTask.CanPerform()) {
                     turn = moveTask;
                     waitingForInput = false;
+                }
+            }
+            else if (Input.GetKeyDown(KeyCode.E))
+            {
+                Vector2 pos = new Vector2(transform.position.x, transform.position.y);
+                Collider2D result = Physics2D.OverlapPoint(pos, interactableMask);
+                Lever lever = null;
+                if (result.TryGetComponent(out lever))
+                {
+                    Task leverTask = new FlipLeverTask(this, lever);
+                    if (leverTask.CanPerform())
+                    {
+                        turn = leverTask;
+                        waitingForInput = false;
+                    }
                 }
             }
 

@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 7063660330732842223}
   - component: {fileID: 1617228004026326365}
   - component: {fileID: 4493156670962418053}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Lever
-  m_TagString: Interactable
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -122,5 +122,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c42d23559e7eae6449cad03743db40b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  on: 0
   offSprite: {fileID: 21300000, guid: 7922e837f0acba84a9da87da19392ead, type: 3}
   onSprite: {fileID: 21300000, guid: 1b9ed3f0b5403fe48b51fd4399936903, type: 3}
