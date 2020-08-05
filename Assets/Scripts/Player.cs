@@ -69,8 +69,7 @@ public class Player : Actor
             {
                 Vector2 pos = new Vector2(transform.position.x, transform.position.y);
                 Collider2D result = Physics2D.OverlapPoint(pos, interactableMask);
-                Lever lever = null;
-                if (result.TryGetComponent(out lever))
+                if (result && result.TryGetComponent(out Lever lever))
                 {
                     Task leverTask = new FlipLeverTask(this, lever);
                     if (leverTask.CanPerform())
