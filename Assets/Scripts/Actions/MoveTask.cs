@@ -132,13 +132,13 @@ class MoveTask : Task
     private Vector2 TryFallDownGap(Collider2D result, Vector2 offsetPosition)
     {
         // Check for ground tile in case actor is moving over edge
-        result = Physics2D.OverlapPoint(offsetPosition + Vector2.down, movementMask);
+        result = Physics2D.OverlapPoint(offsetPosition + Vector2.down, movementMask | fallMask);
         int fallCheck = 0;
         while (!result && fallCheck < Actor.MaxFallCheck)
         {
             fallCheck++;
             offsetPosition += Vector2.down;
-            result = Physics2D.OverlapPoint(offsetPosition + Vector2.down, movementMask);
+            result = Physics2D.OverlapPoint(offsetPosition + Vector2.down, movementMask | fallMask);
         }
 
         // If max fall check was reached then kill the actor and return zero vector
