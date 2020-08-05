@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: GoalGlowLit
+  m_Name: TorchGlowLit
   m_Shader: {fileID: -6465566751694194690, guid: 57d1cdb442de08245bb9a7997b58ac20, type: 3}
   m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
   m_LightmapFlags: 4
@@ -27,9 +27,7 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - Vector1_3192B28A: 1
+    m_Floats: []
     m_Colors:
-    - Color_CB2407FF: {r: 0.047058824, g: 1.2705883, b: 0.9098039, a: 1}
-    - _EmissionColor: {r: 0.078431375, g: 2.227451, b: 1.3176471, a: 0}
+    - _EmissionColor: {r: 1.4980392, g: 0.63529414, b: 0.18039216, a: 0}
   m_BuildTextureStacks: []
