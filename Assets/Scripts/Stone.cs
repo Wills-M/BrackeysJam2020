@@ -7,13 +7,6 @@ public class Stone : Actor
     [SerializeField]
     private bool resetPosition;
 
-    private Vector3 initialPosition;
-
-    private void Awake()
-    {
-        initialPosition = transform.position;
-    }
-
     public bool TryPush(Vector2 direction)
     {
         task = new MoveTask(this, direction);
@@ -23,11 +16,12 @@ public class Stone : Actor
         return canPerform;
     }
 
-    public override void Reset()
+    public override IEnumerator Reset()
     {
-        base.Reset();
         if (resetPosition)
-            transform.position = initialPosition;
+            resetCoroutine = StartCoroutine(base.Reset());
+
+        yield return null;
     }
 
     public override IEnumerator Resolve()
