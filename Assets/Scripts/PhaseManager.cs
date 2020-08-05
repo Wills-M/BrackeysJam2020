@@ -58,7 +58,6 @@ public class PhaseManager : MonoBehaviour
         // Resolve each actor's action
         foreach(Actor actor in actors)
         {
-            Debug.LogFormat("ResolvePhase() | resolving actor {0}", actor.name);
             StartCoroutine(actor.Resolve());
             
             // Wait for each actor to finish their task before playing the next one
@@ -80,21 +79,21 @@ public class PhaseManager : MonoBehaviour
         // TODO: continue to let ghosts perform remaining actions?
         if(!player.canPerformAction)
         {
-            ResetRound();
+            StartCoroutine(ResetRound());
         }
 
-        Debug.LogFormat("ResolvePhase() | finished resolving, restoring player input");
         player.waitingForInput = true;
 
         turnCoroutine = TurnPhase();
         StartCoroutine(turnCoroutine);
     }
 
-    private void ResetRound()
+    private IEnumerator ResetRound()
     {
         // Instantiate ghost with player's action queue
         Ghost ghost = Instantiate(ghostPrefab) as Ghost;
         ghost.InitializeActions(player.actionQueue);
+        ghost.transform.position = player.transform.position;
         foreach(Task task in ghost.actionQueue)
         {
             task.actor = ghost;
@@ -104,11 +103,15 @@ public class PhaseManager : MonoBehaviour
         actors.Add(ghost);
         foreach(Actor actor in actors)
         {
-            actor.Reset();
+            StartCoroutine(actor.Reset());
+            while (actor.IsResetting)
+                yield return null;
         }
         foreach(Stone stone in stones)
         {
-            stone.Reset();
+            StartCoroutine(stone.Reset());
+            while (stone.IsResetting)
+                yield return null;
         }
     }
 }

@@ -83,13 +83,13 @@ public class Player : Actor
         }
     }
 
-    public override void Reset()
+    public override IEnumerator Reset()
     {
-        base.Reset();
+        resetCoroutine = StartCoroutine(base.Reset());
+        
+        // Clear action queue to fill up for next ghost
         actionQueue.Clear();
-
-        // Move to starting position
-        transform.position = PhaseManager.start;
+        yield return null;
     }
 
     public override IEnumerator Resolve()

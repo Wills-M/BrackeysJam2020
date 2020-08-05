@@ -23,11 +23,12 @@ public class Stone : Actor
         return canPerform;
     }
 
-    public override void Reset()
+    public override IEnumerator Reset()
     {
-        base.Reset();
         if (resetPosition)
-            transform.position = initialPosition;
+            resetCoroutine = StartCoroutine(base.Reset());
+
+        yield return null;
     }
 
     public override IEnumerator Resolve()

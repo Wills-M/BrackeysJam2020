@@ -9,13 +9,12 @@ class Ghost : Actor
     /// </summary>
     protected Queue<Task> currentActions = new Queue<Task>();
 
-    public override void Reset()
+    public override IEnumerator Reset()
     {
-        base.Reset();
-        currentActions = new Queue<Task>(actionQueue.ToArray());
+        resetCoroutine = StartCoroutine(base.Reset());
 
-        // Move to starting position
-        transform.position = PhaseManager.start;
+        currentActions = new Queue<Task>(actionQueue.ToArray());
+        yield return null;
     }
 
     public override IEnumerator Resolve()
@@ -38,8 +37,6 @@ class Ghost : Actor
 
     public void InitializeActions(Queue<Task> actionQueue)
     {
-        Debug.LogFormat("{0} - initializing {1} actions in queue", name, actionQueue.Count);
-
         // Fill actionQueue
         Task[] arr = actionQueue.ToArray();
         this.actionQueue = new Queue<Task>(arr);
