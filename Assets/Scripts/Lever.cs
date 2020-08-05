@@ -12,6 +12,9 @@ public class Lever : MonoBehaviour
     [SerializeField]
     private Sprite onSprite;
 
+    [SerializeField]
+    private GameObject door;
+
     private SpriteRenderer spriteRenderer;
 
     private void Awake()
@@ -36,6 +39,7 @@ public class Lever : MonoBehaviour
     {
         on = !on;
         UpdateSprite();
+        door.SetActive(!door.activeSelf);
     }
 
 }
