@@ -31,7 +31,7 @@ public abstract class Actor : MonoBehaviour
     /// <summary>
     /// Task to be executed in Resolve()
     /// </summary>
-    public Task task;
+    protected Task task;
 
     [Range(1, 10)]
     public float taskSpeed;
