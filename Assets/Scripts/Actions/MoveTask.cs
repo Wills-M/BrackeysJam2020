@@ -39,8 +39,15 @@ class MoveTask : Task
         // Select proper animation for character actors
         AnimComponent.AnimID animID = SelectAnimation();
 
+        // Get material string based on what is being done
+        string matString = "";
+        if (animID == AnimComponent.AnimID.Pushing)
+            matString = "_HorizontalScale";
+        else
+            matString = "_VerticalScale";
+
         // Play animation for characters
-        if(actor.TryGetComponent(out AnimComponent animComponent))
+        if (actor.TryGetComponent(out AnimComponent animComponent))
             animComponent.SetAnimation(animID, true);
 
         
@@ -66,7 +73,7 @@ class MoveTask : Task
             float eval = actor.taskAnimationCurve.Evaluate(t);
             // Squish animation
             float x = Mathf.Sin(eval * Mathf.PI);
-            mat.SetFloat("_VerticalScale", 1f - (x * squishAmount));
+            mat.SetFloat(matString, 1f - (x * squishAmount));
 
             // Position move animation
             actor.transform.position = Vector2.Lerp(startPos, lastCalculatedPosition, eval);
