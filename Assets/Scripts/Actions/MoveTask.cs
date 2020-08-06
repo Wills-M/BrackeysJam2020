@@ -11,6 +11,11 @@ class MoveTask : Task
     private LayerMask stoneMask = LayerMask.GetMask("BlocksStone");
     private LayerMask fallMask = LayerMask.GetMask("BlocksFall");
 
+    /// <summary>
+    /// True if moving against a block this execution
+    /// </summary>
+    private bool pushing = false;
+
     public MoveTask(Actor actor, Vector2 direction)
     {
         this.actor = actor;
@@ -22,12 +27,15 @@ class MoveTask : Task
         IsExecuting = true;
 
         // Set direction for player/ghosts based on movement
+        SetDirection();
+
+        // Select proper animation for character actors
+        AnimComponent.AnimID animID = SelectAnimation();
+
+        // Play animation
         actor.TryGetComponent(out AnimComponent animComponent);
         if (actor.IsCharacter)
-        {
-            SetDirection();
-            animComponent.SetAnimation(AnimComponent.AnimID.Moving, true);
-        }
+            animComponent.SetAnimation(animID, true);
 
         // Lerp actor to new position
         Vector2 startPos = actor.transform.position;
@@ -38,18 +46,37 @@ class MoveTask : Task
         }
         actor.transform.position = lastCalculatedPosition;
 
+        // Stop animation
         if (actor.IsCharacter)
-            animComponent.SetAnimation(AnimComponent.AnimID.Moving, false);
+            animComponent.SetAnimation(animID, false);
 
         IsExecuting = false;
     }
 
+    /// <summary>
+    /// Returns animation to play for player/ghost actors
+    /// </summary>
+    private AnimComponent.AnimID SelectAnimation()
+    {
+        // Don't animate stones
+        if (!actor.IsCharacter)
+            return AnimComponent.AnimID.None;
+
+        else if (pushing)
+            return AnimComponent.AnimID.Pushing;
+        // TODO: check if we're falling and use that animation
+        else return AnimComponent.AnimID.Moving;
+    }
+
     private void SetDirection()
     {
-        if (direction == Vector2.left)
-            actor.SetDirection(Actor.Direction.LEFT);
-        else if (direction == Vector2.right)
-            actor.SetDirection(Actor.Direction.RIGHT);
+        if (actor.IsCharacter)
+        {
+            if (direction == Vector2.left)
+                actor.SetDirection(Actor.Direction.LEFT);
+            else if (direction == Vector2.right)
+                actor.SetDirection(Actor.Direction.RIGHT);
+        }
     }
 
     public override bool CanPerform()
@@ -128,11 +155,10 @@ class MoveTask : Task
         else
         {
             // If moving against a stone, try to push it
-            bool pushingStone = result.gameObject.TryGetComponent(out Stone stone);
-            if (pushingStone)
-            {
-                if (stone.TryPush(direction))
-                    return offsetPosition;
+            bool movingAgainstStone = result.gameObject.TryGetComponent(out Stone stone);
+            pushing = movingAgainstStone && stone.TryPush(direction);
+            if (pushing) {
+                return offsetPosition;
             }
 
             // If Actor perfomring task isn't a Stone, try to move
