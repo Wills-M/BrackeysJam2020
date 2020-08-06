@@ -22,8 +22,12 @@ class MoveTask : Task
         IsExecuting = true;
 
         // Set direction for player/ghosts based on movement
-        if(actor.IsCharacter)
+        actor.TryGetComponent(out AnimComponent animComponent);
+        if (actor.IsCharacter)
+        {
             SetDirection();
+            animComponent.SetAnimation(AnimComponent.AnimID.Moving, true);
+        }
 
         // Lerp actor to new position
         Vector2 startPos = actor.transform.position;
@@ -33,6 +37,9 @@ class MoveTask : Task
             yield return null;
         }
         actor.transform.position = lastCalculatedPosition;
+
+        if (actor.IsCharacter)
+            animComponent.SetAnimation(AnimComponent.AnimID.Moving, false);
 
         IsExecuting = false;
     }
