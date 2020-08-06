@@ -169,15 +169,18 @@ class MoveTask : Task
         // If actor is trying to go down, check if they're above a ladder
         else if (direction == Vector2.down)
         {
-            Vector2 offsetPosition = (Vector2)actor.transform.position + direction;
-            Collider2D result = Physics2D.OverlapPoint(offsetPosition, fallMask);
+            Vector2 belowActor = (Vector2)actor.transform.position + direction;
+            Collider2D tileBelow = Physics2D.OverlapPoint(belowActor, fallMask);
 
             // If they're above a ladder than they can go down so return direction
-            if (result?.tag == "Ladder")
-                return offsetPosition;
-            // If they're not above a ladder than movement fails so return vector2.zero
-            else
-                return Vector2.zero;
+            if (tileBelow?.tag == "Ladder")
+                return belowActor;
+
+            // If they're dropping off the bottom of a ladder, return position at ground below
+            else if (IsAboveGround(actor.transform.position))
+                return TryFallDownGap(actor.transform.position);
+            else return Vector2.zero;
+
         }
         else
         {
@@ -197,8 +200,8 @@ class MoveTask : Task
             pushing = false;
 
             // If actor walking over a ledge, calculate where they will land
-            if (IsAboveGround(result, offsetPosition))
-                return TryFallDownGap(result, offsetPosition);
+            if (IsAboveGround(offsetPosition))
+                return TryFallDownGap(offsetPosition);
         }
         else
         {
@@ -256,20 +259,20 @@ class MoveTask : Task
     /// <summary>
     /// Returns true if position is > 1 tile above terrain
     /// </summary>
-    private bool IsAboveGround(Collider2D result, Vector2 position)
+    private bool IsAboveGround(Vector2 position)
     {
         // Check for ground tile in case actor is moving over edge
-        result = Physics2D.OverlapPoint(position + Vector2.down, movementMask);
+        Collider2D result = Physics2D.OverlapPoint(position + Vector2.down, movementMask);
         return !result;
     }
 
     /// <summary>
     /// Returns landing position from falling down gap, or zero vector if gap is too high
     /// </summary>
-    private Vector2 TryFallDownGap(Collider2D result, Vector2 offsetPosition)
+    private Vector2 TryFallDownGap(Vector2 offsetPosition)
     {
         // Check for ground tile in case actor is moving over edge
-        result = Physics2D.OverlapPoint(offsetPosition + Vector2.down, movementMask | fallMask);
+        Collider2D result = Physics2D.OverlapPoint(offsetPosition + Vector2.down, movementMask | fallMask);
         int fallCheck = 0;
         while (!result && fallCheck < Actor.MaxFallCheck)
         {
