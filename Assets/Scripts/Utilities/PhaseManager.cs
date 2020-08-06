@@ -39,7 +39,12 @@ public class PhaseManager : MonoBehaviour
         {
             yield return null;
         }
-        StartCoroutine(ResolvePhase());
+        if (!player.canPerformAction)
+        {
+            StartCoroutine(ResetRound());
+        }
+        else
+            StartCoroutine(ResolvePhase());
     }
 
     /// <summary>
@@ -69,10 +74,6 @@ public class PhaseManager : MonoBehaviour
 
         // Start a new round when player can't perform actions anymore
         // TODO: continue to let ghosts perform remaining actions?
-        if(!player.canPerformAction)
-        {
-            StartCoroutine(ResetRound());
-        }
 
 
         turnCoroutine = TurnPhase();
@@ -110,5 +111,9 @@ public class PhaseManager : MonoBehaviour
             while (stone.IsResetting)
                 yield return null;
         }
+        
+        player.waitingForInput = true;
+        turnCoroutine = TurnPhase();
+        StartCoroutine(turnCoroutine);
     }
 }
