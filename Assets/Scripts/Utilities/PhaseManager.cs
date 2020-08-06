@@ -76,9 +76,9 @@ public class PhaseManager : MonoBehaviour
         // TODO: continue to let ghosts perform remaining actions?
 
 
+        player.waitingForInput = true;
         turnCoroutine = TurnPhase();
         StartCoroutine(turnCoroutine);
-        player.waitingForInput = true;
     }
 
     private IEnumerator ResetRound()
