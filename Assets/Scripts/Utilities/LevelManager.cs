@@ -34,4 +34,9 @@ public class LevelManager : MonoBehaviour
         SceneManager.LoadScene(currentLevelIndex);
     }
 
+    public void ResetLevel()
+    {
+        SceneManager.LoadScene(currentLevelIndex);
+    }
+
 }

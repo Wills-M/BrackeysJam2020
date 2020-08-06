@@ -11,15 +11,83 @@ class MoveTask : Task
     private LayerMask stoneMask = LayerMask.GetMask("BlocksStone");
     private LayerMask fallMask = LayerMask.GetMask("BlocksFall");
 
+    private readonly float squishAmount = 0.3f;
+
+    /// <summary>
+    /// True if moving against a block this execution
+    /// </summary>
+    private bool pushing = false;
+
     public MoveTask(Actor actor, Vector2 direction)
     {
         this.actor = actor;
         this.direction = direction;
     }
 
-    public override void Execute()
+    public override IEnumerator Execute()
     {
+        IsExecuting = true;
+
+        // Set direction for player/ghosts based on movement
+        SetDirection();
+
+        // Select proper animation for character actors
+        AnimComponent.AnimID animID = SelectAnimation();
+
+        // Play animation
+        actor.TryGetComponent(out AnimComponent animComponent);
+        if (actor.IsCharacter)
+            animComponent.SetAnimation(animID, true);
+
+        // Get material for animating squish
+        Material mat = actor.spriteRenderer.material;
+
+        // Lerp actor to new position
+        Vector2 startPos = actor.transform.position;
+        for(float t = 0; t < 1; t+= Time.deltaTime * actor.taskSpeed)
+        {
+            float eval = actor.taskAnimationCurve.Evaluate(t);
+            // Squish animation
+            float x = Mathf.Sin(eval * Mathf.PI);
+            mat.SetFloat("_VerticalScale", 1f - (x * squishAmount));
+
+            // Position move animation
+            actor.transform.position = Vector2.Lerp(startPos, lastCalculatedPosition, eval);
+            yield return null;
+        }
         actor.transform.position = lastCalculatedPosition;
+
+        // Stop animation
+        if (actor.IsCharacter)
+            animComponent.SetAnimation(animID, false);
+
+        IsExecuting = false;
+    }
+
+    /// <summary>
+    /// Returns animation to play for player/ghost actors
+    /// </summary>
+    private AnimComponent.AnimID SelectAnimation()
+    {
+        // Don't animate stones
+        if (!actor.IsCharacter)
+            return AnimComponent.AnimID.None;
+
+        else if (pushing)
+            return AnimComponent.AnimID.Pushing;
+        // TODO: check if we're falling and use that animation
+        else return AnimComponent.AnimID.Moving;
+    }
+
+    private void SetDirection()
+    {
+        if (actor.IsCharacter)
+        {
+            if (direction == Vector2.left)
+                actor.SetDirection(Actor.Direction.LEFT);
+            else if (direction == Vector2.right)
+                actor.SetDirection(Actor.Direction.RIGHT);
+        }
     }
 
     public override bool CanPerform()
@@ -52,7 +120,13 @@ class MoveTask : Task
 
             // If they're on a ladder than they can go up so return direction 
             if (result?.tag == "Ladder")
-                return pos + direction;
+            {
+                Vector2 above = pos + Vector2.up;
+                if (Physics2D.OverlapPoint(above, movementMask) == null)
+                    return pos + direction;
+                else
+                    return Vector2.zero;
+            }
             // If they're not on a ladder than movement fails so return vector2.zero
             else
                 return Vector2.zero;
@@ -92,10 +166,10 @@ class MoveTask : Task
         else
         {
             // If moving against a stone, try to push it
-            if (result.gameObject.TryGetComponent(out Stone stone))
-            {
-                if (stone.TryPush(direction))
-                    return offsetPosition;
+            bool movingAgainstStone = result.gameObject.TryGetComponent(out Stone stone);
+            pushing = movingAgainstStone && stone.TryPush(direction);
+            if (pushing) {
+                return offsetPosition;
             }
 
             // If Actor perfomring task isn't a Stone, try to move

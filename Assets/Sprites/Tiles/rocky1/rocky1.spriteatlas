@@ -44,7 +44,7 @@ SpriteAtlas:
     packables:
     - {fileID: 2800000, guid: 43b6bdb333dfa68459ed9d645d5f75cb, type: 3}
     - {fileID: 2800000, guid: b53c70cdf46031342aa43572fe5c7387, type: 3}
-    totalSpriteSurfaceArea: 1536
+    totalSpriteSurfaceArea: 2048
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -52,6 +52,8 @@ SpriteAtlas:
   m_PackedSprites:
   - {fileID: 6609176783321796001, guid: 43b6bdb333dfa68459ed9d645d5f75cb, type: 3}
   - {fileID: 1467500911004327192, guid: 43b6bdb333dfa68459ed9d645d5f75cb, type: 3}
+  - {fileID: -3359572390129608296, guid: b53c70cdf46031342aa43572fe5c7387, type: 3}
+  - {fileID: 6181186570492071984, guid: b53c70cdf46031342aa43572fe5c7387, type: 3}
   - {fileID: 6694050977776236798, guid: b53c70cdf46031342aa43572fe5c7387, type: 3}
   - {fileID: -4432208895022490374, guid: b53c70cdf46031342aa43572fe5c7387, type: 3}
   - {fileID: 2466968280968342011, guid: b53c70cdf46031342aa43572fe5c7387, type: 3}
@@ -59,6 +61,8 @@ SpriteAtlas:
   m_PackedSpriteNamesToIndex:
   - rocky1_inner_0
   - rocky1_inner_1
+  - rocky1_outer_5
+  - rocky1_outer_4
   - rocky1_outer_3
   - rocky1_outer_2
   - rocky1_outer_1

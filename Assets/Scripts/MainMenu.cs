@@ -18,6 +18,11 @@ public class MainMenu : MonoBehaviour
 
     [SerializeField]
     private GameObject playerMenu;
+    
+    [SerializeField]
+    private float pushTime;
+    [SerializeField]
+    private float pushSpeed;
 
     private void Start()
     {
@@ -58,15 +63,48 @@ public class MainMenu : MonoBehaviour
         playerMenu.transform.SetParent(options[optionNumber].transform, false);
     }
 
+    private IEnumerator StartCoroutine()
+    {
+        Animator anim = playerMenu.GetComponent<Animator>();
+
+        anim.SetTrigger("Push");
+
+        Transform startTransform = options[selectedOption].transform;
+
+        for (float timer = 0f; timer < pushTime; timer += Time.deltaTime)
+        {
+            startTransform.position += Vector3.right * pushSpeed;
+            yield return null;
+        }
+
+        LevelManager.Instance.NextLevel();
+    }
+
+    private IEnumerator ExitCoroutine()
+    {
+        Animator anim = playerMenu.GetComponent<Animator>();
+
+        anim.SetTrigger("Push");
+
+        Transform exitTransform = options[selectedOption].transform;
+
+        for (float timer = 0f; timer < pushTime; timer += Time.deltaTime)
+        {
+            exitTransform.position += Vector3.right * pushSpeed;
+            yield return null;
+        }
+
+        Application.Quit();
+    }
+
     public void StartButton()
     {
-        // TODO: Load a real scene
-        LevelManager.Instance.NextLevel();
+        StartCoroutine(StartCoroutine());
     }
 
     public void ExitButton()
     {
-        Application.Quit();
+        StartCoroutine(ExitCoroutine());
     }
 
 }

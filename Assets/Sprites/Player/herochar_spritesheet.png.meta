@@ -46,22 +46,22 @@ TextureImporter:
     second: herochar_running_6
   - first:
       213: -1927148028412244115
-    second: herochar_spritesheet_14
+    second: herochar_pushing_1
   - first:
       213: 4639466680170182710
-    second: herochar_spritesheet_15
+    second: herochar_pushing_2
   - first:
       213: -2315451981521583389
-    second: herochar_spritesheet_16
+    second: herochar_pushing_3
   - first:
       213: 4663405133338484849
-    second: herochar_spritesheet_17
+    second: herochar_pushing_4
   - first:
       213: -8474076895207227045
-    second: herochar_spritesheet_18
+    second: herochar_pushing_5
   - first:
       213: -5248874208367826705
-    second: herochar_spritesheet_19
+    second: herochar_pushing_6
   - first:
       213: 2458454199400075296
     second: herochar_spritesheet_20
@@ -240,7 +240,7 @@ TextureImporter:
     maxTextureSize: 8192
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -252,7 +252,7 @@ TextureImporter:
     maxTextureSize: 8192
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -593,7 +593,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: herochar_spritesheet_14
+      name: herochar_pushing_1
       rect:
         serializedVersion: 2
         x: 0
@@ -614,7 +614,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: herochar_spritesheet_15
+      name: herochar_pushing_2
       rect:
         serializedVersion: 2
         x: 16
@@ -635,7 +635,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: herochar_spritesheet_16
+      name: herochar_pushing_3
       rect:
         serializedVersion: 2
         x: 32
@@ -656,7 +656,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: herochar_spritesheet_17
+      name: herochar_pushing_4
       rect:
         serializedVersion: 2
         x: 48
@@ -677,7 +677,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: herochar_spritesheet_18
+      name: herochar_pushing_5
       rect:
         serializedVersion: 2
         x: 64
@@ -698,7 +698,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: herochar_spritesheet_19
+      name: herochar_pushing_6
       rect:
         serializedVersion: 2
         x: 80

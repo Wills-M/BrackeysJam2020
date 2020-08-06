@@ -9,8 +9,12 @@ public abstract class Task
     /// </summary>
     public Actor actor;
 
+    /// <summary>
+    /// True when task is currently being executed, false otherwise
+    /// </summary>
+    public bool IsExecuting = false;
 
-    public abstract void Execute();
+    public abstract IEnumerator Execute();
 
     public abstract bool CanPerform();
     

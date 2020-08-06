@@ -18,9 +18,10 @@ public class FlipLeverTask : Task
         return true;
     }
 
-    public override void Execute()
+    public override IEnumerator Execute()
     {
         lever.Flip();
+        yield return null;
     }
 
 }
