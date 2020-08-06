@@ -21,6 +21,9 @@ class AnimComponent : MonoBehaviour
             case AnimID.Moving:
                 animator.SetBool("Moving", active);
                 break;
+            case AnimID.Pushing:
+                animator.SetBool("Pushing", active);
+                break;
         }
     }
 }
