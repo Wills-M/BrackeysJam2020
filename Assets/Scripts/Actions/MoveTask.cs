@@ -82,7 +82,13 @@ class MoveTask : Task
 
             // If they're on a ladder than they can go up so return direction 
             if (result?.tag == "Ladder")
-                return pos + direction;
+            {
+                Vector2 above = pos + Vector2.up;
+                if (Physics2D.OverlapPoint(above, movementMask) == null)
+                    return pos + direction;
+                else
+                    return Vector2.zero;
+            }
             // If they're not on a ladder than movement fails so return vector2.zero
             else
                 return Vector2.zero;
