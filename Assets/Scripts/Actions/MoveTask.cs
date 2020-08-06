@@ -18,6 +18,11 @@ class MoveTask : Task
     /// </summary>
     private bool pushing = false;
 
+    /// <summary>
+    /// List of stones actor is trying to push this execution
+    /// </summary>
+    private List<Stone> stonesToPush;
+
     public MoveTask(Actor actor, Vector2 direction)
     {
         this.actor = actor;
@@ -169,6 +174,9 @@ class MoveTask : Task
             bool movingAgainstStone = result.gameObject.TryGetComponent(out Stone stone);
             pushing = movingAgainstStone && stone.TryPush(direction);
             if (pushing) {
+                // Collect all stones this actor is pushing
+                stonesToPush = GetStonesInDirection(actor, direction);
+                Debug.LogFormat("{0} will push {1} stones towards {2}", actor.name, stonesToPush.Count, direction);
                 return offsetPosition;
             }
 
@@ -188,6 +196,29 @@ class MoveTask : Task
             else offsetPosition = Vector2.zero;
         }
         return offsetPosition;
+    }
+
+    /// <summary>
+    /// Returns list of stones that would be pushed if actor moved in direction
+    /// </summary>
+    private List<Stone> GetStonesInDirection(Actor actor, Vector2 direction)
+    {
+        List<Stone> stones = new List<Stone>();
+        Collider2D result;
+
+        // Check each tile in direction of movement
+        Vector2 offset = actor.transform.position;
+        do {
+            offset += direction;
+
+            // If tile is stone, add to list
+            result = Physics2D.OverlapPoint(offset, movementMask | stoneMask);
+            if (result != null && result.TryGetComponent(out Stone stone))
+                stones.Add(stone);
+
+        } while (result != null);
+
+        return stones;
     }
 
     /// <summary>
