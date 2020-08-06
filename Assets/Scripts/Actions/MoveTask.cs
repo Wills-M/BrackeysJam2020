@@ -25,7 +25,7 @@ class MoveTask : Task
         Vector2 startPos = actor.transform.position;
         for(float t = 0; t < 1; t+= Time.deltaTime * actor.taskSpeed)
         {
-            actor.transform.position = Vector2.Lerp(startPos, lastCalculatedPosition, t);
+            actor.transform.position = Vector2.Lerp(startPos, lastCalculatedPosition, actor.taskAnimationCurve.Evaluate(t));
             yield return null;
         }
         actor.transform.position = lastCalculatedPosition;
