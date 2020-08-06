@@ -46,22 +46,22 @@ TextureImporter:
     second: ghost_spritesheet_13
   - first:
       213: -5567367242407064535
-    second: ghost_spritesheet_14
+    second: ghost_pushing_1
   - first:
       213: 739906147046995505
-    second: ghost_spritesheet_15
+    second: ghost_pushing_2
   - first:
       213: -671449023997952048
-    second: ghost_spritesheet_16
+    second: ghost_pushing_3
   - first:
       213: 4019398949732303500
-    second: ghost_spritesheet_17
+    second: ghost_pushing_4
   - first:
       213: 5759040167808406089
-    second: ghost_spritesheet_18
+    second: ghost_pushing_5
   - first:
       213: 9119689112791097512
-    second: ghost_spritesheet_19
+    second: ghost_pushing_6
   - first:
       213: -4758256334029983142
     second: ghost_spritesheet_20
@@ -593,7 +593,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ghost_spritesheet_14
+      name: ghost_pushing_1
       rect:
         serializedVersion: 2
         x: 0
@@ -614,7 +614,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ghost_spritesheet_15
+      name: ghost_pushing_2
       rect:
         serializedVersion: 2
         x: 16
@@ -635,7 +635,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ghost_spritesheet_16
+      name: ghost_pushing_3
       rect:
         serializedVersion: 2
         x: 32
@@ -656,7 +656,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ghost_spritesheet_17
+      name: ghost_pushing_4
       rect:
         serializedVersion: 2
         x: 48
@@ -677,7 +677,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ghost_spritesheet_18
+      name: ghost_pushing_5
       rect:
         serializedVersion: 2
         x: 64
@@ -698,7 +698,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ghost_spritesheet_19
+      name: ghost_pushing_6
       rect:
         serializedVersion: 2
         x: 80
