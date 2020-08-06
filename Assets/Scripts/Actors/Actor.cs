@@ -110,6 +110,9 @@ public abstract class Actor : MonoBehaviour
 
     public void SetDirection(Direction direction)
     {
+        // Make sure we have component
+        if (!spriteRenderer) spriteRenderer = GetComponent<SpriteRenderer>();
+
         if (direction == Direction.LEFT)
             spriteRenderer.flipX = true;
         else if(direction == Direction.RIGHT)
