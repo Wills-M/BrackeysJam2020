@@ -14,7 +14,7 @@ class AnimComponent : MonoBehaviour
         }
     }
 
-    public enum AnimID { Moving, Falling, Pushing }
+    public enum AnimID { Moving, Falling, Pushing, None }
     public void SetAnimation(AnimID animID, bool active)
     {
         switch(animID) {
