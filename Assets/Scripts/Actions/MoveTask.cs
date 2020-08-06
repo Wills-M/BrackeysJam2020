@@ -128,7 +128,8 @@ class MoveTask : Task
         else
         {
             // If moving against a stone, try to push it
-            if (result.gameObject.TryGetComponent(out Stone stone))
+            bool pushingStone = result.gameObject.TryGetComponent(out Stone stone);
+            if (pushingStone)
             {
                 if (stone.TryPush(direction))
                     return offsetPosition;
