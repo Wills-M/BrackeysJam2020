@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : Actor
 {
@@ -90,6 +91,13 @@ public class Player : Actor
                     }
                 }
             }
+            else if (cachedInput == KeyCode.R)
+            {
+                if (LevelManager.Instance)
+                    LevelManager.Instance.ResetLevel();
+                else // This invalidates the reason to have a levelmanager but I don't feel like adding levelmanager to every scene
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
         }
     }
 
@@ -135,6 +143,8 @@ public class Player : Actor
 
         else if (Input.GetKeyDown(KeyCode.E))
             CacheInput(KeyCode.E);
+        else if (Input.GetKeyDown(KeyCode.R))
+            CacheInput(KeyCode.R);
         
         if (Input.GetKeyDown(KeyCode.Space))
             CacheInput(KeyCode.Space);
