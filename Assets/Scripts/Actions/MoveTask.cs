@@ -192,10 +192,10 @@ class MoveTask : Task
     {
         // Check for block in offset position
         Vector2 offsetPosition = (Vector2)actor.transform.position + direction;
-        Collider2D result = Physics2D.OverlapPoint(offsetPosition, movementMask | stoneMask);
+        Collider2D blockingTile = Physics2D.OverlapPoint(offsetPosition, movementMask | stoneMask);
 
-        // If not walking into a wall/block
-        if (!result)
+        // If not walking into a wall/stone
+        if (!blockingTile)
         {
             pushing = false;
 
@@ -206,7 +206,7 @@ class MoveTask : Task
         else
         {
             // If moving against a stone, try to push it
-            bool movingAgainstStone = result.gameObject.TryGetComponent(out Stone stone);
+            bool movingAgainstStone = blockingTile.gameObject.TryGetComponent(out Stone stone);
             pushing = movingAgainstStone && stone.TryPush(direction);
             if (pushing) {
                 // Collect all stones this actor is pushing
@@ -220,7 +220,7 @@ class MoveTask : Task
             if (type == null)
             {
                 // If actor is walking into a terrain element (stone or level tile)
-                if (!IsPlayerOrGhost(result.gameObject))
+                if (!IsPlayerOrGhost(blockingTile.gameObject))
                 {
                     // Check if spot above is empty and move it there if it is
                     if (Physics2D.OverlapPoint(offsetPosition + Vector2.up, movementMask) == null)
@@ -271,14 +271,17 @@ class MoveTask : Task
     /// </summary>
     private Vector2 TryFallDownGap(Vector2 offsetPosition)
     {
+        // Stones fall down ladders, player/ghosts don't
+        int layerMask = actor.IsCharacter ? movementMask | fallMask : (int)movementMask;
+
         // Check for ground tile in case actor is moving over edge
-        Collider2D result = Physics2D.OverlapPoint(offsetPosition + Vector2.down, movementMask | fallMask);
+        Collider2D result = Physics2D.OverlapPoint(offsetPosition + Vector2.down, layerMask);
         int fallCheck = 0;
         while (!result && fallCheck < Actor.MaxFallCheck)
         {
             fallCheck++;
             offsetPosition += Vector2.down;
-            result = Physics2D.OverlapPoint(offsetPosition + Vector2.down, movementMask | fallMask);
+            result = Physics2D.OverlapPoint(offsetPosition + Vector2.down, layerMask);
         }
 
         // If max fall check was reached then kill the actor and return zero vector
