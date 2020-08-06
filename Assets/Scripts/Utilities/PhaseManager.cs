@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class PhaseManager : MonoBehaviour
+public class PhaseManager : Singleton<PhaseManager>
 {
     [SerializeField]
     private Player player;
@@ -16,10 +16,14 @@ public class PhaseManager : MonoBehaviour
 
     private IEnumerator turnCoroutine;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         // Initialize empty actors list
         actors = new List<Actor>() { player };
+
+        // TODO: do we need this?
         stones = FindObjectsOfType<Stone>().ToList();
     }
 
@@ -55,20 +59,10 @@ public class PhaseManager : MonoBehaviour
         // Resolve each actor's action
         foreach(Actor actor in actors)
         {
-            StartCoroutine(actor.Resolve());
+            ResolveActor(actor);
             
             // Wait for each actor to finish their task before playing the next one
             while (actor.IsPerformingTask)
-                yield return null;
-        }
-
-        // Resolve stones as well (no canPerformAction check needed here)
-        foreach(Stone stone in stones)
-        {
-            StartCoroutine(stone.Resolve());
-
-            // Wait for each to finish their task before playing the next one
-            while (stone.IsPerformingTask)
                 yield return null;
         }
 
@@ -79,6 +73,11 @@ public class PhaseManager : MonoBehaviour
         player.waitingForInput = true;
         turnCoroutine = TurnPhase();
         StartCoroutine(turnCoroutine);
+    }
+
+    public void ResolveActor(Actor actor)
+    {
+        StartCoroutine(actor.Resolve());
     }
 
     private IEnumerator ResetRound()

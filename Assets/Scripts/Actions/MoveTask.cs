@@ -39,10 +39,15 @@ class MoveTask : Task
         // Select proper animation for character actors
         AnimComponent.AnimID animID = SelectAnimation();
 
-        // Play animation
-        actor.TryGetComponent(out AnimComponent animComponent);
-        if (actor.IsCharacter)
+        // Play animation for characters
+        if(actor.TryGetComponent(out AnimComponent animComponent))
             animComponent.SetAnimation(animID, true);
+
+        // Start moving stones being pushed
+        if (actor.IsCharacter && pushing) {
+            foreach(Stone stone in stonesToPush)
+                PhaseManager.Instance.ResolveActor(stone);
+        }
 
         // Get material for animating squish
         Material mat = actor.spriteRenderer.material;
@@ -65,6 +70,17 @@ class MoveTask : Task
         // Stop animation
         if (actor.IsCharacter)
             animComponent.SetAnimation(animID, false);
+
+        if(pushing)
+        {
+            // Wait until every stone is finished being pushed
+            while(stonesToPush.Count > 0)
+            {
+                if (!stonesToPush[0].IsPerformingTask)
+                    stonesToPush.RemoveAt(0);
+                yield return null;
+            }
+        }
 
         IsExecuting = false;
     }
