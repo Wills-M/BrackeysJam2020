@@ -11,6 +11,8 @@ class MoveTask : Task
     private LayerMask stoneMask = LayerMask.GetMask("BlocksStone");
     private LayerMask fallMask = LayerMask.GetMask("BlocksFall");
 
+    private readonly float squishAmount = 0.3f;
+
     /// <summary>
     /// True if moving against a block this execution
     /// </summary>
@@ -37,11 +39,20 @@ class MoveTask : Task
         if (actor.IsCharacter)
             animComponent.SetAnimation(animID, true);
 
+        // Get material for animating squish
+        Material mat = actor.spriteRenderer.material;
+
         // Lerp actor to new position
         Vector2 startPos = actor.transform.position;
         for(float t = 0; t < 1; t+= Time.deltaTime * actor.taskSpeed)
         {
-            actor.transform.position = Vector2.Lerp(startPos, lastCalculatedPosition, actor.taskAnimationCurve.Evaluate(t));
+            float eval = actor.taskAnimationCurve.Evaluate(t);
+            // Squish animation
+            float x = Mathf.Sin(eval * Mathf.PI);
+            mat.SetFloat("_VerticalScale", 1f - (x * squishAmount));
+
+            // Position move animation
+            actor.transform.position = Vector2.Lerp(startPos, lastCalculatedPosition, eval);
             yield return null;
         }
         actor.transform.position = lastCalculatedPosition;

@@ -56,7 +56,7 @@ public abstract class Actor : MonoBehaviour
 
     public Direction direction = Direction.RIGHT;
 
-    private SpriteRenderer spriteRenderer;
+    public SpriteRenderer spriteRenderer;
 
     void Start()
     {
