@@ -116,7 +116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62a9ab3cd30d35646a3de39bf895b463, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsCharacter: 0
+  IsCharacter: 1
   taskSpeed: 6
   taskAnimationCurve:
     serializedVersion: 2

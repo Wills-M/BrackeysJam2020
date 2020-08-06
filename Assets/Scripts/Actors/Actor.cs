@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(SpriteRenderer))]
 public abstract class Actor : MonoBehaviour
 {
     public static readonly int MaxFallCheck = 50;
@@ -51,6 +52,12 @@ public abstract class Actor : MonoBehaviour
 
     public Vector3 initialPosition;
 
+    public enum Direction { LEFT, RIGHT }
+
+    public Direction direction = Direction.RIGHT;
+
+    private SpriteRenderer spriteRenderer;
+
     void Start()
     {
         canPerformAction = true;
@@ -58,6 +65,8 @@ public abstract class Actor : MonoBehaviour
         // Don't set ghost's initial position on spawn (set via PhaseManager.ResetRound() instead)
         if(this as Ghost == null)
             initialPosition = transform.position;
+
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     /// <summary>
@@ -67,6 +76,10 @@ public abstract class Actor : MonoBehaviour
     {
         Debug.LogFormat("{0}.Reset() - moving actor to starting position, enabling actions", name);
         canPerformAction = true;
+
+        // Set to starting direction
+        if (IsCharacter)
+            SetDirection(Direction.RIGHT);
 
         // Move to starting position
         Vector2 startPos = transform.position;
@@ -95,4 +108,11 @@ public abstract class Actor : MonoBehaviour
         }
     }
 
+    public void SetDirection(Direction direction)
+    {
+        if (direction == Direction.LEFT)
+            spriteRenderer.flipX = true;
+        else if(direction == Direction.RIGHT)
+            spriteRenderer.flipX = false;
+    }
 }

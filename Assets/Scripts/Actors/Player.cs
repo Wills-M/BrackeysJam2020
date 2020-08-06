@@ -144,14 +144,11 @@ public class Player : Actor
 
     private void CacheInput(KeyCode key)
     {
-        if(Input.GetKeyDown(key))
-        {
-            if(inputCacheCoroutine != null) 
-                StopCoroutine(inputCacheCoroutine);
-            inputCacheCoroutine = CacheThenErase(key);
-            StartCoroutine(inputCacheCoroutine);
+        if(inputCacheCoroutine != null) 
+            StopCoroutine(inputCacheCoroutine);
 
-        }
+        inputCacheCoroutine = CacheThenErase(key);
+        StartCoroutine(inputCacheCoroutine);
     }
 
     private IEnumerator CacheThenErase(KeyCode ci)
@@ -161,5 +158,6 @@ public class Player : Actor
         yield return new WaitForSeconds(1f);
 
         cachedInput = KeyCode.None;
+        inputCacheCoroutine = null;
     }
 }

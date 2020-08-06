@@ -21,6 +21,10 @@ class MoveTask : Task
     {
         IsExecuting = true;
 
+        // Set direction for player/ghosts based on movement
+        if(actor.IsCharacter)
+            SetDirection();
+
         // Lerp actor to new position
         Vector2 startPos = actor.transform.position;
         for(float t = 0; t < 1; t+= Time.deltaTime * actor.taskSpeed)
@@ -31,6 +35,14 @@ class MoveTask : Task
         actor.transform.position = lastCalculatedPosition;
 
         IsExecuting = false;
+    }
+
+    private void SetDirection()
+    {
+        if (direction == Vector2.left)
+            actor.SetDirection(Actor.Direction.LEFT);
+        else if (direction == Vector2.right)
+            actor.SetDirection(Actor.Direction.RIGHT);
     }
 
     public override bool CanPerform()
