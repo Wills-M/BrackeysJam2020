@@ -198,6 +198,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsCharacter: 0
   taskSpeed: 6
+  pushSpeedScalar: 1
   taskAnimationCurve:
     serializedVersion: 2
     m_Curve:
@@ -224,6 +225,8 @@ MonoBehaviour:
     m_RotationOrder: 4
   canPerformAction: 0
   initialPosition: {x: 0, y: 0, z: 0}
+  direction: 1
+  spriteRenderer: {fileID: 0}
   resetPosition: 0
 --- !u!95 &2965047105216189312
 Animator:

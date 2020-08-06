@@ -86,6 +86,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsCharacter: 1
   taskSpeed: 6
+  pushSpeedScalar: 0.3
   taskAnimationCurve:
     serializedVersion: 2
     m_Curve:
@@ -112,6 +113,8 @@ MonoBehaviour:
     m_RotationOrder: 4
   canPerformAction: 0
   initialPosition: {x: 0, y: 0, z: 0}
+  direction: 1
+  spriteRenderer: {fileID: 0}
 --- !u!1001 &8705571998153208574
 PrefabInstance:
   m_ObjectHideFlags: 0

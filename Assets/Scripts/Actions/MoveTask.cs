@@ -43,10 +43,17 @@ class MoveTask : Task
         if(actor.TryGetComponent(out AnimComponent animComponent))
             animComponent.SetAnimation(animID, true);
 
-        // Start moving stones being pushed
+        
+        float speed = actor.taskSpeed;
         if (actor.IsCharacter && pushing) {
-            foreach(Stone stone in stonesToPush)
+            // Scale speed for pushing
+            speed *= actor.pushSpeedScalar;
+
+            // Start moving pushed stones
+            foreach (Stone stone in stonesToPush) {
+                stone.taskSpeed = speed;
                 PhaseManager.Instance.ResolveActor(stone);
+            }
         }
 
         // Get material for animating squish
@@ -54,7 +61,7 @@ class MoveTask : Task
 
         // Lerp actor to new position
         Vector2 startPos = actor.transform.position;
-        for(float t = 0; t < 1; t+= Time.deltaTime * actor.taskSpeed)
+        for(float t = 0; t < 1; t+= Time.deltaTime * speed)
         {
             float eval = actor.taskAnimationCurve.Evaluate(t);
             // Squish animation
@@ -180,6 +187,8 @@ class MoveTask : Task
         // If not walking into a wall/block
         if (!result)
         {
+            pushing = false;
+
             // If actor walking over a ledge, calculate where they will land
             if (IsAboveGround(result, offsetPosition))
                 return TryFallDownGap(result, offsetPosition);

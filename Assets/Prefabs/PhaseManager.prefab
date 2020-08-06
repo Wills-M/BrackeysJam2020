@@ -44,4 +44,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  resetSpeed: 6
   ghostPrefab: {fileID: 7683938799435957450, guid: f0f188b338f9aeb4bb125f9ea3ac5956, type: 3}

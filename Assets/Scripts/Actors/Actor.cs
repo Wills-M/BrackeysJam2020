@@ -37,7 +37,13 @@ public abstract class Actor : MonoBehaviour
 
     [Range(1, 10)]
     public float taskSpeed;
-    
+
+    /// <summary>
+    /// How fast pushing is animated compared to base taskSpeed
+    /// </summary>
+    [Range(0, 1)]
+    public float pushSpeedScalar = 1;
+
     /// <summary>
     /// Curve used for animating all actor movement/task execution
     /// </summary>
@@ -83,7 +89,7 @@ public abstract class Actor : MonoBehaviour
 
         // Move to starting position
         Vector2 startPos = transform.position;
-        for (float t = 0; t < 1; t += Time.deltaTime * taskSpeed) {
+        for (float t = 0; t < 1; t += Time.deltaTime * PhaseManager.Instance.resetSpeed) {
             transform.position = Vector2.Lerp(startPos, initialPosition, taskAnimationCurve.Evaluate(t));
             yield return null;
         }

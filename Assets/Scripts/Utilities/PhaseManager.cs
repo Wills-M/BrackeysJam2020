@@ -5,8 +5,13 @@ using UnityEngine;
 
 public class PhaseManager : Singleton<PhaseManager>
 {
-    [SerializeField]
-    private Player player;
+    public Player player;
+
+    /// <summary>
+    /// Speed to reset objects to original positions at
+    /// </summary>
+    [Range(0, 10)]
+    public float resetSpeed;
 
     [SerializeField]
     private Actor ghostPrefab;
@@ -23,7 +28,6 @@ public class PhaseManager : Singleton<PhaseManager>
         // Initialize empty actors list
         actors = new List<Actor>() { player };
 
-        // TODO: do we need this?
         stones = FindObjectsOfType<Stone>().ToList();
     }
 
