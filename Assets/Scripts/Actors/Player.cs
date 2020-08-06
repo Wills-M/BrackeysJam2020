@@ -119,8 +119,6 @@ public class Player : Actor
             Collider2D result = Physics2D.OverlapPoint(transform.position, LayerMask.GetMask("Goal"));
             if (result)
                 LevelManager.Instance.NextLevel();
-            else
-                waitingForInput = true;
         }
     }
 
