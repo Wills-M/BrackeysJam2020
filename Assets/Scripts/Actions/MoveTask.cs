@@ -170,15 +170,17 @@ class MoveTask : Task
         else if (direction == Vector2.down)
         {
             Vector2 belowActor = (Vector2)actor.transform.position + direction;
-            Collider2D tileBelow = Physics2D.OverlapPoint(belowActor, fallMask);
 
-            // If they're above a ladder than they can go down so return direction
-            if (tileBelow?.tag == "Ladder")
-                return belowActor;
+            // Check for ladder and/or terrain below
+            Collider2D ladderBelow = Physics2D.OverlapPoint(belowActor, fallMask);
+            Collider2D terrainBelow = Physics2D.OverlapPoint(belowActor, movementMask);
 
-            // If they're dropping off the bottom of a ladder, return position at ground below
-            else if (IsAboveGround(actor.transform.position))
+            // If they're dropping off the bottom of a ladder above ground, return position at ground below
+            if (!terrainBelow && !ladderBelow && IsAboveGround(actor.transform.position))
                 return TryFallDownGap(actor.transform.position);
+            // If they're above a ladder, return its position
+            else if (ladderBelow && !terrainBelow)
+                return belowActor;
             else return Vector2.zero;
 
         }
