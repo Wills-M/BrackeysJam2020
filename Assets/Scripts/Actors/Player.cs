@@ -9,7 +9,7 @@ public class Player : Actor
 
     private LayerMask interactableMask;
 
-    private CachedInput cachedInput = CachedInput.None;
+    private KeyCode cachedInput = KeyCode.None;
     private IEnumerator inputCacheCoroutine;
 
     private void Awake()
@@ -21,14 +21,14 @@ public class Player : Actor
 
     private void Update()
     {
-        CacheInput();
+        TryCacheInput();
 
         if (waitingForInput && !IsPerformingTask)
         {
             // End round when player presses space
-            if (cachedInput == CachedInput.Space)
+            if (cachedInput == KeyCode.Space)
             {
-                cachedInput = CachedInput.None;
+                cachedInput = KeyCode.None;
                 canPerformAction = false;
                 waitingForInput = false;
 
@@ -36,9 +36,9 @@ public class Player : Actor
             }
 
             // Otherwise check for player input and attempt corresponding tasks
-            if (cachedInput == CachedInput.W)
+            if (cachedInput == KeyCode.W)
             {
-                cachedInput = CachedInput.None;
+                cachedInput = KeyCode.None;
                 Task moveTask = new MoveTask(this, Vector2.up);
                 if (moveTask.CanPerform())
                 {
@@ -46,18 +46,18 @@ public class Player : Actor
                     waitingForInput = false;
                 }
             }
-            else if (cachedInput == CachedInput.A)
+            else if (cachedInput == KeyCode.A)
             {
-                cachedInput = CachedInput.None;
+                cachedInput = KeyCode.None;
                 Task moveTask = new MoveTask(this, Vector2.left);
                 if (moveTask.CanPerform()) {
                     task = moveTask;
                     waitingForInput = false;
                 }
             }
-            else if (cachedInput == CachedInput.S)
+            else if (cachedInput == KeyCode.S)
             {
-                cachedInput = CachedInput.None;
+                cachedInput = KeyCode.None;
                 Task moveTask = new MoveTask(this, Vector2.down);
                 if (moveTask.CanPerform())
                 {
@@ -65,9 +65,9 @@ public class Player : Actor
                     waitingForInput = false;
                 }
             }
-            else if (cachedInput == CachedInput.D)
+            else if (cachedInput == KeyCode.D)
             {
-                cachedInput = CachedInput.None;
+                cachedInput = KeyCode.None;
                 Task moveTask = new MoveTask(this, Vector2.right);
 
                 if (moveTask.CanPerform()) {
@@ -75,9 +75,9 @@ public class Player : Actor
                     waitingForInput = false;
                 }
             }
-            else if (cachedInput == CachedInput.E)
+            else if (cachedInput == KeyCode.E)
             {
-                cachedInput = CachedInput.None;
+                cachedInput = KeyCode.None;
                 Vector2 pos = new Vector2(transform.position.x, transform.position.y);
                 Collider2D result = Physics2D.OverlapPoint(pos, interactableMask);
                 if (result && result.TryGetComponent(out Lever lever))
@@ -90,7 +90,6 @@ public class Player : Actor
                     }
                 }
             }
-
         }
     }
 
@@ -125,70 +124,42 @@ public class Player : Actor
         }
     }
 
-    private void CacheInput()
+    private void TryCacheInput()
     {
         if (Input.GetKeyDown(KeyCode.W))
-        {
-            if (inputCacheCoroutine != null)
-                StopCoroutine(inputCacheCoroutine);
-            inputCacheCoroutine = CacheThenErase(CachedInput.W);
-            StartCoroutine(inputCacheCoroutine);
-        }
+            CacheInput(KeyCode.W);
         else if (Input.GetKeyDown(KeyCode.A))
-        {
-            if (inputCacheCoroutine != null)
-                StopCoroutine(inputCacheCoroutine);
-            inputCacheCoroutine = CacheThenErase(CachedInput.A);
-            StartCoroutine(inputCacheCoroutine);
-        }
+            CacheInput(KeyCode.A);
         else if (Input.GetKeyDown(KeyCode.S))
-        {
-            if (inputCacheCoroutine != null)
-                StopCoroutine(inputCacheCoroutine);
-            inputCacheCoroutine = CacheThenErase(CachedInput.S);
-            StartCoroutine(inputCacheCoroutine);
-        }
+            CacheInput(KeyCode.S);
         else if (Input.GetKeyDown(KeyCode.D))
-        {
-            if (inputCacheCoroutine != null)
-                StopCoroutine(inputCacheCoroutine);
-            inputCacheCoroutine = CacheThenErase(CachedInput.D);
-            StartCoroutine(inputCacheCoroutine);
-        }
+            CacheInput(KeyCode.D);
+
         else if (Input.GetKeyDown(KeyCode.E))
-        {
-            if (inputCacheCoroutine != null)
-                StopCoroutine(inputCacheCoroutine);
-            inputCacheCoroutine = CacheThenErase(CachedInput.E);
-            StartCoroutine(inputCacheCoroutine);
-        }
+            CacheInput(KeyCode.E);
+        
         if (Input.GetKeyDown(KeyCode.Space))
+            CacheInput(KeyCode.Space);
+    }
+
+    private void CacheInput(KeyCode key)
+    {
+        if(Input.GetKeyDown(key))
         {
-            if (inputCacheCoroutine != null)
+            if(inputCacheCoroutine != null) 
                 StopCoroutine(inputCacheCoroutine);
-            inputCacheCoroutine = CacheThenErase(CachedInput.Space);
+            inputCacheCoroutine = CacheThenErase(key);
             StartCoroutine(inputCacheCoroutine);
+
         }
     }
 
-    private IEnumerator CacheThenErase(CachedInput ci)
+    private IEnumerator CacheThenErase(KeyCode ci)
     {
         cachedInput = ci;
 
         yield return new WaitForSeconds(1f);
 
-        cachedInput = CachedInput.None;
+        cachedInput = KeyCode.None;
     }
-
-}
-
-public enum CachedInput
-{
-    None,
-    W,
-    A,
-    S,
-    D,
-    E,
-    Space
 }
