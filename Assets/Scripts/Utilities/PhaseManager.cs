@@ -74,10 +74,10 @@ public class PhaseManager : MonoBehaviour
             StartCoroutine(ResetRound());
         }
 
-        player.waitingForInput = true;
 
         turnCoroutine = TurnPhase();
         StartCoroutine(turnCoroutine);
+        player.waitingForInput = true;
     }
 
     private IEnumerator ResetRound()
