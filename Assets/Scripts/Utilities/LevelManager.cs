@@ -34,6 +34,23 @@ public class LevelManager : MonoBehaviour
         SceneManager.LoadScene(currentLevelIndex);
     }
 
+    public void NextLevel(GameObject goal)
+    {
+        StartCoroutine(NextLevelCoroutine(goal));
+    }
+
+    private IEnumerator NextLevelCoroutine(GameObject goal)
+    {
+        currentLevelIndex++;
+        goal.TryGetComponent(out Animator goalAnimator);
+        goalAnimator?.SetTrigger("Reached");
+        for (float t = 0f; t < 1f; t += Time.deltaTime)
+        {
+            yield return null;
+        }
+        SceneManager.LoadScene(currentLevelIndex);
+    }
+
     public void ResetLevel()
     {
         SceneManager.LoadScene(currentLevelIndex);

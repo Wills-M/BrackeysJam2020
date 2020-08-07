@@ -134,7 +134,7 @@ public class Player : Actor
             // Load next level if player reached the goal
             Collider2D result = Physics2D.OverlapPoint(transform.position, LayerMask.GetMask("Goal"));
             if (result)
-                LevelManager.Instance.NextLevel();
+                LevelManager.Instance.NextLevel(result.gameObject);
         }
     }
 
