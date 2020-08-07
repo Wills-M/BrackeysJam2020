@@ -18,6 +18,8 @@ class MoveTask : Task
     /// </summary>
     private bool pushing = false;
 
+    private float moveSpeed;
+
     /// <summary>
     /// List of stones actor is trying to push this execution
     /// </summary>
@@ -38,37 +40,19 @@ class MoveTask : Task
 
         // Select proper animation for character actors
         AnimComponent.AnimID animID = SelectAnimation();
-
-        // Get material string based on what is being done
-        string matString = "";
-        if (animID == AnimComponent.AnimID.Pushing)
-            matString = "_HorizontalScale";
-        else
-            matString = "_VerticalScale";
-
-        // Play animation for characters
         if (actor.TryGetComponent(out AnimComponent animComponent))
             animComponent.SetAnimation(animID, true);
 
-        
-        float speed = actor.taskSpeed;
-        if (actor.IsCharacter && pushing) {
-            // Scale speed for pushing
-            speed *= actor.pushSpeedScalar;
-
-            // Start moving pushed stones
-            foreach (Stone stone in stonesToPush) {
-                stone.taskSpeed = speed;
-                PhaseManager.Instance.ResolveActor(stone);
-            }
-        }
-
-        // Get material for animating squish
+        // Get material string for animating squish based on what is being done
         Material mat = actor.spriteRenderer.material;
+        string matString = animID == AnimComponent.AnimID.Pushing ? "_HorizontalScale" : "_VerticalScale";
+
+        // Calculate move speed based on whether blocks are being pushed
+        SetMoveSpeed();
 
         // Lerp actor to new position
         Vector2 startPos = actor.transform.position;
-        for(float t = 0; t < 1; t+= Time.deltaTime * speed)
+        for(float t = 0; t < 1; t+= Time.deltaTime * moveSpeed)
         {
             float eval = actor.taskAnimationCurve.Evaluate(t);
             // Squish animation
@@ -97,6 +81,23 @@ class MoveTask : Task
         }
 
         IsExecuting = false;
+    }
+
+    private void SetMoveSpeed()
+    {
+        moveSpeed = actor.taskSpeed;
+        if (actor.IsCharacter && pushing)
+        {
+            // Scale speed for pushing
+            moveSpeed *= actor.pushSpeedScalar;
+
+            // Start moving pushed stones
+            foreach (Stone stone in stonesToPush)
+            {
+                stone.taskSpeed = moveSpeed;
+                PhaseManager.Instance.ResolveActor(stone);
+            }
+        }
     }
 
     /// <summary>
