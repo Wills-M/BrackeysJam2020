@@ -156,8 +156,9 @@ class MoveTask : Task
             // If they're on a ladder than they can go up so return direction 
             if (result?.tag == "Ladder")
             {
+                // Move up if there's a ladder, or space above one
                 Vector2 above = pos + Vector2.up;
-                if (Physics2D.OverlapPoint(above, movementMask) == null)
+                if (!Physics2D.OverlapPoint(above, movementMask) || Physics2D.OverlapPoint(above, ladderMask))
                     return pos + direction;
                 else
                     return Vector2.zero;
@@ -176,7 +177,7 @@ class MoveTask : Task
             Collider2D terrainBelow = Physics2D.OverlapPoint(belowActor, movementMask);
 
             // If they're dropping off the bottom of a ladder above ground, return position at ground below
-            if (!terrainBelow && !ladderBelow && IsAboveGround(actor.transform.position))
+            if (DroppingOffBottomOfLadder(ladderBelow, terrainBelow))
                 return TryFallDownGap(actor.transform.position);
             // If they're above a ladder, return its position
             else if (ladderBelow && !terrainBelow)
@@ -188,6 +189,17 @@ class MoveTask : Task
         {
             throw new System.Exception("Unexpected code path reached - VerticalTryMove called with unexpected direction vector.");
         }
+    }
+
+    /// <summary>
+    /// Returns true when at the bottom of a ladder above ground
+    /// </summary>
+    /// <param name="ladderBelowActor"></param>
+    /// <param name="terrainBelowActor"></param>
+    /// <returns></returns>
+    private bool DroppingOffBottomOfLadder(Collider2D ladderBelowActor, Collider2D terrainBelowActor)
+    {
+        return !terrainBelowActor && !ladderBelowActor && IsAboveGround(actor.transform.position);
     }
 
     private Vector2 HorizontalTryMove(Actor actor, Vector2 direction)
