@@ -13,8 +13,9 @@ public class Player : Actor
     private KeyCode cachedInput = KeyCode.None;
     private IEnumerator inputCacheCoroutine;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         interactableMask = LayerMask.GetMask("Interactable");
     }
 
