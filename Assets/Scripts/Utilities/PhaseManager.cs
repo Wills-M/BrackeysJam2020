@@ -7,11 +7,20 @@ public class PhaseManager : Singleton<PhaseManager>
 {
     public Player player;
 
+    [Header("Rewind Settings")]
+
     /// <summary>
     /// Speed to reset objects to original positions at
     /// </summary>
     [Range(0, 10)]
     public float resetSpeed;
+
+    [SerializeField]
+    [Range(0, 10)]
+    private float fadeInSpeed;
+
+    [SerializeField]
+    private AnimationCurve fadeInCurve;
 
     [Header("Prefab References")]
     [SerializeField]
@@ -160,8 +169,16 @@ public class PhaseManager : Singleton<PhaseManager>
                 Stone copy = Instantiate(timeCubePrefab, spawn, stones[0].transform.rotation, stones[0].transform.parent);
                 stones.Add(copy);
 
-                // Wait before spawning the next one
-                yield return new WaitForSeconds(.25f);
+                // Fade sprite alpha from 0 to 1
+                Color color = copy.spriteRenderer.color;
+                color.a = 0;
+                for(float t = 0; t < 1; t+= fadeInSpeed * Time.deltaTime)
+                {
+                    color.a = fadeInCurve.Evaluate(t);
+                    copy.spriteRenderer.color = color;
+                    yield return null;
+                }
+                color.a = 1;
             }
         }
 
