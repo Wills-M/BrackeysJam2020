@@ -45,9 +45,14 @@ public abstract class Actor : MonoBehaviour
     public float pushSpeedScalar = 1;
 
     /// <summary>
-    /// Curve used for animating all actor movement/task execution
+    /// Curve used for animating actor movement (besides falling)
     /// </summary>
     public AnimationCurve taskAnimationCurve;
+
+    /// <summary>
+    /// Curve used for animating gravity
+    /// </summary>
+    public AnimationCurve gravityCurve;
 
     /// <summary>
     /// True until Actor finishes their round (i.e. dies, ends round)

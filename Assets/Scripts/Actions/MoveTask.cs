@@ -36,7 +36,8 @@ class MoveTask : Task
         IsExecuting = true;
 
         // Set direction for player/ghosts based on movement
-        SetDirection();
+        if (actor.IsCharacter)
+            SetDirection();
 
         // Select proper animation for character actors
         AnimComponent.AnimID animID = SelectAnimation();
@@ -50,28 +51,52 @@ class MoveTask : Task
         // Calculate move speed based on whether blocks are being pushed
         SetMoveSpeed();
 
-        // Lerp actor to new position
-        Vector2 startPos = actor.transform.position;
-        for(float t = 0; t < 1; t+= Time.deltaTime * moveSpeed)
-        {
-            float eval = actor.taskAnimationCurve.Evaluate(t);
-            // Squish animation
-            float x = Mathf.Sin(eval * Mathf.PI);
-            mat.SetFloat(matString, 1f - (x * squishAmount));
+        Vector2 target;
 
-            // Position move animation
-            actor.transform.position = Vector2.Lerp(startPos, lastCalculatedPosition, eval);
-            yield return null;
+        // Isolate x,y components of movement
+        Vector2 startPos = actor.transform.position;
+        Vector2 delta = lastCalculatedPosition - startPos;
+        Vector2 xComp = new Vector2(delta.x, 0),
+                yComp = new Vector2(0, delta.y);
+        
+        // If falling diagonally, move horizontally before falling
+        if (delta.x != 0 && delta.y < 0)
+            target = startPos + xComp;
+        else target = lastCalculatedPosition;
+
+        AnimationCurve animationCurve = actor.taskAnimationCurve;
+        while((Vector2)actor.transform.position != lastCalculatedPosition)
+        {
+            // Lerp actor to target position
+            for (float t = 0; t < 1; t += Time.deltaTime * moveSpeed)
+            {
+                float eval = animationCurve.Evaluate(t);
+                // Squish animation
+                float x = Mathf.Sin(eval * Mathf.PI);
+                mat.SetFloat(matString, 1f - (x * squishAmount));
+
+                // Position move animation
+                actor.transform.position = Vector2.Lerp(startPos, target, eval);
+                yield return null;
+            }
+            actor.transform.position = target;
+
+            // If actor hasn't reached the end position yet (i.e. moved horizontally before falling), resolve vertical movement towards ground
+            if((Vector2)actor.transform.position != lastCalculatedPosition)
+            {
+                target = lastCalculatedPosition;
+                startPos = actor.transform.position;
+                animationCurve = actor.gravityCurve;
+            }
         }
-        actor.transform.position = lastCalculatedPosition;
 
         // Stop animation
         if (actor.IsCharacter)
             animComponent.SetAnimation(animID, false);
 
+        // Wait until every stone is finished being pushed
         if(pushing)
         {
-            // Wait until every stone is finished being pushed
             while(stonesToPush.Count > 0)
             {
                 if (!stonesToPush[0].IsPerformingTask)
@@ -117,13 +142,11 @@ class MoveTask : Task
 
     private void SetDirection()
     {
-        if (actor.IsCharacter)
-        {
-            if (direction == Vector2.left)
-                actor.SetDirection(Actor.Direction.LEFT);
-            else if (direction == Vector2.right)
-                actor.SetDirection(Actor.Direction.RIGHT);
-        }
+        if (direction == Vector2.left)
+            actor.SetDirection(Actor.Direction.LEFT);
+        else if (direction == Vector2.right)
+            actor.SetDirection(Actor.Direction.RIGHT);
+        
     }
 
     public override bool CanPerform()
