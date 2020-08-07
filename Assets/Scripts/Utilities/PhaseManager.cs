@@ -13,11 +13,20 @@ public class PhaseManager : Singleton<PhaseManager>
     [Range(0, 10)]
     public float resetSpeed;
 
+    [Header("Prefab References")]
     [SerializeField]
     private Actor ghostPrefab;
 
+    [SerializeField]
+    private Stone timeCubePrefab;
+
     private List<Actor> actors;
     private List<Stone> stones;
+
+    /// <summary>
+    /// List of Time Cube starting positions
+    /// </summary>
+    private List<Vector2> timeCubeSpawns;
 
     private IEnumerator turnCoroutine;
 
@@ -28,7 +37,16 @@ public class PhaseManager : Singleton<PhaseManager>
         // Initialize empty actors list
         actors = new List<Actor>() { player };
 
+        // Track all stones in level
         stones = FindObjectsOfType<Stone>().ToList();
+
+        // Store all time cube respawn positions
+        timeCubeSpawns = new List<Vector2>();
+        foreach (Stone stone in stones)
+        {
+            if (!stone.resetPosition)
+                timeCubeSpawns.Add(stone.transform.position);
+        }
     }
 
     private void Start()
@@ -91,6 +109,7 @@ public class PhaseManager : Singleton<PhaseManager>
         // Instantiate ghost with player's action queue
         Ghost ghost = Instantiate(ghostPrefab) as Ghost;
         ghost.InitializeActions(player.actionQueue);
+        actors.Add(ghost);
 
         // Ghost floats from player's last position to starting position
         ghost.transform.position = player.transform.position;
@@ -102,8 +121,7 @@ public class PhaseManager : Singleton<PhaseManager>
             task.actor = ghost;
         }
 
-        // Initialize all actors
-        actors.Add(ghost);
+        // Rewind all actors and stones to starting positions
         foreach(Actor actor in actors)
         {
             StartCoroutine(actor.Reset());
@@ -116,11 +134,37 @@ public class PhaseManager : Singleton<PhaseManager>
             while (stone.IsResetting)
                 yield return null;
         }
+        
+        // Respawn any time cubes that moved from their starting positions
+        respawnTimeCubes = StartCoroutine(RespawnTimeCubes());
+        while (respawnTimeCubes != null)
+            yield return null;
 
         PostProcessingManager.Instance.RewindEnd();
 
         player.waitingForInput = true;
         turnCoroutine = TurnPhase();
         StartCoroutine(turnCoroutine);
+    }
+
+    Coroutine respawnTimeCubes;
+    private IEnumerator RespawnTimeCubes()
+    {
+        Collider2D timeCube;
+        foreach(Vector2 spawn in timeCubeSpawns)
+        {
+            // If timecube not found at its starting position, spawn a new copy
+            timeCube = Physics2D.OverlapPoint(spawn, LayerMask.GetMask("BlocksMovement"));
+            if (!timeCube)
+            {
+                Stone copy = Instantiate(timeCubePrefab, spawn, stones[0].transform.rotation, stones[0].transform.parent);
+                stones.Add(copy);
+
+                // Wait before spawning the next one
+                yield return new WaitForSeconds(.25f);
+            }
+        }
+
+        respawnTimeCubes = null;
     }
 }
