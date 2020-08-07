@@ -62,11 +62,11 @@ MonoBehaviour:
   active: 1
   m_AdvancedMode: 0
   postExposure:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 0.3
   contrast:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 11.5
     min: -100
     max: 100
   colorFilter:
@@ -81,8 +81,8 @@ MonoBehaviour:
     min: -180
     max: 180
   saturation:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 5
     min: -100
     max: 100
 --- !u!114 &-4476911429662893241
@@ -278,13 +278,40 @@ MonoBehaviour:
   hueVsSat:
     m_OverrideState: 0
     m_Value:
-      <length>k__BackingField: 0
+      <length>k__BackingField: 3
       m_Loop: 1
       m_ZeroValue: 0.5
       m_Range: 1
       m_Curve:
         serializedVersion: 2
-        m_Curve: []
+        m_Curve:
+        - serializedVersion: 3
+          time: 0.6316832
+          value: 0.5
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 0.6732673
+          value: 0.73966944
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 0.7267327
+          value: 0.5
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
@@ -406,6 +433,7 @@ MonoBehaviour:
   - {fileID: -4476911429662893241}
   - {fileID: 2292846210590553081}
   - {fileID: -3321963451866670041}
+  - {fileID: -7073333272319958584}
 --- !u!114 &1977921579588374826
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -459,7 +487,7 @@ MonoBehaviour:
   m_AdvancedMode: 0
   mode:
     m_OverrideState: 1
-    m_Value: 2
+    m_Value: 1
 --- !u!114 &2535347423375375629
 MonoBehaviour:
   m_ObjectHideFlags: 3
