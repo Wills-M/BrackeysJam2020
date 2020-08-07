@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class Stone : Actor
 {
-    [SerializeField]
-    private bool resetPosition;
+    /// <summary>
+    /// True for normal stones that rewind to original positions, 
+    /// false for time cubes that stay in place
+    /// </summary>
+    public bool resetPosition;
 
     public bool TryPush(Vector2 direction)
     {

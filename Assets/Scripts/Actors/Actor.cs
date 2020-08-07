@@ -64,6 +64,11 @@ public abstract class Actor : MonoBehaviour
 
     public SpriteRenderer spriteRenderer;
 
+    protected virtual void Awake()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
     void Start()
     {
         canPerformAction = true;
@@ -71,8 +76,6 @@ public abstract class Actor : MonoBehaviour
         // Don't set ghost's initial position on spawn (set via PhaseManager.ResetRound() instead)
         if(this as Ghost == null)
             initialPosition = transform.position;
-
-        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     /// <summary>
