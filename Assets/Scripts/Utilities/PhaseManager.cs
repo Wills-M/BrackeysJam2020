@@ -86,6 +86,8 @@ public class PhaseManager : Singleton<PhaseManager>
 
     private IEnumerator ResetRound()
     {
+        PostProcessingManager.Instance.RewindStart();
+
         // Instantiate ghost with player's action queue
         Ghost ghost = Instantiate(ghostPrefab) as Ghost;
         ghost.InitializeActions(player.actionQueue);
@@ -114,7 +116,9 @@ public class PhaseManager : Singleton<PhaseManager>
             while (stone.IsResetting)
                 yield return null;
         }
-        
+
+        PostProcessingManager.Instance.RewindEnd();
+
         player.waitingForInput = true;
         turnCoroutine = TurnPhase();
         StartCoroutine(turnCoroutine);
