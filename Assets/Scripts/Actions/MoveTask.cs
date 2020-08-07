@@ -7,9 +7,9 @@ class MoveTask : Task
     private Vector2 direction;
     private Vector2 lastCalculatedPosition;
 
-    private LayerMask movementMask = LayerMask.GetMask("BlocksMovement");
-    private LayerMask stoneMask = LayerMask.GetMask("BlocksStone");
-    private LayerMask ladderMask = LayerMask.GetMask("BlocksFall");
+    private static LayerMask movementMask => LayerMask.GetMask("BlocksMovement");
+    private static LayerMask stoneMask => LayerMask.GetMask("BlocksStone");
+    private static LayerMask ladderMask => LayerMask.GetMask("BlocksFall");
 
     private readonly float squishAmount = 0.3f;
 
@@ -205,7 +205,7 @@ class MoveTask : Task
 
             // If they're dropping off the bottom of a ladder above ground, return position at ground below
             if (DroppingOffBottomOfLadder(ladderBelow, terrainBelow))
-                return TryFallDownGap(actor.transform.position);
+                return TryFallDownGap(actor.transform.position, actor);
             // If they're above a ladder, return its position
             else if (ladderBelow || !terrainBelow)
                 return belowActor;
@@ -245,7 +245,7 @@ class MoveTask : Task
                 return offsetPosition;
             // If actor walking over a ledge, calculate where they will land
             else if (IsAboveGround(offsetPosition))
-                return TryFallDownGap(offsetPosition);
+                return TryFallDownGap(offsetPosition, actor);
         }
         else
         {
@@ -303,7 +303,7 @@ class MoveTask : Task
     /// <summary>
     /// Returns true if position is > 1 tile above terrain
     /// </summary>
-    private bool IsAboveGround(Vector2 position)
+    private static bool IsAboveGround(Vector2 position)
     {
         // Check for ground tile in case actor is moving over edge
         Collider2D result = Physics2D.OverlapPoint(position + Vector2.down, movementMask);
@@ -311,9 +311,19 @@ class MoveTask : Task
     }
 
     /// <summary>
+    /// Returns true if an actor at tile position is floating in the air
+    /// </summary>
+    /// <param name="position">Position of an actor</param>
+    /// <returns></returns>
+    public static bool IsFloating(Actor actor)
+    {
+        return IsAboveGround(actor.transform.position) && TryFallDownGap(actor.transform.position, actor) != Vector2.zero;
+    }
+
+    /// <summary>
     /// Returns landing position from falling down gap, or zero vector if gap is too high
     /// </summary>
-    private Vector2 TryFallDownGap(Vector2 offsetPosition)
+    private static Vector2 TryFallDownGap(Vector2 offsetPosition, Actor actor)
     {
         // Stones fall down ladders, player/ghosts don't
         int layerMask = actor.IsCharacter ? movementMask | ladderMask : (int)movementMask;
