@@ -147,14 +147,16 @@ class MoveTask : Task
 
     private Vector2 VerticalTryMove(Actor actor, Vector2 direction)
     {
+        Collider2D tileMovingFrom;
+
         // If actor is trying to go up, check if they're on a ladder
         if (direction == Vector2.up)
         {
-            Vector2 pos = (Vector2)actor.transform.position;
-            Collider2D result = Physics2D.OverlapPoint(pos, ladderMask);
+            Vector2 pos = actor.transform.position;
+            tileMovingFrom = Physics2D.OverlapPoint(pos, ladderMask);
 
             // If they're on a ladder than they can go up so return direction 
-            if (result?.tag == "Ladder")
+            if (tileMovingFrom?.tag == "Ladder")
             {
                 // Move up if there's a ladder, or space above one
                 Vector2 above = pos + Vector2.up;
@@ -180,7 +182,7 @@ class MoveTask : Task
             if (DroppingOffBottomOfLadder(ladderBelow, terrainBelow))
                 return TryFallDownGap(actor.transform.position);
             // If they're above a ladder, return its position
-            else if (ladderBelow && !terrainBelow)
+            else if (ladderBelow || !terrainBelow)
                 return belowActor;
             else return Vector2.zero;
 
