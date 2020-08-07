@@ -29,6 +29,9 @@ public class Stone : Actor
 
     public override IEnumerator Resolve()
     {
+        if (MoveTask.IsFloating(this))
+            Debug.LogFormat("{0} is floating", name);
+
         if (task != null && !IsPerformingTask)
         {
             // Perform task and wait until finished

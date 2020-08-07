@@ -255,7 +255,6 @@ class MoveTask : Task
             if (pushing) {
                 // Collect all stones this actor is pushing
                 stonesToPush = GetStonesInDirection(actor, direction);
-                Debug.LogFormat("{0} will push {1} stones towards {2}", actor.name, stonesToPush.Count, direction);
                 return offsetPosition;
             }
 
@@ -317,7 +316,15 @@ class MoveTask : Task
     /// <returns></returns>
     public static bool IsFloating(Actor actor)
     {
-        return IsAboveGround(actor.transform.position) && TryFallDownGap(actor.transform.position, actor) != Vector2.zero;
+        // If actor is a player/ghost, check if they're on/above a ladder
+        Vector2 belowActor = (Vector2)actor.transform.position + Vector2.down;
+
+        Collider2D tileOnActor = actor.IsCharacter ? Physics2D.OverlapPoint(actor.transform.position, ladderMask) : null;
+        Collider2D tileBelowActor = actor.IsCharacter ? Physics2D.OverlapPoint(belowActor, ladderMask) : Physics2D.OverlapPoint(belowActor, stoneMask | movementMask);
+
+        return tileOnActor == null && tileBelowActor == null
+            && IsAboveGround(actor.transform.position) 
+            && TryFallDownGap(actor.transform.position, actor) != Vector2.zero;
     }
 
     /// <summary>

@@ -114,6 +114,13 @@ public class PhaseManager : Singleton<PhaseManager>
                 yield return null;
         }
 
+        // Resolve any floating stones
+        foreach(Stone stone in stones)
+        {
+            ResolveActor(stone);
+            while (stone.IsPerformingTask)
+                yield return null;
+        }
         // Start a new round when player can't perform actions anymore
         // TODO: continue to let ghosts perform remaining actions?
 
