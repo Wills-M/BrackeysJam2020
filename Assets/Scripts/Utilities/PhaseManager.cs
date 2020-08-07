@@ -22,6 +22,23 @@ public class PhaseManager : Singleton<PhaseManager>
     [SerializeField]
     private AnimationCurve fadeInCurve;
 
+    [Header("Movement Settings")]
+    [Range(0, 10)]
+    /// <summary>
+    /// Base speed for falling objects
+    /// </summary>
+    public float gravitySpeed;
+
+    /// <summary>
+    /// Curve used for animating gravity
+    /// </summary>
+    public AnimationCurve gravityCurve;
+
+    /// <summary>
+    /// Curve used for animating actor movement (besides falling)
+    /// </summary>
+    public AnimationCurve moveAnimationCurve;
+
     [Header("Prefab References")]
     [SerializeField]
     private Actor ghostPrefab;

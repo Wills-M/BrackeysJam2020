@@ -64,7 +64,7 @@ class MoveTask : Task
             target = startPos + xComp;
         else target = lastCalculatedPosition;
 
-        AnimationCurve animationCurve = actor.taskAnimationCurve;
+        AnimationCurve animationCurve = PhaseManager.Instance.moveAnimationCurve;
         while((Vector2)actor.transform.position != lastCalculatedPosition)
         {
             // Lerp actor to target position
@@ -86,7 +86,8 @@ class MoveTask : Task
             {
                 target = lastCalculatedPosition;
                 startPos = actor.transform.position;
-                animationCurve = actor.gravityCurve;
+                animationCurve = PhaseManager.Instance.gravityCurve;
+                moveSpeed = PhaseManager.Instance.gravitySpeed;
             }
         }
 

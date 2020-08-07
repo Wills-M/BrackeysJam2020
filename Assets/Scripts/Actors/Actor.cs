@@ -45,16 +45,6 @@ public abstract class Actor : MonoBehaviour
     public float pushSpeedScalar = 1;
 
     /// <summary>
-    /// Curve used for animating actor movement (besides falling)
-    /// </summary>
-    public AnimationCurve taskAnimationCurve;
-
-    /// <summary>
-    /// Curve used for animating gravity
-    /// </summary>
-    public AnimationCurve gravityCurve;
-
-    /// <summary>
     /// True until Actor finishes their round (i.e. dies, ends round)
     /// </summary>
     public bool canPerformAction;
@@ -98,7 +88,7 @@ public abstract class Actor : MonoBehaviour
         // Move to starting position
         Vector2 startPos = transform.position;
         for (float t = 0; t < 1; t += Time.deltaTime * PhaseManager.Instance.resetSpeed) {
-            transform.position = Vector2.Lerp(startPos, initialPosition, taskAnimationCurve.Evaluate(t));
+            transform.position = Vector2.Lerp(startPos, initialPosition, PhaseManager.Instance.moveAnimationCurve.Evaluate(t));
             yield return null;
         }
         transform.position = initialPosition;
