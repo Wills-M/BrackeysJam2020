@@ -91,6 +91,14 @@ public class Player : Actor
                     }
                 }
             }
+            // Skip this turn
+            else if (cachedInput == KeyCode.Tab)
+            {
+                cachedInput = KeyCode.None;
+                task = new WaitTask();
+                waitingForInput = false;
+            }
+
             else if (cachedInput == KeyCode.R)
             {
                 if (LevelManager.Instance)
@@ -145,7 +153,9 @@ public class Player : Actor
             CacheInput(KeyCode.E);
         else if (Input.GetKeyDown(KeyCode.R))
             CacheInput(KeyCode.R);
-        
+        else if (Input.GetKeyDown(KeyCode.Tab))
+            CacheInput(KeyCode.Tab);
+
         if (Input.GetKeyDown(KeyCode.Space))
             CacheInput(KeyCode.Space);
     }

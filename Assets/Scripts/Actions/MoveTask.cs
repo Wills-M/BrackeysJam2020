@@ -9,7 +9,7 @@ class MoveTask : Task
 
     private LayerMask movementMask = LayerMask.GetMask("BlocksMovement");
     private LayerMask stoneMask = LayerMask.GetMask("BlocksStone");
-    private LayerMask fallMask = LayerMask.GetMask("BlocksFall");
+    private LayerMask ladderMask = LayerMask.GetMask("BlocksFall");
 
     private readonly float squishAmount = 0.3f;
 
@@ -39,8 +39,15 @@ class MoveTask : Task
         // Select proper animation for character actors
         AnimComponent.AnimID animID = SelectAnimation();
 
+        // Get material string based on what is being done
+        string matString = "";
+        if (animID == AnimComponent.AnimID.Pushing)
+            matString = "_HorizontalScale";
+        else
+            matString = "_VerticalScale";
+
         // Play animation for characters
-        if(actor.TryGetComponent(out AnimComponent animComponent))
+        if (actor.TryGetComponent(out AnimComponent animComponent))
             animComponent.SetAnimation(animID, true);
 
         
@@ -66,7 +73,7 @@ class MoveTask : Task
             float eval = actor.taskAnimationCurve.Evaluate(t);
             // Squish animation
             float x = Mathf.Sin(eval * Mathf.PI);
-            mat.SetFloat("_VerticalScale", 1f - (x * squishAmount));
+            mat.SetFloat(matString, 1f - (x * squishAmount));
 
             // Position move animation
             actor.transform.position = Vector2.Lerp(startPos, lastCalculatedPosition, eval);
@@ -144,7 +151,7 @@ class MoveTask : Task
         if (direction == Vector2.up)
         {
             Vector2 pos = (Vector2)actor.transform.position;
-            Collider2D result = Physics2D.OverlapPoint(pos, fallMask);
+            Collider2D result = Physics2D.OverlapPoint(pos, ladderMask);
 
             // If they're on a ladder than they can go up so return direction 
             if (result?.tag == "Ladder")
@@ -162,15 +169,20 @@ class MoveTask : Task
         // If actor is trying to go down, check if they're above a ladder
         else if (direction == Vector2.down)
         {
-            Vector2 offsetPosition = (Vector2)actor.transform.position + direction;
-            Collider2D result = Physics2D.OverlapPoint(offsetPosition, fallMask);
+            Vector2 belowActor = (Vector2)actor.transform.position + direction;
 
-            // If they're above a ladder than they can go down so return direction
-            if (result?.tag == "Ladder")
-                return offsetPosition;
-            // If they're not above a ladder than movement fails so return vector2.zero
-            else
-                return Vector2.zero;
+            // Check for ladder and/or terrain below
+            Collider2D ladderBelow = Physics2D.OverlapPoint(belowActor, ladderMask);
+            Collider2D terrainBelow = Physics2D.OverlapPoint(belowActor, movementMask);
+
+            // If they're dropping off the bottom of a ladder above ground, return position at ground below
+            if (!terrainBelow && !ladderBelow && IsAboveGround(actor.transform.position))
+                return TryFallDownGap(actor.transform.position);
+            // If they're above a ladder, return its position
+            else if (ladderBelow && !terrainBelow)
+                return belowActor;
+            else return Vector2.zero;
+
         }
         else
         {
@@ -182,21 +194,24 @@ class MoveTask : Task
     {
         // Check for block in offset position
         Vector2 offsetPosition = (Vector2)actor.transform.position + direction;
-        Collider2D result = Physics2D.OverlapPoint(offsetPosition, movementMask | stoneMask);
+        Collider2D blockingTile = Physics2D.OverlapPoint(offsetPosition, movementMask | stoneMask);
 
-        // If not walking into a wall/block
-        if (!result)
+        // If not walking into a wall/stone
+        if (!blockingTile)
         {
             pushing = false;
 
+            // If walking into a ladder, return its position
+            if (Physics2D.OverlapPoint(offsetPosition, ladderMask))
+                return offsetPosition;
             // If actor walking over a ledge, calculate where they will land
-            if (IsAboveGround(result, offsetPosition))
-                return TryFallDownGap(result, offsetPosition);
+            else if (IsAboveGround(offsetPosition))
+                return TryFallDownGap(offsetPosition);
         }
         else
         {
             // If moving against a stone, try to push it
-            bool movingAgainstStone = result.gameObject.TryGetComponent(out Stone stone);
+            bool movingAgainstStone = blockingTile.gameObject.TryGetComponent(out Stone stone);
             pushing = movingAgainstStone && stone.TryPush(direction);
             if (pushing) {
                 // Collect all stones this actor is pushing
@@ -210,7 +225,7 @@ class MoveTask : Task
             if (type == null)
             {
                 // If actor is walking into a terrain element (stone or level tile)
-                if (!IsPlayerOrGhost(result.gameObject))
+                if (!IsPlayerOrGhost(blockingTile.gameObject))
                 {
                     // Check if spot above is empty and move it there if it is
                     if (Physics2D.OverlapPoint(offsetPosition + Vector2.up, movementMask) == null)
@@ -249,26 +264,29 @@ class MoveTask : Task
     /// <summary>
     /// Returns true if position is > 1 tile above terrain
     /// </summary>
-    private bool IsAboveGround(Collider2D result, Vector2 position)
+    private bool IsAboveGround(Vector2 position)
     {
         // Check for ground tile in case actor is moving over edge
-        result = Physics2D.OverlapPoint(position + Vector2.down, movementMask);
+        Collider2D result = Physics2D.OverlapPoint(position + Vector2.down, movementMask);
         return !result;
     }
 
     /// <summary>
     /// Returns landing position from falling down gap, or zero vector if gap is too high
     /// </summary>
-    private Vector2 TryFallDownGap(Collider2D result, Vector2 offsetPosition)
+    private Vector2 TryFallDownGap(Vector2 offsetPosition)
     {
+        // Stones fall down ladders, player/ghosts don't
+        int layerMask = actor.IsCharacter ? movementMask | ladderMask : (int)movementMask;
+
         // Check for ground tile in case actor is moving over edge
-        result = Physics2D.OverlapPoint(offsetPosition + Vector2.down, movementMask | fallMask);
+        Collider2D result = Physics2D.OverlapPoint(offsetPosition + Vector2.down, layerMask);
         int fallCheck = 0;
         while (!result && fallCheck < Actor.MaxFallCheck)
         {
             fallCheck++;
             offsetPosition += Vector2.down;
-            result = Physics2D.OverlapPoint(offsetPosition + Vector2.down, movementMask | fallMask);
+            result = Physics2D.OverlapPoint(offsetPosition + Vector2.down, layerMask);
         }
 
         // If max fall check was reached then kill the actor and return zero vector
