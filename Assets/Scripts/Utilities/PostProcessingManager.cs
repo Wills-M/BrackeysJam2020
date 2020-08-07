@@ -12,6 +12,8 @@ public class PostProcessingManager : Singleton<PostProcessingManager>
 
     [SerializeField]
     private Image screenImage;
+    [SerializeField]
+    private Image rewindImage;
 
     [SerializeField]
     private float caIntensity;
@@ -39,6 +41,7 @@ public class PostProcessingManager : Singleton<PostProcessingManager>
     private IEnumerator StartCoroutine()
     {
         screenImage.enabled = true;
+        rewindImage.enabled = true;
         for (float t = 0; t < inOutTime; t += Time.deltaTime)
         {
             paniniProjection.distance.Override((t / inOutTime) * (paniniIntensity - startPanini) + startPanini);
@@ -59,6 +62,7 @@ public class PostProcessingManager : Singleton<PostProcessingManager>
             yield return null;
         }
 
+        rewindImage.enabled = false;
         screenImage.enabled = false;
         paniniProjection.distance.Override(startPanini);
         chromaticAberration.intensity.Override(0f);

@@ -2113,6 +2113,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4719610358329610091, guid: 81d374e643f7bd64eb8f7ce877870fed, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1552344947}
     - target: {fileID: 4719610358921391772, guid: 81d374e643f7bd64eb8f7ce877870fed, type: 3}
       propertyPath: m_Name
       value: Global Volume
@@ -3950,6 +3954,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62a9ab3cd30d35646a3de39bf895b463, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!20 &1552344947 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 3788480314663887797, guid: bd79750b6c862c0458d7f924e69b290c, type: 3}
+  m_PrefabInstance: {fileID: 814860332}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1674717028
 GameObject:
   m_ObjectHideFlags: 0
