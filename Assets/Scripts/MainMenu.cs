@@ -24,28 +24,43 @@ public class MainMenu : MonoBehaviour
     [SerializeField]
     private float pushSpeed;
 
+    [SerializeField]
+    private GameObject controlsPanel;
+    private bool controlsOpen;
+
     private void Start()
     {
+        controlsOpen = false;
         SelectOption(0);
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.W))
+        if (controlsOpen)
         {
-            // Subtraction that loops around to options.count - 1 if it goes below 0
-            int newOption = (options.Count + selectedOption - 1) % options.Count;
-            SelectOption(newOption);
+            if (Input.anyKeyDown)
+            {
+                SetControlsPanelActive(false);
+            }
         }
-        if (Input.GetKeyDown(KeyCode.S))
+        else
         {
-            // Addition that loops around to 0 if it goes above options.count - 1
-            int newOption = (selectedOption + 1) % options.Count;
-            SelectOption(newOption);
-        }
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            options[selectedOption].GetComponent<Button>().onClick.Invoke();
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                // Subtraction that loops around to options.count - 1 if it goes below 0
+                int newOption = (options.Count + selectedOption - 1) % options.Count;
+                SelectOption(newOption);
+            }
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                // Addition that loops around to 0 if it goes above options.count - 1
+                int newOption = (selectedOption + 1) % options.Count;
+                SelectOption(newOption);
+            }
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                options[selectedOption].GetComponent<Button>().onClick.Invoke();
+            }
         }
     }
 
@@ -102,9 +117,20 @@ public class MainMenu : MonoBehaviour
         StartCoroutine(StartCoroutine());
     }
 
+    public void ControlButton()
+    {
+        SetControlsPanelActive(true);
+    }
+
     public void ExitButton()
     {
         StartCoroutine(ExitCoroutine());
+    }
+
+    private void SetControlsPanelActive(bool active)
+    {
+        controlsPanel.SetActive(active);
+        controlsOpen = active;
     }
 
 }
