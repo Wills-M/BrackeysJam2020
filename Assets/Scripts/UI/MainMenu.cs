@@ -25,11 +25,12 @@ public class MainMenu : MonoBehaviour
     private float pushSpeed;
 
     [SerializeField]
-    private GameObject controlsPanel;
-    private bool controlsOpen;
+    protected GameObject controlsPanel;
+    protected bool controlsOpen;
 
     private void Start()
     {
+        Debug.Log("MainMenu.Start()");
         controlsOpen = false;
         SelectOption(0);
     }
@@ -45,22 +46,27 @@ public class MainMenu : MonoBehaviour
         }
         else
         {
-            if (Input.GetKeyDown(KeyCode.W))
-            {
-                // Subtraction that loops around to options.count - 1 if it goes below 0
-                int newOption = (options.Count + selectedOption - 1) % options.Count;
-                SelectOption(newOption);
-            }
-            if (Input.GetKeyDown(KeyCode.S))
-            {
-                // Addition that loops around to 0 if it goes above options.count - 1
-                int newOption = (selectedOption + 1) % options.Count;
-                SelectOption(newOption);
-            }
-            if (Input.GetKeyDown(KeyCode.Return))
-            {
-                options[selectedOption].GetComponent<Button>().onClick.Invoke();
-            }
+            HandleInput();
+        }
+    }
+
+    protected virtual void HandleInput()
+    {
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            // Subtraction that loops around to options.count - 1 if it goes below 0
+            int newOption = (options.Count + selectedOption - 1) % options.Count;
+            SelectOption(newOption);
+        }
+        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            // Addition that loops around to 0 if it goes above options.count - 1
+            int newOption = (selectedOption + 1) % options.Count;
+            SelectOption(newOption);
+        }
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.E))
+        {
+            options[selectedOption].GetComponent<Button>().onClick.Invoke();
         }
     }
 
@@ -75,7 +81,8 @@ public class MainMenu : MonoBehaviour
         options[optionNumber].color = selectedColor;
 
         // Move player menu
-        playerMenu.transform.SetParent(options[optionNumber].transform, false);
+        if(playerMenu)
+            playerMenu.transform.SetParent(options[optionNumber].transform, false);
     }
 
     private Coroutine pushButtonCoroutine;
@@ -122,12 +129,12 @@ public class MainMenu : MonoBehaviour
         SetControlsPanelActive(true);
     }
 
-    public void ExitButton()
+    public virtual void ExitButton()
     {
         StartCoroutine(ExitCoroutine());
     }
 
-    private void SetControlsPanelActive(bool active)
+    protected virtual void SetControlsPanelActive(bool active)
     {
         controlsPanel.SetActive(active);
         controlsOpen = active;
