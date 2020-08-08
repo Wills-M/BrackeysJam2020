@@ -25,7 +25,10 @@ public class PauseMenu : MainMenu
     #endregion
 
     [SerializeField]
-    private Graphic menuPanel;
+    private Graphic pauseMenu;
+
+    [SerializeField]
+    private Graphic menuScreen;
 
     public bool paused = false;
 
@@ -37,7 +40,7 @@ public class PauseMenu : MainMenu
         Time.timeScale = paused ? 0f : 1f;
 
         // Hide/show menu
-        menuPanel.gameObject.SetActive(paused);
+        menuScreen.gameObject.SetActive(paused);
 
         // Close controls panel when exiting pause menu
         if(!paused)
@@ -50,6 +53,12 @@ public class PauseMenu : MainMenu
 
         if (Input.GetKeyDown(KeyCode.Escape))
             SetPaused(false);
+    }
+
+    protected override void SetControlsPanelActive(bool active)
+    {
+        base.SetControlsPanelActive(active);
+        pauseMenu.gameObject.SetActive(!active);
     }
 
     public void ResetButton()

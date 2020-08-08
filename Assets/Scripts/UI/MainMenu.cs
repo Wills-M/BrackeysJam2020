@@ -134,7 +134,7 @@ public class MainMenu : MonoBehaviour
         StartCoroutine(ExitCoroutine());
     }
 
-    protected void SetControlsPanelActive(bool active)
+    protected virtual void SetControlsPanelActive(bool active)
     {
         controlsPanel.SetActive(active);
         controlsOpen = active;
