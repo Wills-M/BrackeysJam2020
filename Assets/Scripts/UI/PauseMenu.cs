@@ -42,6 +42,9 @@ public class PauseMenu : MainMenu
         // Hide/show menu
         menuScreen.gameObject.SetActive(paused);
 
+        // Focus/unfocus background music
+        SoundController.Instance.FocusMusicVolume(!paused);
+
         // Close controls panel when exiting pause menu
         if(!paused)
             SetControlsPanelActive(false);
@@ -66,7 +69,7 @@ public class PauseMenu : MainMenu
 
     public override void ExitButton()
     {
-        Time.timeScale = 1f;
+        SetPaused(false);
         SceneManager.LoadScene("MainMenu");
     }
 }

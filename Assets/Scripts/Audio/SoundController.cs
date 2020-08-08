@@ -99,12 +99,25 @@ public class SoundController : Singleton<SoundController>
     public void SetMusicPlaying(bool playing)
     {
         if (playing)
-        {
             audioSource.UnPause();
-        }
         else
-        {
             audioSource.Pause();
+    }
+
+    /// <summary>
+    /// Toggles music volume between focused/unfocused (full volume/half volume)
+    /// </summary>
+    /// <param name="focused">Sets volume to normal level when true, halved volume when false</param>
+    public void FocusMusicVolume(bool focused)
+    {
+        try
+        {
+            SoundTrack musicTrack = backgroundMusic.Find(i => i.type == currentlyPlayingMusic);
+            audioSource.volume = focused ? musicTrack.volume : musicTrack.volume / 2;
+        }
+        catch (System.NullReferenceException)
+        {
+            Debug.LogWarning("SoundController.FocusMusicVolume() encountered null reference");
         }
     }
 
