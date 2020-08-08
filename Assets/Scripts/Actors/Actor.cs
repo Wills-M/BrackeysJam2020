@@ -35,6 +35,13 @@ public abstract class Actor : MonoBehaviour
     /// </summary>
     protected Task task;
 
+    /// <summary>
+    /// Sound to play when this actor moves/is pushed
+    /// </summary>
+    public SoundType moveSoundEffect;
+
+    [Header("Speed Settings")]
+
     [Range(1, 10)]
     public float taskSpeed;
 
