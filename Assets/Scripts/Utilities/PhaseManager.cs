@@ -113,21 +113,39 @@ public class PhaseManager : Singleton<PhaseManager>
             while (actor.IsPerformingTask)
                 yield return null;
         }
+        
+        // Drop any floating actors to the ground
+        dropFloatingActors = StartCoroutine(DropFloatingActors());
+        while (dropFloatingActors != null)
+            yield return null;
 
-        // Resolve any floating stones
-        foreach(Stone stone in stones)
-        {
-            ResolveActor(stone);
-            while (stone.IsPerformingTask)
-                yield return null;
-        }
         // Start a new round when player can't perform actions anymore
         // TODO: continue to let ghosts perform remaining actions?
-
-
         player.waitingForInput = true;
         turnCoroutine = TurnPhase();
         StartCoroutine(turnCoroutine);
+    }
+
+    private Coroutine dropFloatingActors;
+
+    /// <summary>
+    /// Drops any floating actors to the ground
+    /// </summary>
+    private IEnumerator DropFloatingActors()
+    {
+        List<Actor> falling = new List<Actor>();
+        foreach (Actor actor in actors.Concat(stones).OrderBy(i => i.transform.position.y))
+        {
+            if (MoveTask.IsFloating(actor))
+            {
+                StartCoroutine(actor.DropIfFalling());
+                falling.Add(actor);
+
+                while (actor.IsPerformingTask)
+                    yield return null;
+            }
+        }
+        dropFloatingActors = null;
     }
 
     public void ResolveActor(Actor actor)

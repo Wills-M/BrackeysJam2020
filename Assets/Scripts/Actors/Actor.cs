@@ -104,23 +104,34 @@ public abstract class Actor : MonoBehaviour
         // Make sure actor can perform a task, and isn't in the middle of one already 
         if(canPerformAction && !IsPerformingTask)
         {
-            // If actor is floating, make them fall to ground
-            if(MoveTask.IsFloating(this))
-            {
-                Debug.LogFormat("{0} is floating", name);
-                //Task temp = task;
-                //task = new MoveTask(this, Vector2.down);
-                //StartCoroutine(task.Execute());
-                //while (task.IsExecuting)
-                //    yield return null;
-
-                //task = temp;
-            }
             StartCoroutine(task.Execute());
 
             // Wait until task is completed
             while (task.IsExecuting)
                 yield return null;
+        }
+    }
+
+    /// <summary>
+    /// Drops actor to the ground if floating in mid-air
+    /// </summary>
+    /// <returns></returns>
+    public virtual IEnumerator DropIfFalling()
+    {
+        if (MoveTask.IsFloating(this))
+        {
+            Debug.LogFormat("{0} is floating", name);
+            Task temp = task;
+            task = new MoveTask(this, Vector2.down);
+            if (task.CanPerform())
+            {
+                // Perform task and wait until finished
+                StartCoroutine(task.Execute());
+                while (task.IsExecuting)
+                    yield return null;
+            }
+
+            task = temp;
         }
     }
 

@@ -50,8 +50,7 @@ class MoveTask : Task
 
         // Calculate move speed based on whether blocks are being pushed
         SetMoveSpeed();
-
-        Vector2 target;
+        AnimationCurve animationCurve = PhaseManager.Instance.moveAnimationCurve;
 
         // Isolate x,y components of movement
         Vector2 startPos = actor.transform.position;
@@ -60,12 +59,20 @@ class MoveTask : Task
                 yComp = new Vector2(0, delta.y);
         
         // If falling diagonally, move horizontally before falling
+        Vector2 target;
         if (delta.x != 0 && delta.y < 0)
             target = startPos + xComp;
-        else target = lastCalculatedPosition;
+        else
+            target = lastCalculatedPosition;
 
-        AnimationCurve animationCurve = PhaseManager.Instance.moveAnimationCurve;
-        while((Vector2)actor.transform.position != lastCalculatedPosition)
+        // If stone falls down without being pushed over edge, animate with gravity speed/curve
+        if (!actor.IsCharacter && delta.x == 0 && delta.y < 0)
+        {
+            animationCurve = PhaseManager.Instance.gravityCurve;
+            moveSpeed = PhaseManager.Instance.gravitySpeed;
+        }
+
+        while ((Vector2)actor.transform.position != lastCalculatedPosition)
         {
             // Lerp actor to target position
             for (float t = 0; t < 1; t += Time.deltaTime * moveSpeed)
@@ -321,6 +328,11 @@ class MoveTask : Task
 
         Collider2D tileOnActor = actor.IsCharacter ? Physics2D.OverlapPoint(actor.transform.position, ladderMask) : null;
         Collider2D tileBelowActor = actor.IsCharacter ? Physics2D.OverlapPoint(belowActor, ladderMask) : Physics2D.OverlapPoint(belowActor, stoneMask | movementMask);
+
+        // If this actor is on top of another stone, return whether that one is floating
+        Collider2D stoneBelowActor = Physics2D.OverlapPoint(belowActor, stoneMask | movementMask);
+        if (stoneBelowActor != null && stoneBelowActor.TryGetComponent(out Stone stoneBelow))
+            return IsFloating(stoneBelow);
 
         return tileOnActor == null && tileBelowActor == null
             && IsAboveGround(actor.transform.position) 
