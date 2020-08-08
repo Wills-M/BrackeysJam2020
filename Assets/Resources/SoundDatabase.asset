@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _backgroundMusic:
   - {fileID: 11400000, guid: 10edaee82cdbaa547a31c300cd7dbf5f, type: 2}
-  _playerSoundEffects: []
+  _playerSoundEffects:
+  - {fileID: 11400000, guid: fa9c09db6538cf144a34ef05e1b263ba, type: 2}
+  - {fileID: 11400000, guid: 867ac62ddcb0ebc42805b90841088c90, type: 2}
   _UISoundEffects: []

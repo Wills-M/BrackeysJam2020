@@ -22,6 +22,7 @@ public enum SoundType
     BG_MUSIC = 001,
 
     // Sound effects
-    PLAYER_MOVE = 101
+    PLAYER_MOVE = 101,
+    GHOST_MOVE = 102
 
 }

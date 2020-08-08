@@ -74,6 +74,9 @@ class MoveTask : Task
 
         while ((Vector2)actor.transform.position != lastCalculatedPosition)
         {
+            // Play sound effect
+            SoundController.Instance.PlaySoundEffect(actor.moveSoundEffect);
+
             // Lerp actor to target position
             for (float t = 0; t < 1; t += Time.deltaTime * moveSpeed)
             {

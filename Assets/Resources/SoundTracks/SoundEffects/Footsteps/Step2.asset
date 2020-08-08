@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55122dfabc15f3d4bb4a38993da5624e, type: 3}
   m_Name: Step2
   m_EditorClassIdentifier: 
-  type: 101
-  clip: {fileID: 8300000, guid: 96f93cd8e8ad74f4ebabc9dd743b2e80, type: 3}
+  type: 102
+  clip: {fileID: 8300000, guid: bb71e7e159863ec4d8e338f5cf56a26f, type: 3}
   volume: 1
   loop: 0
