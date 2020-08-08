@@ -52,19 +52,19 @@ public class MainMenu : MonoBehaviour
 
     protected virtual void HandleInput()
     {
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
             // Subtraction that loops around to options.count - 1 if it goes below 0
             int newOption = (options.Count + selectedOption - 1) % options.Count;
             SelectOption(newOption);
         }
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
         {
             // Addition that loops around to 0 if it goes above options.count - 1
             int newOption = (selectedOption + 1) % options.Count;
             SelectOption(newOption);
         }
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.E))
         {
             options[selectedOption].GetComponent<Button>().onClick.Invoke();
         }
