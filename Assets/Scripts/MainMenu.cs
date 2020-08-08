@@ -78,36 +78,36 @@ public class MainMenu : MonoBehaviour
         playerMenu.transform.SetParent(options[optionNumber].transform, false);
     }
 
-    private IEnumerator StartCoroutine()
+    private Coroutine pushButtonCoroutine;
+    private IEnumerator PushButton(Transform button)
     {
+        // Animate player pushing button
         Animator anim = playerMenu.GetComponent<Animator>();
-
         anim.SetTrigger("Push");
 
-        Transform startTransform = options[selectedOption].transform;
-
+        // Move them across screen
         for (float timer = 0f; timer < pushTime; timer += Time.deltaTime)
         {
-            startTransform.position += Vector3.right * pushSpeed;
+            button.position += Vector3.right * pushSpeed * Time.deltaTime;
             yield return null;
         }
+        pushButtonCoroutine = null;
+    }
+
+    private IEnumerator StartCoroutine()
+    {
+        pushButtonCoroutine = StartCoroutine(PushButton(options[selectedOption].transform));
+        while (pushButtonCoroutine != null)
+            yield return null;
 
         LevelManager.Instance.NextLevel();
     }
 
     private IEnumerator ExitCoroutine()
     {
-        Animator anim = playerMenu.GetComponent<Animator>();
-
-        anim.SetTrigger("Push");
-
-        Transform exitTransform = options[selectedOption].transform;
-
-        for (float timer = 0f; timer < pushTime; timer += Time.deltaTime)
-        {
-            exitTransform.position += Vector3.right * pushSpeed;
+        pushButtonCoroutine = StartCoroutine(PushButton(options[selectedOption].transform));
+        while (pushButtonCoroutine != null)
             yield return null;
-        }
 
         Application.Quit();
     }
