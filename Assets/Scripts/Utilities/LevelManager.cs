@@ -12,7 +12,7 @@ public class LevelManager : MonoBehaviour
 
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
 
         if (Instance != null && Instance != this)
         {
@@ -26,6 +26,7 @@ public class LevelManager : MonoBehaviour
 
     #endregion
 
+    [SerializeField]
     private int currentLevelIndex = 0;
 
     public void NextLevel()
