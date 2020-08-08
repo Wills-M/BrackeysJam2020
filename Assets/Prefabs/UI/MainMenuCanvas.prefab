@@ -1129,6 +1129,7 @@ GameObject:
   - component: {fileID: 424661400619341953}
   - component: {fileID: 424661400619341954}
   - component: {fileID: 424661400619341955}
+  - component: {fileID: 2934395921905976007}
   m_Layer: 5
   m_Name: MainMenuCanvas
   m_TagString: Untagged
@@ -1216,3 +1217,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &2934395921905976007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 424661400619341956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9f7dfed3742f9c48af157476ca494a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvas: {fileID: 424661400619341953}
+  fadePrefab: {fileID: 6566152625019910626, guid: fdb92d09d72405a46bc85b7545c2deda, type: 3}
+  duration: 0.5
