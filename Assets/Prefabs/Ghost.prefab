@@ -86,7 +86,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsCharacter: 1
   moveSoundEffect: 102
-  taskSpeed: 6
+  taskSpeed: 9
   pushSpeedScalar: 0.6
   canPerformAction: 0
   initialPosition: {x: 0, y: 0, z: 0}

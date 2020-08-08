@@ -48,7 +48,7 @@ public class Player : Actor
         if (waitingForInput && !IsPerformingTask)
         {
             // End round when player presses space
-            if (cachedInput == KeyCode.Space)
+            if (cachedInput == KeyCode.R)
             {
                 cachedInput = KeyCode.None;
                 canPerformAction = false;
@@ -113,19 +113,11 @@ public class Player : Actor
                 }
             }
             // Skip this turn
-            else if (cachedInput == KeyCode.Tab)
+            else if (cachedInput == KeyCode.Q)
             {
                 cachedInput = KeyCode.None;
                 task = new WaitTask();
                 waitingForInput = false;
-            }
-
-            else if (cachedInput == KeyCode.R)
-            {
-                if (LevelManager.Instance)
-                    LevelManager.Instance.ResetLevel();
-                else // This invalidates the reason to have a levelmanager but I don't feel like adding levelmanager to every scene
-                    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             }
         }
     }
@@ -172,13 +164,11 @@ public class Player : Actor
 
         else if (Input.GetKeyDown(KeyCode.E))
             CacheInput(KeyCode.E);
-        else if (Input.GetKeyDown(KeyCode.R))
-            CacheInput(KeyCode.R);
-        else if (Input.GetKeyDown(KeyCode.Tab))
-            CacheInput(KeyCode.Tab);
+        else if (Input.GetKeyDown(KeyCode.Q))
+            CacheInput(KeyCode.Q);
 
-        if (Input.GetKeyDown(KeyCode.Space))
-            CacheInput(KeyCode.Space);
+        if (Input.GetKeyDown(KeyCode.R))
+            CacheInput(KeyCode.R);
     }
 
     private void CacheInput(KeyCode key)

@@ -376,11 +376,9 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'WASD - Movement
 
-    Space - Rewind
+    R - Rewind
 
-    Tab - Pass
-
-    R - Reset level'
+    Q - Wait'
 --- !u!1 &4152186768821911209
 GameObject:
   m_ObjectHideFlags: 0
