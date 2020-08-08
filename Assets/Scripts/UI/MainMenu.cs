@@ -129,7 +129,7 @@ public class MainMenu : MonoBehaviour
         SetControlsPanelActive(true);
     }
 
-    public void ExitButton()
+    public virtual void ExitButton()
     {
         StartCoroutine(ExitCoroutine());
     }

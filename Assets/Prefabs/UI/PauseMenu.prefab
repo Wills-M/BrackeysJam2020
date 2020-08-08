@@ -137,8 +137,8 @@ MonoBehaviour:
   pushTime: 0
   pushSpeed: 0
   controlsPanel: {fileID: 8535525485394937546}
-  menuScreen: {fileID: 8515784588100913645}
   pauseMenu: {fileID: 3694213197721773174}
+  menuScreen: {fileID: 8515784588100913645}
   paused: 0
 --- !u!1 &1070803766201045736
 GameObject:
@@ -503,7 +503,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2669519583037095069}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 886805882081727301}
+        m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
+        m_MethodName: ResetButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4404679486963069697
 GameObject:
   m_ObjectHideFlags: 0
@@ -662,7 +674,7 @@ GameObject:
   - component: {fileID: 3448125718685648422}
   - component: {fileID: 5333237307022759686}
   m_Layer: 5
-  m_Name: Exit
+  m_Name: Main Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -728,7 +740,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Exit
+  m_Text: Main Menu
 --- !u!114 &5333237307022759686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -771,7 +783,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3448125718685648422}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 886805882081727301}
+        m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
+        m_MethodName: ExitButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6088201389159810950
 GameObject:
   m_ObjectHideFlags: 0

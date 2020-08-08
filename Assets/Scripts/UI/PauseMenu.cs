@@ -63,9 +63,12 @@ public class PauseMenu : MainMenu
 
     public void ResetButton()
     {
-        if (LevelManager.Instance)
-            LevelManager.Instance.ResetLevel();
-        else // This invalidates the reason to have a levelmanager but I don't feel like adding levelmanager to every scene
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public override void ExitButton()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("MainMenu");
     }
 }
