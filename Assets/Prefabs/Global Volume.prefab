@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3513511471456723489}
   - component: {fileID: 7278175576794708529}
   - component: {fileID: 1126873320044703663}
+  - component: {fileID: 8350708439203659757}
   m_Layer: 5
   m_Name: TurnCounter
   m_TagString: Untagged
@@ -79,6 +80,18 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: 'TURN: 1'
+--- !u!114 &8350708439203659757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2577350164345529035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cdeab0218759f54c9a3680eaef0365f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3488540283769410018
 GameObject:
   m_ObjectHideFlags: 0
