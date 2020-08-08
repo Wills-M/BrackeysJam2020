@@ -52,7 +52,9 @@ public class PauseMenu : MainMenu
 
     protected override void HandleInput()
     {
-        base.HandleInput();
+        // Ignore input unless paused
+        if(paused)
+            base.HandleInput();
     }
 
     protected override void SetControlsPanelActive(bool active)
