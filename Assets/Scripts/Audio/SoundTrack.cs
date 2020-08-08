@@ -28,5 +28,6 @@ public enum SoundType
     // UI
     MOVE_CURSOR = 201,
     SELECT = 202,
+    EXIT = 203,
 
 }

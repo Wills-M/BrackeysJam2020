@@ -20,3 +20,4 @@ MonoBehaviour:
   _UISoundEffects:
   - {fileID: 11400000, guid: 67fb15c25f78a9141947c226deb8c966, type: 2}
   - {fileID: 11400000, guid: 93157ecde3f4fc24aa326dc111f2a023, type: 2}
+  - {fileID: 11400000, guid: ee51dc3361b768e4bbb17d49762e92ba, type: 2}

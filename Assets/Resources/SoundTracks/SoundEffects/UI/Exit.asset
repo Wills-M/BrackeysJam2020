@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 55122dfabc15f3d4bb4a38993da5624e, type: 3}
-  m_Name: MoveCursor
+  m_Name: Exit
   m_EditorClassIdentifier: 
-  type: 201
+  type: 203
   clip: {fileID: 8300000, guid: c6fedea407e3f7e4b8e97365e42af513, type: 3}
   volume: 1
   loop: 0
