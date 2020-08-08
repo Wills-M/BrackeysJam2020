@@ -4,28 +4,28 @@ TextureImporter:
   internalIDToNameTable:
   - first:
       213: -7561047530722551096
-    second: herochar_spritesheet_0
+    second: herochar_win_0
   - first:
       213: 61387820691035677
-    second: herochar_spritesheet_1
+    second: herochar_win_1
   - first:
       213: 2008558386628067210
-    second: herochar_spritesheet_2
+    second: herochar_win_2
   - first:
       213: 2383220605374735435
-    second: herochar_spritesheet_3
+    second: herochar_win_4
   - first:
       213: 1026058985345349563
-    second: herochar_spritesheet_4
+    second: herochar_win_5
   - first:
       213: 1536167302767767658
-    second: herochar_spritesheet_5
+    second: herochar_win_6
   - first:
       213: -5324498035202939536
-    second: herochar_spritesheet_6
+    second: herochar_win_7
   - first:
       213: -4052821718231131730
-    second: herochar_spritesheet_7
+    second: herochar_win_8
   - first:
       213: 5643089287079014624
     second: herochar_running_1
@@ -299,7 +299,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: herochar_spritesheet_0
+      name: herochar_win_0
       rect:
         serializedVersion: 2
         x: 0
@@ -320,7 +320,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: herochar_spritesheet_1
+      name: herochar_win_1
       rect:
         serializedVersion: 2
         x: 16
@@ -341,7 +341,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: herochar_spritesheet_2
+      name: herochar_win_2
       rect:
         serializedVersion: 2
         x: 32
@@ -362,7 +362,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: herochar_spritesheet_3
+      name: herochar_win_4
       rect:
         serializedVersion: 2
         x: 48
@@ -383,7 +383,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: herochar_spritesheet_4
+      name: herochar_win_5
       rect:
         serializedVersion: 2
         x: 64
@@ -404,7 +404,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: herochar_spritesheet_5
+      name: herochar_win_6
       rect:
         serializedVersion: 2
         x: 80
@@ -425,7 +425,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: herochar_spritesheet_6
+      name: herochar_win_7
       rect:
         serializedVersion: 2
         x: 96
@@ -446,7 +446,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: herochar_spritesheet_7
+      name: herochar_win_8
       rect:
         serializedVersion: 2
         x: 112

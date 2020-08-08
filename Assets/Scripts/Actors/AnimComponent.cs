@@ -14,7 +14,7 @@ class AnimComponent : MonoBehaviour
         }
     }
 
-    public enum AnimID { Moving, Falling, Pushing, None }
+    public enum AnimID { Moving, Falling, Pushing, WinLevel, None }
     public void SetAnimation(AnimID animID, bool active)
     {
         switch(animID) {
@@ -23,6 +23,9 @@ class AnimComponent : MonoBehaviour
                 break;
             case AnimID.Pushing:
                 animator.SetBool("Pushing", active);
+                break;
+            case AnimID.WinLevel:
+                animator.SetBool("WinLevel", active);
                 break;
         }
     }

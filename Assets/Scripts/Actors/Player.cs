@@ -152,6 +152,12 @@ public class Player : Actor
             if (result)
             {
                 reachedGoal = true;
+
+                // Play winning animation
+                if (TryGetComponent(out AnimComponent animComponent))
+                    animComponent.SetAnimation(AnimComponent.AnimID.WinLevel, true);
+
+                // Load next level
                 LevelManager.Instance.NextLevel(result.gameObject);
             }
         }
