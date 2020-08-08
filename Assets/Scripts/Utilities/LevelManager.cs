@@ -3,31 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LevelManager : MonoBehaviour
+public class LevelManager : Singleton<LevelManager>
 {
-
-    #region Singleton
-
-    public static LevelManager Instance { get; private set; }
-
-    private void Awake()
-    {
-        //DontDestroyOnLoad(gameObject);
-
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            Instance = this;
-        }
-    }
-
-    #endregion
 
     [SerializeField]
     private int currentLevelIndex = 0;
+
+    /// <summary>
+    /// Overrides build index of next level to load. Ignored if less than 0
+    /// </summary>
+    [SerializeField]
+    private int nextLevelOverride = -1;
 
     public void NextLevel()
     {
@@ -49,7 +35,12 @@ public class LevelManager : MonoBehaviour
         {
             yield return null;
         }
-        SceneManager.LoadScene(currentLevelIndex);
+        // If next level is specified, load it
+        if(nextLevelOverride >= 0)
+            SceneManager.LoadScene(nextLevelOverride);
+        // Otherwise just load the next level in order
+        else
+            SceneManager.LoadScene(currentLevelIndex);
     }
 
     public void ResetLevel()
