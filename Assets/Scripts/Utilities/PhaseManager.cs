@@ -89,16 +89,19 @@ public class PhaseManager : Singleton<PhaseManager>
     /// </summary>
     private IEnumerator TurnPhase()
     {
-        while (player.waitingForInput)
+        if (!player.reachedGoal)
         {
-            yield return null;
+            while (player.waitingForInput)
+            {
+                yield return null;
+            }
+            if (!player.canPerformAction)
+            {
+                StartCoroutine(ResetRound());
+            }
+            else
+                StartCoroutine(ResolvePhase());
         }
-        if (!player.canPerformAction)
-        {
-            StartCoroutine(ResetRound());
-        }
-        else
-            StartCoroutine(ResolvePhase());
     }
 
     /// <summary>

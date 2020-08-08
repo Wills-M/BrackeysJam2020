@@ -17,6 +17,9 @@ public class Player : Actor
     [HideInInspector]
     public bool waitingForInput = true;
 
+    [HideInInspector]
+    public bool reachedGoal = false;
+
     private LayerMask interactableMask;
 
     private KeyCode cachedInput = KeyCode.None;
@@ -147,7 +150,10 @@ public class Player : Actor
             // Load next level if player reached the goal
             Collider2D result = Physics2D.OverlapPoint(transform.position, LayerMask.GetMask("Goal"));
             if (result)
+            {
+                reachedGoal = true;
                 LevelManager.Instance.NextLevel(result.gameObject);
+            }
         }
     }
 
