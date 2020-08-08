@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Music
   m_EditorClassIdentifier: 
   type: 1
-  clip: {fileID: 8300000, guid: 955a946684de10049a51336b302ccb33, type: 3}
+  clip: {fileID: 8300000, guid: 8b417773842b2b04f99e87c30cdd7e8d, type: 3}
   volume: 0.25
   loop: 1
