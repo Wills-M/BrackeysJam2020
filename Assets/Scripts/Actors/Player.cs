@@ -5,6 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class Player : Actor
 {
+    /// <summary>
+    /// Duration to cache player input
+    /// </summary>
+    [Range(0,1)]
+    [SerializeField]
+    private float inputCacheTime;
+
     [HideInInspector]
     public bool waitingForInput = true;
 
@@ -174,7 +181,7 @@ public class Player : Actor
     {
         cachedInput = ci;
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(inputCacheTime);
 
         cachedInput = KeyCode.None;
         inputCacheCoroutine = null;

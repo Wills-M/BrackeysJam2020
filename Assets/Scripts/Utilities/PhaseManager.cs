@@ -49,6 +49,8 @@ public class PhaseManager : Singleton<PhaseManager>
     private List<Actor> actors;
     private List<Stone> stones;
 
+    private int turn = 1;
+
     /// <summary>
     /// List of Time Cube starting positions
     /// </summary>
@@ -119,6 +121,10 @@ public class PhaseManager : Singleton<PhaseManager>
         while (dropFloatingActors != null)
             yield return null;
 
+        // Update turn counter
+        turn++;
+        TurnCounter.Instance.SetTurn(turn);
+
         // Start a new round when player can't perform actions anymore
         // TODO: continue to let ghosts perform remaining actions?
         player.waitingForInput = true;
@@ -156,6 +162,10 @@ public class PhaseManager : Singleton<PhaseManager>
     private IEnumerator ResetRound()
     {
         PostProcessingManager.Instance.RewindStart();
+
+        // Reset turn counter
+        turn = 1;
+        TurnCounter.Instance.SetTurn(turn);
 
         // Instantiate ghost with player's action queue
         Ghost ghost = Instantiate(ghostPrefab) as Ghost;

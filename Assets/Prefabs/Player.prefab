@@ -124,6 +124,7 @@ MonoBehaviour:
   initialPosition: {x: 0, y: 0, z: 0}
   direction: 1
   spriteRenderer: {fileID: 0}
+  inputCacheTime: 0.2
   waitingForInput: 1
 --- !u!61 &2979241404129080738
 BoxCollider2D:
