@@ -17,4 +17,6 @@ MonoBehaviour:
   _playerSoundEffects:
   - {fileID: 11400000, guid: fa9c09db6538cf144a34ef05e1b263ba, type: 2}
   - {fileID: 11400000, guid: 867ac62ddcb0ebc42805b90841088c90, type: 2}
-  _UISoundEffects: []
+  _UISoundEffects:
+  - {fileID: 11400000, guid: 67fb15c25f78a9141947c226deb8c966, type: 2}
+  - {fileID: 11400000, guid: 93157ecde3f4fc24aa326dc111f2a023, type: 2}

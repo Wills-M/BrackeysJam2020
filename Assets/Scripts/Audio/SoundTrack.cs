@@ -21,8 +21,12 @@ public enum SoundType
     // Looping music
     BG_MUSIC = 001,
 
-    // Sound effects
+    // Player sound effects
     PLAYER_MOVE = 101,
-    GHOST_MOVE = 102
+    GHOST_MOVE = 102,
+
+    // UI
+    MOVE_CURSOR = 201,
+    SELECT = 202,
 
 }
