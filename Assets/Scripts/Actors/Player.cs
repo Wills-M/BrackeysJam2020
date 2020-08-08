@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class Player : Actor
 {
+    private PauseMenu pauseMenu => PauseMenu.Instance;
+
     /// <summary>
     /// Duration to cache player input
     /// </summary>
@@ -30,7 +32,9 @@ public class Player : Actor
 
     private void Update()
     {
-        TryCacheInput();
+        // Don't cache input while paused
+        if (!pauseMenu.paused) 
+            TryCacheInput();
 
         if (waitingForInput && !IsPerformingTask)
         {
@@ -107,6 +111,13 @@ public class Player : Actor
                 waitingForInput = false;
             }
 
+            // Pause game
+            else if(cachedInput == KeyCode.Escape)
+            {
+                cachedInput = KeyCode.None;
+                pauseMenu.SetPaused(true);
+            }
+
             else if (cachedInput == KeyCode.R)
             {
                 if (LevelManager.Instance)
@@ -163,6 +174,8 @@ public class Player : Actor
             CacheInput(KeyCode.R);
         else if (Input.GetKeyDown(KeyCode.Tab))
             CacheInput(KeyCode.Tab);
+        else if (Input.GetKeyDown(KeyCode.Escape))
+            CacheInput(KeyCode.Escape);
 
         if (Input.GetKeyDown(KeyCode.Space))
             CacheInput(KeyCode.Space);

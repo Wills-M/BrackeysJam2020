@@ -86,7 +86,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2412926623126314963}
-  - component: {fileID: 816500896064304434}
+  - component: {fileID: 886805882081727301}
   m_Layer: 5
   m_Name: PauseMenu
   m_TagString: Untagged
@@ -114,7 +114,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &816500896064304434
+--- !u!114 &886805882081727301
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -123,7 +123,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 848506694965994468}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 843f98d467d45914c8ba2110ce88e661, type: 3}
+  m_Script: {fileID: 11500000, guid: cc27aafcb5f829c4f84c7058604cdeae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   options:
@@ -134,9 +134,10 @@ MonoBehaviour:
   selectedColor: {r: 1, g: 1, b: 1, a: 1}
   deselectedColor: {r: 0.6, g: 0.6, b: 0.6, a: 1}
   playerMenu: {fileID: 0}
-  pushTime: 1
-  pushSpeed: 3.5
+  pushTime: 0
+  pushSpeed: 0
   controlsPanel: {fileID: 8535525485394937546}
+  menuPanel: {fileID: 8515784588100913645}
 --- !u!1 &1070803766201045736
 GameObject:
   m_ObjectHideFlags: 0
@@ -891,7 +892,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8363185081599945998}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 886805882081727301}
+        m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
+        m_MethodName: SetPaused
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7178164875292790030
 GameObject:
   m_ObjectHideFlags: 0
@@ -1014,7 +1027,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3202283804590996657}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 886805882081727301}
+        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+        m_MethodName: ControlButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8535525485394937546
 GameObject:
   m_ObjectHideFlags: 0
