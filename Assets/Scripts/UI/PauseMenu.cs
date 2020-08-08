@@ -50,9 +50,6 @@ public class PauseMenu : MainMenu
     protected override void HandleInput()
     {
         base.HandleInput();
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-            SetPaused(false);
     }
 
     protected override void SetControlsPanelActive(bool active)
@@ -63,7 +60,8 @@ public class PauseMenu : MainMenu
 
     public void ResetButton()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SetPaused(false);
+        LevelManager.Instance.ResetLevel();
     }
 
     public override void ExitButton()

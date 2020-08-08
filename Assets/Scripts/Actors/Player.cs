@@ -33,9 +33,18 @@ public class Player : Actor
     private void Update()
     {
         // Don't cache input while paused
-        if (!pauseMenu.paused) 
+        if (!pauseMenu.paused)
+        {
             TryCacheInput();
 
+            // Clear cache when pausing
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                cachedInput = KeyCode.None;
+                pauseMenu.SetPaused(true);
+            }
+        }
+            
         if (waitingForInput && !IsPerformingTask)
         {
             // End round when player presses space
@@ -111,13 +120,6 @@ public class Player : Actor
                 waitingForInput = false;
             }
 
-            // Pause game
-            else if(cachedInput == KeyCode.Escape)
-            {
-                cachedInput = KeyCode.None;
-                pauseMenu.SetPaused(true);
-            }
-
             else if (cachedInput == KeyCode.R)
             {
                 if (LevelManager.Instance)
@@ -174,8 +176,6 @@ public class Player : Actor
             CacheInput(KeyCode.R);
         else if (Input.GetKeyDown(KeyCode.Tab))
             CacheInput(KeyCode.Tab);
-        else if (Input.GetKeyDown(KeyCode.Escape))
-            CacheInput(KeyCode.Escape);
 
         if (Input.GetKeyDown(KeyCode.Space))
             CacheInput(KeyCode.Space);
