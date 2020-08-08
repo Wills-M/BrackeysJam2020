@@ -10,6 +10,8 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
     public static bool inactive;
 
+    public bool dontDestroyOnLoad = false;
+
     private static T m_Instance = null;
     public static T Instance
     {
@@ -26,7 +28,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
                 }
 
                 // This breaks scene reloading
-                // DontDestroyOnLoad(m_Instance.gameObject);
+                //DontDestroyOnLoad(m_Instance.gameObject);
             }
             return m_Instance;
         }
@@ -37,7 +39,8 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     {
         if (m_Instance == null) {
             m_Instance = this as T;
-            //DontDestroyOnLoad(gameObject);
+            if(dontDestroyOnLoad)
+                DontDestroyOnLoad(gameObject);
         }
         else if(!ReferenceEquals(m_Instance.gameObject, gameObject)) {
             // Destroy self if there's already an instance in the scene
