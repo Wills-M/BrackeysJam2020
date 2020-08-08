@@ -92,6 +92,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cdeab0218759f54c9a3680eaef0365f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dontDestroyOnLoad: 0
 --- !u!1 &3488540283769410018
 GameObject:
   m_ObjectHideFlags: 0
@@ -331,6 +332,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d1722bf76e9bde4095eefb36c31d9b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dontDestroyOnLoad: 0
   screenImage: {fileID: 4719610359851189289}
   rewindImage: {fileID: 6620134868212143498}
   caIntensity: 0.25

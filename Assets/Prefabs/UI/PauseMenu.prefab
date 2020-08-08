@@ -137,9 +137,12 @@ MonoBehaviour:
   pushTime: 0
   pushSpeed: 0
   controlsPanel: {fileID: 8535525485394937546}
+  moveCursor: 201
+  selectOption: 202
   pauseMenu: {fileID: 3694213197721773174}
   menuScreen: {fileID: 8515784588100913645}
   paused: 0
+  pauseGame: 0
 --- !u!1 &1070803766201045736
 GameObject:
   m_ObjectHideFlags: 0

@@ -28,10 +28,20 @@ public class MainMenu : MonoBehaviour
     protected GameObject controlsPanel;
     protected bool controlsOpen;
 
+    [Header("Sound Effects")]
+
+    [SerializeField]
+    private SoundType moveCursor;
+
+    [SerializeField]
+    private SoundType selectOption;
+
     private void Start()
     {
         controlsOpen = false;
-        SelectOption(0);
+
+        // Select first option without playing selection sound
+        SelectOption(0, false);
     }
 
     private void Update()
@@ -65,12 +75,16 @@ public class MainMenu : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.E))
         {
+            SoundController.Instance.PlaySoundEffect(selectOption);
             options[selectedOption].GetComponent<Button>().onClick.Invoke();
         }
     }
 
-    private void SelectOption(int optionNumber)
+    private void SelectOption(int optionNumber, bool playSound = true)
     {
+        if(playSound)
+            SoundController.Instance.PlaySoundEffect(moveCursor);
+
         // Set selected colors
         selectedOption = optionNumber;
         foreach (Text text in options)

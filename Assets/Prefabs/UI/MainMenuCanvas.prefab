@@ -982,6 +982,8 @@ MonoBehaviour:
   pushTime: 1
   pushSpeed: 3.5
   controlsPanel: {fileID: 473539704}
+  moveCursor: 201
+  selectOption: 202
 --- !u!1 &2098642242
 GameObject:
   m_ObjectHideFlags: 0

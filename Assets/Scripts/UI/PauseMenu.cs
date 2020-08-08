@@ -32,9 +32,19 @@ public class PauseMenu : MainMenu
 
     public bool paused = false;
 
+    [SerializeField]
+    private SoundType pauseGame;
+
     public void SetPaused(bool paused)
     {
         this.paused = paused;
+
+        // Play sound effect when game paused
+        if (paused)
+            SoundController.Instance.PlaySoundEffect(pauseGame);
+        // Close controls panel when exiting pause menu
+        else
+            SetControlsPanelActive(false);
 
         // Pause/resume time
         Time.timeScale = paused ? 0f : 1f;
@@ -44,10 +54,6 @@ public class PauseMenu : MainMenu
 
         // Focus/unfocus background music
         SoundController.Instance.FocusMusicVolume(!paused);
-
-        // Close controls panel when exiting pause menu
-        if(!paused)
-            SetControlsPanelActive(false);
     }
 
     protected override void HandleInput()
