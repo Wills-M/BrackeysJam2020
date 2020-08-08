@@ -24,17 +24,14 @@ public class FadeEffect : MonoBehaviour
     [SerializeField]
     private float duration = 1f;
 
-    private void Start()
-    {
-        FadeIn();
-    }
+    public bool fadeInProgress => fadeCoroutine != null;
 
     /// <summary>
     /// Fades from black screen to transparent
     /// </summary>
     public void FadeIn()
     {
-        StartCoroutine(Fade(1, 0));
+        fadeCoroutine = StartCoroutine(Fade(1, 0));
     }
 
     /// <summary>
@@ -42,8 +39,10 @@ public class FadeEffect : MonoBehaviour
     /// </summary>
     public void FadeOut()
     {
-        StartCoroutine(Fade(0, 1));
+        fadeCoroutine = StartCoroutine(Fade(0, 1));
     }
+
+    private Coroutine fadeCoroutine;
 
     /// <summary>
     /// Fades a black screen's alpha value from start to target
@@ -71,6 +70,8 @@ public class FadeEffect : MonoBehaviour
 
         // Ensure we hit target
         SetAlpha(fadeInstance, target);
+
+        fadeCoroutine = null;
     }
 
     private void SetAlpha(Graphic graphic, float alpha)

@@ -30,7 +30,6 @@ public class MainMenu : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("MainMenu.Start()");
         controlsOpen = false;
         SelectOption(0);
     }
