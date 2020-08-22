@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 7922e837f0acba84a9da87da19392ead, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -125,3 +125,4 @@ MonoBehaviour:
   on: 0
   offSprite: {fileID: 21300000, guid: 7922e837f0acba84a9da87da19392ead, type: 3}
   onSprite: {fileID: 21300000, guid: 1b9ed3f0b5403fe48b51fd4399936903, type: 3}
+  objects: []
